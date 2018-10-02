@@ -162,7 +162,8 @@ public class RegisterActivity extends AppCompatActivity{
 
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        Model model = Model.getInstance();
+        return email.contains("@") && !model.checkEmail(email);
     }
 
     private boolean isPasswordValid(String password) {
