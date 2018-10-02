@@ -17,6 +17,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cubico.donationtracker.Model;
+
 public class LoginActivity extends AppCompatActivity{
 
     private UserLoginTask mAuthTask = null;
@@ -80,19 +82,22 @@ public class LoginActivity extends AppCompatActivity{
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
         // Check for a valid email address.
         if (TextUtils.isEmpty(email) && !isEmailValid(password)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
         }
+
+        // Check for a valid password, if the user entered one.
+        if (!cancel && !TextUtils.isEmpty(password) && !isPasswordValid(email, password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+
+
 
         //TODO: add once actual email needs to be checked
         /*else if (!isEmailValid(email)) {
@@ -116,12 +121,16 @@ public class LoginActivity extends AppCompatActivity{
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.equals("user");
+        //return email.equals("user");
+        Model model = Model.getInstance();
+        return model.checkEmail(email);
     }
 
-    private boolean isPasswordValid(String password) {
+    private boolean isPasswordValid(String email, String password) {
         //TODO: Replace this with your own logic
-        return password.equals("pass");
+        //return password.equals("pass");
+        Model model = Model.getInstance();
+        return model.checkPassword(email, password);
     }
 
     /**
