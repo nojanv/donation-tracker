@@ -20,7 +20,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cubico.donationtracker.Model;
+
 import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity{
 
@@ -34,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity{
     private Spinner mAccountSpinner;
     private View mProgressView;
     private View mRegisterFormView;
+    private HashMap<String, String> credentials;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity{
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
         mNameView = (AutoCompleteTextView) findViewById(R.id.name);
+
+        credentials = new HashMap<String, String>();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         /*mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -54,8 +61,8 @@ public class RegisterActivity extends AppCompatActivity{
                 }
                 return false;
             }
-        });*/
-
+        });
+*/
         mConfrimPasswordView = (EditText) findViewById(R.id.confirm_password);
         mAccountSpinner = (Spinner) findViewById(R.id.acc_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
@@ -98,22 +105,23 @@ public class RegisterActivity extends AppCompatActivity{
         String cPassword = mConfrimPasswordView.getText().toString();
         String accountType = mAccountSpinner.getSelectedItem().toString();
 
+
         boolean cancel = false;
         View focusView = null;
 
-        /*// Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password)) {
+        // Check for a valid password, if the user entered one.
+        /*if (!TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }*/
 
-        /*// Check for a valid matching passwrord, if the user entered one.
-        if (!TextUtils.isEmpty(cPassword) && password.equals(cPassword)) {
+        // Check for a valid matching password, if the user entered one.
+        if (TextUtils.isEmpty(cPassword) || !password.equals(cPassword)) {
             mConfrimPasswordView.setError(getString(R.string.error_unmatched_passwords));
             focusView = mConfrimPasswordView;
             cancel = true;
-        }*/
+        }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -140,11 +148,14 @@ public class RegisterActivity extends AppCompatActivity{
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            Model model = Model.getInstance();
+            model.addUser(email, password);
             showProgress(true);
             mAuthTask = new UserRegisterTask(email, password, accountType, name);
             mAuthTask.execute((Void) null);
         }
     }
+
 
     private boolean isEmailValid(String email) {
         return email.contains("@");
