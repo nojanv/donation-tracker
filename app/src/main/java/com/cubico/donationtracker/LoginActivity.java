@@ -121,14 +121,12 @@ public class LoginActivity extends AppCompatActivity{
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        //return email.equals("user");
         Model model = Model.getInstance();
         return model.checkEmail(email);
     }
 
     private boolean isPasswordValid(String email, String password) {
         //TODO: Replace this with your own logic
-        //return password.equals("pass");
         Model model = Model.getInstance();
         return model.checkPassword(email, password);
     }
