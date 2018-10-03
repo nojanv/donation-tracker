@@ -110,11 +110,15 @@ public class RegisterActivity extends AppCompatActivity{
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        /*if (!TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
-        }*/
+        } else if (!isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
 
         // Check for a valid matching password, if the user entered one.
         if (TextUtils.isEmpty(cPassword) || !password.equals(cPassword)) {
@@ -158,7 +162,8 @@ public class RegisterActivity extends AppCompatActivity{
 
 
     private boolean isEmailValid(String email) {
-        return email.contains("@");
+        Model model = Model.getInstance();
+        return email.contains("@") && !model.checkEmail(email);
     }
 
     private boolean isPasswordValid(String password) {
