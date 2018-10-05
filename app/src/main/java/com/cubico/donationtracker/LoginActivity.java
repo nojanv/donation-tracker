@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -60,12 +59,6 @@ public class LoginActivity extends AppCompatActivity{
         mProgressView = findViewById(R.id.register_progress);
     }
 
-
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -96,9 +89,6 @@ public class LoginActivity extends AppCompatActivity{
             focusView = mPasswordView;
             cancel = true;
         }
-
-
-
 
         //TODO: add once actual email needs to be checked
         /*else if (!isEmailValid(email)) {
