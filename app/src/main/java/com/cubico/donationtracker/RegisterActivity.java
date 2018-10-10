@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity{
             focusView = mPasswordView;
             cancel = true;
         } else if (!isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.error_password_short));
             focusView = mPasswordView;
             cancel = true;
         }
