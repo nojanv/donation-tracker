@@ -21,7 +21,7 @@ public class  WelcomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        VideoView vv = (VideoView) findViewById(R.id.videoView);
+       /* VideoView vv = (VideoView) findViewById(R.id.videoView);
 
         vv.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -36,7 +36,7 @@ public class  WelcomeActivity extends AppCompatActivity {
 
         vv.setVideoURI(uri);
         vv.requestFocus();
-        vv.start();
+        vv.start();*/
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
