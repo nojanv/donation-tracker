@@ -9,7 +9,7 @@
     <string name="login_button">LOG IN</string>
 
     <string name="welcome">Welcome</string>
-    <string name="welcome_text">Sign up for free music on your phone, tablet, and computer.</string>
+    <string name="welcome_text">Create an account or login to start donating.</string>
 
     <!-- Strings related to login/register -->
     <string name="prompt_email">Email</string>
