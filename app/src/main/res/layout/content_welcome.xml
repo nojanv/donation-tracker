@@ -11,8 +11,9 @@
     <ImageView
         android:padding="40dp"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"/>
-    <!--android:src="@drawable/main_logo_white"-->
+        android:layout_height="250dp"
+        android:src="@drawable/suivi_no_shadow"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:layout_marginTop="20dp"
@@ -68,4 +69,5 @@
             android:text="@string/login_button"/>
 
     </LinearLayout>
+
 </LinearLayout>

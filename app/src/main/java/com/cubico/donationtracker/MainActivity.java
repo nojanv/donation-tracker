@@ -9,6 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,16 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ArrayList<Location> locations = new ArrayList<>();
+        locations.add(new Location("The Human Fund", "Atlanta"));
+        locations.add(new Location("The Human Donation Project", "NYC"));
+        locations.add(new Location("Donate 4 Life", "Nashville"));
+
+        LocationAdapter adapter = new LocationAdapter(locations, getApplicationContext());
+        ListView listView = (ListView) findViewById(R.id.locationList);
+        listView.setAdapter(adapter);
+
     }
 
     @Override
