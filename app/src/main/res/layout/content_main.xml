@@ -9,8 +9,8 @@
     tools:showIn="@layout/activity_main">
 
     <ListView
-        android:id="@+id/locationList"
+        android:id="@+id/lit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>
