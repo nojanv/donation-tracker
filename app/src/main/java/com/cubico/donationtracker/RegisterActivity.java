@@ -121,8 +121,8 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     private boolean isEmailValid(String email) {
-        Model model = Model.getInstance();
-        return email.contains("@") && !model.checkEmail(email);
+        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
     }
 
     View focusView;
