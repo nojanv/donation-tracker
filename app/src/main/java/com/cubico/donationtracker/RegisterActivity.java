@@ -148,6 +148,7 @@ public class RegisterActivity extends AppCompatActivity{
         email = mEmailView.getText().toString();
         password = mPasswordView.getText().toString();
         cPassword = mConfrimPasswordView.getText().toString();
+        accountType = mAccountSpinner.getSelectedItem().toString();
 
         boolean cancel = false;
         focusView = null;
