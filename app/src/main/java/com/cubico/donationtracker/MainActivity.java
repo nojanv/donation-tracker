@@ -11,10 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView;
 
 
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+
+
+//import com.google.firebase.auth.AuthResult;
+//import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         location = new Location();
-        listView = findViewById(R.id.lit);
+        listView = findViewById(R.id.locationList);
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("Locations");
         list = new ArrayList<>();
@@ -66,9 +69,20 @@ public class MainActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
 
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Location selected = adapter.getItem(position);
+                Intent intent = new Intent(MainActivity.this, LocationDetailsActivity.class);
+                intent.putExtra("location", selected);
+                startActivity(intent);
             }
         });
     }
