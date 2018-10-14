@@ -26,6 +26,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="acc_type">Account Type</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_main">Location List</string>
     <string name="title_activity_register">Register</string>
 
     <string-array name="acctypes_array">
@@ -33,4 +34,5 @@
         <item>Location Employee</item>
         <item>Admin</item>
     </string-array>
+    <string name="title_activity_location_detail">LocationDetailActivity</string>
 </resources>

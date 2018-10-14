@@ -13,6 +13,7 @@ public class Model {
 
     private Model() {
         credentials = new HashMap<>();
+        credentials.put("@", "passw");
     }
 
     public HashMap<String, String> getCredentials() {
