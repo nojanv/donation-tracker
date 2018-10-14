@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity{
 
     private UserLoginTask mAuthTask = null;
 
+    private User user = null;
+
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -106,6 +108,8 @@ public class LoginActivity extends AppCompatActivity{
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
+            Model model = Model.getInstance();
+            user = model.getUser(email);
             mAuthTask.execute((Void) null);
         }
     }
@@ -192,6 +196,7 @@ public class LoginActivity extends AppCompatActivity{
 
             if (success) {
                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                mainIntent.putExtra("user", user);
                 startActivity(mainIntent);
                 finish();
             } else {

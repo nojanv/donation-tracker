@@ -153,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             Model model = Model.getInstance();
-            model.addUser(email, password);
+            model.addUser(email, new User(name, password));
             showProgress(true);
             mAuthTask = new UserRegisterTask(email, password, accountType, name);
             mAuthTask.execute((Void) null);

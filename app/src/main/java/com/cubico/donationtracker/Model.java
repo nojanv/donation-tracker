@@ -9,24 +9,28 @@ public class Model {
         return ourInstance;
     }
 
-    HashMap<String, String> credentials;
+    HashMap<String, User> credentials;
 
     private Model() {
         credentials = new HashMap<>();
-        credentials.put("@", "passw");
+        credentials.put("@", new User("Spencer", "passw"));
     }
 
-    public HashMap<String, String> getCredentials() {
+    public HashMap<String, User> getCredentials() {
         return credentials;
     }
 
-    public void addUser(String email, String password) {
-        credentials.put(email, password);
+    public void addUser(String email, User user) {
+        credentials.put(email, user);
+    }
+    public User getUser(String email) {
+        return credentials.get(email);
     }
     public boolean checkEmail(String email) {
         return credentials.containsKey(email);
     }
     public boolean checkPassword(String email, String password) {
-        return credentials.get(email).equals(password);
+        User user = credentials.get(email);
+        return user.getPassword().equals(password);
     }
 }

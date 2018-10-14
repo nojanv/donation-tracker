@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    private User user = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Bundle bundle = getIntent().getExtras();
+        user = bundle == null ? User.DEFAULT : (User) bundle.getParcelable("user");
+
         Context context = getApplicationContext();
         List<String> locationData = new ArrayList<>();
         try {
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 Location selected = adapter.getItem(position);
                 Intent intent = new Intent(MainActivity.this, LocationDetailActivity.class);
                 intent.putExtra("location", selected);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
