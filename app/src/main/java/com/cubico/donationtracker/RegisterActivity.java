@@ -1,16 +1,11 @@
 package com.cubico.donationtracker;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -20,15 +15,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.cubico.donationtracker.Model;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity{
 
-    private UserRegisterTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mNameView;
@@ -38,59 +35,108 @@ public class RegisterActivity extends AppCompatActivity{
     private Spinner mAccountSpinner;
     private View mProgressView;
     private View mRegisterFormView;
-    private HashMap<String, String> credentials;
+
+    // User variables
+    private String name;
+    private String email;
+    private String accountType;
+    private String password;
+    private String cPassword;
+
+    // Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference userRef = database.getReference("Users");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        // Set up the login form.
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
         mNameView = (AutoCompleteTextView) findViewById(R.id.name);
-
-        credentials = new HashMap<String, String>();
-
         mPasswordView = (EditText) findViewById(R.id.password);
-        /*mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
-*/
         mConfrimPasswordView = (EditText) findViewById(R.id.confirm_password);
+
+
+
         mAccountSpinner = (Spinner) findViewById(R.id.acc_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
                 R.array.acctypes_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAccountSpinner.setAdapter(accAdapter);
 
+        accountType = mAccountSpinner.getSelectedItem().toString();
+
+
         Button mEmailRegisterButton = (Button) findViewById(R.id.email_register_button);
+
         mEmailRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegistration();
             }
         });
 
         mRegisterFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.register_progress);
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                String TAG = null;
+                if(user != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in" + user.getUid());
+                } else {
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+
+        };
+
+
+
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    private boolean isPasswordValid(String password) {
+        return password.length() > 4;
+    }
+
+    private boolean isEmailValid(String email) {
+        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+
+    }
+
+    View focusView;
+
+    /**
+     * Creates the new user account with email and password.
+
+     */
+    public void attemptRegistration() {
+
+//        Log.d("CURR_USER", mAuth.getCurrentUser().getEmail());
+//        if(mAuth.getCurrentUser() != null) {
+//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -98,18 +144,15 @@ public class RegisterActivity extends AppCompatActivity{
         mConfrimPasswordView.setError(null);
         mNameView.setError(null);
 
-        // Store values at the time of the login attempt.
-        String name = mNameView.getText().toString();
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String cPassword = mConfrimPasswordView.getText().toString();
-        String accountType = mAccountSpinner.getSelectedItem().toString();
-
+        name = mNameView.getText().toString();
+        email = mEmailView.getText().toString();
+        password = mPasswordView.getText().toString();
+        cPassword = mConfrimPasswordView.getText().toString();
+        accountType = mAccountSpinner.getSelectedItem().toString();
 
         boolean cancel = false;
-        View focusView = null;
+        focusView = null;
 
-        // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
@@ -146,125 +189,61 @@ public class RegisterActivity extends AppCompatActivity{
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            Model model = Model.getInstance();
-            model.addUser(email, password);
-            showProgress(true);
-            mAuthTask = new UserRegisterTask(email, password, accountType, name);
-            mAuthTask.execute((Void) null);
+
+
+            Log.d("TAG", email);
+            Log.d("TAG", password);
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // store the additional fields in firebase as well
+                                User newUser = new User(name, email, accountType);
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                            finish();
+                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                        } else {
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.firebase_inner_error), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            } else if (!task.isSuccessful()){
+                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                    mEmailView.setError(getString(R.string.error_email_exists));
+                                    focusView = mEmailView;
+                                    focusView.requestFocus();
+                                }
+//                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
+//                                Toast.makeText(RegisterActivity.this, getString(R.string.firebase_outer_error), Toast.LENGTH_LONG).show();
+
+                            }
+                        }
+                    });
         }
     }
 
+//    /**
+//     * Adds the new user's information to the database.
+//     * @param newUser The instance of the new user.
+//     */
+//    public void addUserToDatabase(User newUser) {
+//        FirebaseUser userID = FirebaseAuth.getInstance().getCurrentUser();
+//        if (userID != null) {
+//            DatabaseReference childRef = userRef.child(userID.getUid());
+//            childRef.setValue(newUser);
+//
+//        }
+//    }
 
-    private boolean isEmailValid(String email) {
-        Model model = Model.getInstance();
-        return email.contains("@") && !model.checkEmail(email);
-    }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mRegisterFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mRegisterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
-    }
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(RegisterActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }
-
-    public class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-        private final String mAccType;
-        private final String mName;
-
-        UserRegisterTask(String email, String password, String type, String name) {
-            mEmail = email;
-            mPassword = password;
-            mAccType = type;
-            mName = name;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                Intent mainIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(mainIntent);
-                Toast.makeText(RegisterActivity.this, mName + " (" + mEmail + "): " + mPassword + " & is a " + mAccType, Toast.LENGTH_LONG).show();
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_unmatched_passwords));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
 }
 
