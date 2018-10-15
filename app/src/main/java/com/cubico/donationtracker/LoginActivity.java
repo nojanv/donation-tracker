@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity{
 
     // Firebase
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String email;
     private String password;
@@ -63,10 +64,11 @@ public class LoginActivity extends AppCompatActivity{
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                 String TAG = null;
                 if (user != null) {
-                    Log.d(TAG, "onAuthStateChanged:signed_in:"+ user.getUid());
+                    Log.d("username", "username"+ currentUser.getDisplayName());
+                    user = currentUser;
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }

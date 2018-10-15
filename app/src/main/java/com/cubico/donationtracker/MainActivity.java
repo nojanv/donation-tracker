@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,8 @@ import android.widget.AdapterView;
 
 //import com.google.firebase.auth.AuthResult;
 //import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     FirebaseDatabase database;
     DatabaseReference ref;
+    FirebaseUser user = null;
     ArrayList<Location> list;
     ArrayAdapter<Location> adapter;
     Location location;
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 Location selected = adapter.getItem(position);
                 Intent intent = new Intent(MainActivity.this, LocationDetailsActivity.class);
                 intent.putExtra("location", selected);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         });
