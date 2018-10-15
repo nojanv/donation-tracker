@@ -34,7 +34,7 @@ public class LocationDetailsActivity extends AppCompatActivity {
         TextView type = findViewById(R.id.locationType);
         type.setText(location.getType().getName());
         TextView message = findViewById(R.id.message);
-        message.setText(String.format("Hello %s. Call %s to get started on your donation", "Spencer", location.getPhone()));
+        message.setText(String.format("Call %s to get started on your donation", location.getPhone()));
         TextView address = findViewById(R.id.locationAddress);
         address.setText(location.getAddress());
         TextView cityStateZip = findViewById(R.id.locationCityStateZip);
