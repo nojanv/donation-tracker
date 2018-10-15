@@ -11,10 +11,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView;
+
+
+
+
+//import com.google.firebase.auth.AuthResult;
+//import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    ListView listView;
+    FirebaseDatabase database;
+    DatabaseReference ref;
+    ArrayList<Location> list;
+    ArrayAdapter<Location> adapter;
+    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +52,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<Location> locations = new ArrayList<>();
-        locations.add(new Location("The Human Fund", "Atlanta"));
-        locations.add(new Location("The Human Donation Project", "NYC"));
-        locations.add(new Location("Donate 4 Life", "Nashville"));
+        location = new Location();
+        listView = findViewById(R.id.locationList);
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("Locations");
+        list = new ArrayList<>();
+        adapter = new LocationAdapter(list, getApplicationContext());
 
-        LocationAdapter adapter = new LocationAdapter(locations, getApplicationContext());
-        ListView listView = (ListView) findViewById(R.id.locationList);
-        listView.setAdapter(adapter);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    location = ds.getValue(Location.class);
+                    list.add(location);
+                }
+                listView.setAdapter(adapter);
+            }
 
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Location selected = adapter.getItem(position);
+                Intent intent = new Intent(MainActivity.this, LocationDetailsActivity.class);
+                intent.putExtra("location", selected);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

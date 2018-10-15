@@ -33,7 +33,9 @@
         android:layout_marginTop="16dp"
         android:text="Station Four"
         android:textColor="#FFF"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:ellipsize="end"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/city"
