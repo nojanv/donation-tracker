@@ -21,7 +21,7 @@
     <string name="error_invalid_email">This email is invalid</string>
     <string name="error_email_exists">An account with this email already exists</string>
     <string name="error_invalid_password">This password may be invalid</string>
-    <string name="error_password_short">Password must be longer than 4 characters</string>
+    <string name="error_password_short">Password must be longer than 6 characters</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_unmatched_passwords">These passwords don\'t match</string>
     <string name="error_field_required">This field is required</string>

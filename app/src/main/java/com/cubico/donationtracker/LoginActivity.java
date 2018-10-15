@@ -113,9 +113,9 @@ public class LoginActivity extends AppCompatActivity{
         }
 
 
-        // Check for a valid password (length > 4), if the user entered one.
+        // Check for a valid password (length > 6), if the user entered one.
         if (!cancel && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.error_password_short));
             focusView = mPasswordView;
             cancel = true;
         }
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 6;
     }
 
 //    /**

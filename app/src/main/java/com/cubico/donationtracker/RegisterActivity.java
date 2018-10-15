@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 6;
     }
 
     private boolean isEmailValid(String email) {
@@ -212,11 +212,13 @@ public class RegisterActivity extends AppCompatActivity{
                                             finish();
                                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                         } else {
+                                            Log.d("TAG", task.getException() + "");
                                             Toast.makeText(RegisterActivity.this, getString(R.string.firebase_inner_error), Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
                             } else if (!task.isSuccessful()){
+                                Log.d("EXCEPTION", task.getException() + "");
                                 if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                     mEmailView.setError(getString(R.string.error_email_exists));
                                     focusView = mEmailView;
