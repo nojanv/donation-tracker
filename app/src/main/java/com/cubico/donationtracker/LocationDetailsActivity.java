@@ -31,13 +31,13 @@ public class LocationDetailsActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         Location location = bundle.getParcelable("location");
-        FirebaseUser user = bundle.getParcelable("user");
+        User user = bundle.getParcelable("user");
         TextView name = findViewById(R.id.locationName);
         name.setText(location.getName());
         TextView type = findViewById(R.id.locationType);
         type.setText(location.getType().getName());
         TextView message = findViewById(R.id.message);
-        message.setText(String.format("Hello %s. Call %s to get started on your donation", user.getDisplayName(), location.getPhone()));
+        message.setText(String.format("Hello %s. Call %s to get started on your donation", user.getName(), location.getPhone()));
         TextView address = findViewById(R.id.locationAddress);
         address.setText(location.getAddress());
         TextView cityStateZip = findViewById(R.id.locationCityStateZip);

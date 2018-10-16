@@ -2,6 +2,7 @@ package com.cubico.donationtracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     FirebaseDatabase database;
     DatabaseReference ref;
-    FirebaseUser user = null;
+    User user = null;
     ArrayList<Location> list;
     ArrayAdapter<Location> adapter;
     Location location;
@@ -55,6 +56,24 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+        if (current != null) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(current.getUid());
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        } else {
+            Log.d("failed", "This didnt work and I cant get the current user from the firebase auth");
+            user = User.DEFAULT;
+        }
 
         location = new Location();
         listView = findViewById(R.id.locationList);
