@@ -201,7 +201,14 @@ public class RegisterActivity extends AppCompatActivity{
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // store the additional fields in firebase as well
-                                User newUser = new User(name, email, accountType);
+                                AccountType type = null;
+                                for (AccountType t : AccountType.values()) {
+                                    if (t.getName().equals(accountType)) {
+                                        type = t;
+                                    }
+                                }
+                                type = type == null ? AccountType.USER : type;
+                                User newUser = new User(name, email, type);
                                 FirebaseDatabase.getInstance().getReference("Users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {

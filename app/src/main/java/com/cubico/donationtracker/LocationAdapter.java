@@ -22,7 +22,6 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
     // View lookup cache
     private static class ViewHolder {
         TextView txtName;
-        TextView txtCity;
     }
 
     public LocationAdapter(ArrayList<Location> data, Context context) {
@@ -59,7 +58,6 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.destination_item, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.txtCity = (TextView) convertView.findViewById(R.id.city);
 
             result=convertView;
 
@@ -74,7 +72,6 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
         lastPosition = position;
 
         viewHolder.txtName.setText(location.getName());
-        viewHolder.txtCity.setText(location.getCity());
         // Return the completed view to render on screen
         return convertView;
     }
