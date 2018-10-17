@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     FirebaseDatabase database;
     DatabaseReference ref;
-    User user = null;
+    User user;
     ArrayList<Location> list;
     ArrayAdapter<Location> adapter;
     Location location;
@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     user = dataSnapshot.getValue(User.class);
+                    String firstName = user.getName().split(" ")[0];
+                    setTitle(String.format("Welcome %s (%s)", firstName, user.getAccountType().getName()));
                 }
 
                 @Override
@@ -70,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        } else {
-            Log.d("failed", "This didnt work and I cant get the current user from the firebase auth");
+
+        }
+        if (user == null) {
             user = User.DEFAULT;
         }
-
+        Log.d("tag", user == null ? "Null" : "Not null");
         location = new Location();
         listView = findViewById(R.id.locationList);
         database = FirebaseDatabase.getInstance();
