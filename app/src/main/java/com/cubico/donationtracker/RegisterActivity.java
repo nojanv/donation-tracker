@@ -133,11 +133,6 @@ public class RegisterActivity extends AppCompatActivity{
      */
     public void attemptRegistration() {
 
-//        Log.d("CURR_USER", mAuth.getCurrentUser().getEmail());
-//        if(mAuth.getCurrentUser() != null) {
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//        }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -231,28 +226,11 @@ public class RegisterActivity extends AppCompatActivity{
                                     focusView = mEmailView;
                                     focusView.requestFocus();
                                 }
-//                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-//                                Toast.makeText(RegisterActivity.this, getString(R.string.firebase_outer_error), Toast.LENGTH_LONG).show();
 
                             }
                         }
                     });
         }
     }
-
-//    /**
-//     * Adds the new user's information to the database.
-//     * @param newUser The instance of the new user.
-//     */
-//    public void addUserToDatabase(User newUser) {
-//        FirebaseUser userID = FirebaseAuth.getInstance().getCurrentUser();
-//        if (userID != null) {
-//            DatabaseReference childRef = userRef.child(userID.getUid());
-//            childRef.setValue(newUser);
-//
-//        }
-//    }
-
-
 }
 

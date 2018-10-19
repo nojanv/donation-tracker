@@ -7,6 +7,7 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="already_user">Already a user?</string>
     <string name="login_button">LOG IN</string>
+    <string name="add_donation_button">Add Donation</string>
 
     <string name="welcome">Welcome</string>
     <string name="welcome_text">Create an account or login to start donating.</string>
@@ -18,6 +19,7 @@
     <string name="prompt_conf_password">Confirm Password</string>
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
+
     <string name="error_invalid_email">This email is invalid</string>
     <string name="error_email_exists">An account with this email already exists</string>
     <string name="error_invalid_password">This password may be invalid</string>
@@ -38,4 +40,5 @@
         <item>Location Employee</item>
         <item>Admin</item>
     </string-array>
+    <string name="title_activity_add_donation">Enter Donation Details</string>
 </resources>

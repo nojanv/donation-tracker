@@ -27,29 +27,56 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/app_name" />
+
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="185dp"
         android:gravity="center"
         android:text="@string/app_name" />
     <TextView
         android:id="@+id/locationAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/message"
+        android:layout_above="@+id/locationCityStateZip"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
         android:gravity="center"
         android:text="@string/app_name" />
 
     <TextView
         android:id="@+id/locationCityStateZip"
-        android:layout_below="@+id/locationAddress"
+        android:layout_above="@+id/locationLatLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/locationLatLong"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/app_name" />
+
+    <Button
+        android:id="@+id/addDonation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:text="@string/add_donation_button" />
+    <!--<TextView
+        android:id="@+id/locationCityStateZip"
+        android:layout_below="@+id/locationAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/app_name" />
 
@@ -60,6 +87,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="@string/app_name" />
+        android:text="@string/app_name" />-->
 
 </RelativeLayout>

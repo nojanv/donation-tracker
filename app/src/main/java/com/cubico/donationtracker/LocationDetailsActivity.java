@@ -1,16 +1,20 @@
 package com.cubico.donationtracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 
 public class LocationDetailsActivity extends AppCompatActivity {
+
+    static final int CREATE_DONATION_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,15 @@ public class LocationDetailsActivity extends AppCompatActivity {
         cityStateZip.setText(String.format("%s, %s %d", location.getCity(), location.getState(), location.getZip()) );
         TextView latLong = findViewById(R.id.locationLatLong);
         latLong.setText(String.format("%s, %s", location.getLat(), location.getLongitude()));
+
+        Button donation = findViewById(R.id.addDonation);
+        donation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LocationDetailsActivity.this, AddDonationActivity.class);
+                startActivityForResult(intent, CREATE_DONATION_REQUEST);
+            }
+        });
     }
 
 }

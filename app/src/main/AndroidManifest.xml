@@ -43,6 +43,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cubico.donationtracker.MainActivity" />
         </activity>
+        <activity
+            android:name=".AddDonationActivity"
+            android:label="@string/title_activity_add_donation"
+            android:parentActivityName=".LocationDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cubico.donationtracker.LocationDetailsActivity" />
+        </activity>
     </application>
 
 </manifest>
