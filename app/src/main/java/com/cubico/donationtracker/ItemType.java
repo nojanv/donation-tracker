@@ -4,15 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public enum ItemType implements Parcelable{
-    FOOD("FD"),
-    CLOTHING("CL");
+    HOUSEHOLD_ITEMS("Household Items"),
+    GAMES("Games"),
+    FOOD("Food"),
+    CLOTHING("Clothing");
 
-    private String abbreviation;
+    private String name;
     public static final Parcelable.Creator<ItemType> CREATOR = new Parcelable.Creator<ItemType>() {
         public ItemType createFromParcel(Parcel in) {
             String ab = in.readString();
             for(ItemType type : ItemType.values()) {
-                if(ab.equals(type.getAbbreviation())) {
+                if(ab.equals(type.getName())) {
                     return type;
                 }
             }
@@ -24,8 +26,8 @@ public enum ItemType implements Parcelable{
         }
     };
 
-    private ItemType(String abbreviation) {
-        this.abbreviation = abbreviation;
+    ItemType(String name) {
+        this.name = name;
     }
 
     @Override
@@ -35,10 +37,10 @@ public enum ItemType implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(abbreviation);
+        dest.writeString(name);
     }
 
-    public String getAbbreviation() {
-        return abbreviation;
+    public String getName() {
+        return name;
     }
 }

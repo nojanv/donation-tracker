@@ -20,6 +20,11 @@
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
 
+    <!--String related to add/create donation-->
+    <string name="prompt_donation_name">Name</string>
+    <string name="prompt_donation_quantity">Quantity</string>
+    <string name="action_create_donation">Create Donation</string>
+
     <string name="error_invalid_email">This email is invalid</string>
     <string name="error_email_exists">An account with this email already exists</string>
     <string name="error_invalid_password">This password may be invalid</string>
@@ -28,6 +33,7 @@
     <string name="error_unmatched_passwords">These passwords don\'t match</string>
     <string name="error_field_required">This field is required</string>
     <string name="acc_type">Account Type</string>
+    <string name="item_type">Item Type</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_register">Register</string>
     <string name="firebase_inner_error">Firebase Inner Error</string>
@@ -39,6 +45,12 @@
         <item>User</item>
         <item>Location Employee</item>
         <item>Admin</item>
+    </string-array>
+    <string-array name="itemtypes_array">
+        <item>Food</item>
+        <item>Household Items</item>
+        <item>Games</item>
+        <item>Clothing</item>
     </string-array>
     <string name="title_activity_add_donation">Enter Donation Details</string>
 </resources>

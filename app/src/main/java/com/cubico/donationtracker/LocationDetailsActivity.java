@@ -1,5 +1,6 @@
 package com.cubico.donationtracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -59,4 +60,16 @@ public class LocationDetailsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_DONATION_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                DonationItem item = bundle.getParcelable("donation");
+                TextView itemText = findViewById(R.id.donationText);
+                itemText.setText(String.format("%s, %s, %s", item.getName(), item.getQuantity(), item.getItemType().getName()));
+            }
+        }
+    }
 }

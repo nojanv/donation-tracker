@@ -3,7 +3,7 @@ package com.cubico.donationtracker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DonationItem implements Parcelable{
+public class DonationItem implements Parcelable {
 
     private String name;
     private int quantity;
@@ -23,6 +23,7 @@ public class DonationItem implements Parcelable{
     public DonationItem(String name, int quantity, ItemType itemType) {
         this.name = name;
         this.quantity = quantity;
+        this.itemType = itemType;
     }
     public DonationItem(Parcel in) {
         this.name = in.readString();
