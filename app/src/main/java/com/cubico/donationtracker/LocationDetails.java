@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,10 +17,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+ //{@link LocationDetails.OnFragmentInteractionListener} interface
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LocationDetails.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link LocationDetails#newInstance} factory method to
  * create an instance of this fragment.
@@ -27,14 +28,14 @@ import android.widget.TextView;
 public class LocationDetails extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "location";
+    private static final String ARG_PARAM2 = "userr";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Location location;
+    private User user;
 
-    private OnFragmentInteractionListener mListener;
+//    private OnFragmentInteractionListener mListener;
 
     static final int CREATE_DONATION_REQUEST = 1;
 
@@ -46,16 +47,16 @@ public class LocationDetails extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param location Parameter 1.
+     * @param user Parameter 2.
      * @return A new instance of fragment LocationDetails.
      */
     // TODO: Rename and change types and number of parameters
-    public static LocationDetails newInstance(String param1, String param2) {
+    public static LocationDetails newInstance(Location location, User user) {
         LocationDetails fragment = new LocationDetails();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ARG_PARAM1, location);
+        args.putParcelable(ARG_PARAM2, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,8 +65,9 @@ public class LocationDetails extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            location = getArguments().getParcelable(ARG_PARAM1);
+            user = getArguments().getParcelable(ARG_PARAM2);
+
         }
 //        //Code from LocationDetailsActivity////////////////////////////////////////////////
 //        setContentView(R.layout.fragment_location_details);
@@ -88,14 +90,14 @@ public class LocationDetails extends Fragment {
 
 
 
-        Button donation = getView().findViewById(R.id.addDonation);
+        /*Button donation = getView().findViewById(R.id.addDonation);
         donation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(LocationDetails.this, AddDonationActivity.class);
-                startActivityForResult(intent, CREATE_DONATION_REQUEST);*/
+                *//*Intent intent = new Intent(LocationDetails.this, AddDonationActivity.class);
+                startActivityForResult(intent, CREATE_DONATION_REQUEST);*//*
             }
-        });
+        });*/
         /////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -105,48 +107,58 @@ public class LocationDetails extends Fragment {
         // Inflate the layout for this fragment
 
 
-        Bundle bundle = getArguments();
-        Location location = bundle.getParcelable("location");
-        User user = bundle.getParcelable("user");
-        Log.d("userInfo", String.format("%s, %s, %s", user.getName(), user.getPassword(), user.getAccountType().getName()));
-        TextView name = getView().findViewById(R.id.flocationName);
-        name.setText(location.getName());
-        TextView type = getView().findViewById(R.id.flocationType);
-        type.setText(location.getType().getName());
-        TextView message = getView().findViewById(R.id.fmessage);
-        message.setText(String.format("Call %s to get started on your donation.", location.getPhone()));
-        TextView address = getView().findViewById(R.id.flocationAddress);
-        address.setText(location.getAddress());
-        TextView cityStateZip = getView().findViewById(R.id.flocationCityStateZip);
-        cityStateZip.setText(String.format("%s, %s %d", location.getCity(), location.getState(), location.getZip()) );
-        TextView latLong = getView().findViewById(R.id.flocationLatLong);
-        latLong.setText(String.format("%s, %s", location.getLat(), location.getLongitude()));
+//        Bundle bundle = getArguments();
+//        Location location = bundle.getParcelable("location");
+//        User user = bundle.getParcelable("user");
+        View view = inflater.inflate(R.layout.fragment_location_details, container, false);
 
-        return inflater.inflate(R.layout.fragment_location_details, container, false);
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+//    public void onButtonPressed(Uri uri) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
+//    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d("userInfo", String.format("%s, %s, %s", user.getName(), user.getPassword(), user.getAccountType().getName()));
+        View view = getView();
+        TextView name = view.findViewById(R.id.flocationName);
+        name.setText(location.getName());
+        TextView type = view.findViewById(R.id.flocationType);
+        type.setText(location.getType().getName());
+        TextView message = view.findViewById(R.id.fmessage);
+        message.setText(String.format("Call %s to get started on your donation.", location.getPhone()));
+        TextView address = view.findViewById(R.id.flocationAddress);
+        address.setText(location.getAddress());
+        TextView cityStateZip = view.findViewById(R.id.flocationCityStateZip);
+        cityStateZip.setText(String.format("%s, %s %d", location.getCity(), location.getState(), location.getZip()) );
+        TextView latLong = view.findViewById(R.id.flocationLatLong);
+        latLong.setText(String.format("%s, %s", location.getLat(), location.getLongitude()));
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        /*if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
-        }
+        }*/
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+//        mListener = null;
     }
 
     /**
@@ -159,8 +171,8 @@ public class LocationDetails extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    /*public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }

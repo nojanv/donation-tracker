@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".LocationDetailsActivity">
+    tools:context=".LocationDetails">
 
 
     <TextView
@@ -23,7 +23,7 @@
         android:id="@+id/flocationType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/locationName"
+        android:layout_below="@+id/flocationName"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/app_name" />
@@ -32,61 +32,38 @@
         android:id="@+id/fmessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="185dp"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:text="@string/app_name" />
+
     <TextView
         android:id="@+id/flocationAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/locationCityStateZip"
+        android:layout_above="@+id/flocationCityStateZip"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/app_name" />
 
     <TextView
         android:id="@+id/flocationCityStateZip"
-        android:layout_above="@+id/locationLatLong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/flocationLatLong"
         android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/app_name" />
 
     <TextView
         android:id="@+id/flocationLatLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="70dp"
         android:text="@string/app_name" />
 
-    <Button
-        android:id="@+id/faddDonation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/add_donation_button" />
-    <!--<TextView
-        android:id="@+id/locationCityStateZip"
-        android:layout_below="@+id/locationAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/app_name" />
 
-    <TextView
-        android:id="@+id/locationLatLong"
-        android:layout_below="@+id/locationCityStateZip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/app_name" />-->
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class LocationActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class LocationActivity extends AppCompatActivity implements DonationsFragment.DonationAddListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,6 +37,8 @@ public class LocationActivity extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     static final int CREATE_DONATION_REQUEST = 1;
+    Location location;
+    User user;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -78,12 +83,10 @@ public class LocationActivity extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        Location location = bundle.getParcelable("location");
-        User user = bundle.getParcelable("user");
-
-        Bundle fragBundle = new Bundle();
-        fragBundle.putParcelable("location", location);
-        fragBundle.putParcelable("user", user);
+        location = bundle.getParcelable("location");
+        location.addDonation(new DonationItem("Fresh Kicks", 1, ItemType.CLOTHING));
+        location.addDonation(new DonationItem("Beans, Greens, Potatoes, Tomatoes", 10, ItemType.FOOD));
+        user = bundle.getParcelable("user");
 
     }
 
@@ -168,7 +171,18 @@ public class LocationActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if (position == 0) {
+                return LocationDetails.newInstance(location, user);
+            } else if (position == 1) {
+                String message = "";
+                for (DonationItem item: location.getDonations()) {
+                    message += item.getName();
+                }
+                Log.d("debug", "" + location.getDonations().size());
+                return DonationsFragment.newInstance(location.getDonations());
+            } else {
+                return PlaceholderFragment.newInstance(position);
+            }
         }
 
         @Override
@@ -176,5 +190,11 @@ public class LocationActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+
+    }
+
+    @Override
+    public void onDonationAdd() {
+        Log.d("interface", "logged");
     }
 }
