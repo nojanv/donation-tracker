@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Location selected = adapter.getItem(position);
-                Intent intent = new Intent(MainActivity.this, LocationDetailsActivity.class);
+                Intent intent = new Intent(MainActivity.this, LocationActivity.class);
                 intent.putExtra("location", selected);
                 intent.putExtra("user", user);
                 startActivity(intent);

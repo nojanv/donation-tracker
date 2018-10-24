@@ -43,4 +43,5 @@ public enum ItemType implements Parcelable{
     public String getName() {
         return name;
     }
+
 }

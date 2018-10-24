@@ -3,6 +3,8 @@ package com.cubico.donationtracker;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class Location implements Parcelable {
     private int key;
     private String name;
@@ -15,6 +17,7 @@ public class Location implements Parcelable {
     private LocationType type;
     private String phone;
     private String website;
+    private ArrayList<DonationItem> donations;
     private static boolean alreadyUploaded = false;
 
     Location(int key, String name, float lat, float longitude, String address, String city, String state, int zip, LocationType type, String phone, String website) {
@@ -29,6 +32,7 @@ public class Location implements Parcelable {
         this.type = type;
         this.phone = phone;
         this.website = website;
+        donations = new ArrayList<>();
     }
 
     Location() {
@@ -46,6 +50,8 @@ public class Location implements Parcelable {
         this.type = in.readParcelable(LocationType.class.getClassLoader());
         this.phone = in.readString();
         this.website = in.readString();
+        donations = new ArrayList<>();
+        in.readTypedList(donations, DonationItem.CREATOR);
     }
 
     public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
@@ -72,6 +78,7 @@ public class Location implements Parcelable {
         dest.writeParcelable(type, flags);
         dest.writeString(phone);
         dest.writeString(website);
+        dest.writeTypedList(donations);
     }
 
     @Override
@@ -128,6 +135,12 @@ public class Location implements Parcelable {
         return website;
     }
 
+    public ArrayList<DonationItem> getDonations() {
+        return donations;
+    }
 
+    public void addDonation(DonationItem item) {
+        donations.add(item);
+    }
 }
 

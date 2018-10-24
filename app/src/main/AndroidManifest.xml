@@ -52,6 +52,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cubico.donationtracker.LocationDetailsActivity" />
         </activity>
+        <activity
+            android:name=".LocationActivity"
+            android:label="@string/title_activity_location"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
