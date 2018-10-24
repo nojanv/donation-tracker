@@ -35,7 +35,7 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private MyPagerAdapter mPagerAdapter;
     static final int CREATE_DONATION_REQUEST = 1;
     Location location;
     User user;
@@ -55,11 +55,11 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
@@ -161,9 +161,9 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -174,12 +174,8 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
             if (position == 0) {
                 return LocationDetails.newInstance(location, user);
             } else if (position == 1) {
-                String message = "";
-                for (DonationItem item: location.getDonations()) {
-                    message += item.getName();
-                }
-                Log.d("debug", "" + location.getDonations().size());
-                return DonationsFragment.newInstance(location.getDonations());
+                DonationsFragment frag = DonationsFragment.newInstance(location.getDonations());
+                return frag;
             } else {
                 return PlaceholderFragment.newInstance(position);
             }
@@ -194,7 +190,24 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
     }
 
     @Override
-    public void onDonationAdd() {
+    public void onDonationAdd(DonationItem item) {
         Log.d("interface", "logged");
+        location.addDonation(item);
+        DonationsFragment frag = (DonationsFragment) mPagerAdapter.getRegisteredFragment(1);
+        if (frag != null) {
+            String message = "";
+            for (DonationItem d : frag.donations) {
+                message += d.getName() + ", ";
+            }
+            Log.d("before", message);
+            frag.updateDonations(location.getDonations());
+            message = "";
+            for (DonationItem d : frag.donations) {
+                message += d.getName() + ", ";
+            }
+            Log.d("after", message);
+        } else {
+            Log.d("debug", "Cant find fragment");
+        }
     }
 }

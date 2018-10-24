@@ -1,6 +1,8 @@
 package com.cubico.donationtracker;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,9 +30,10 @@ public class DonationsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "donations";
+    static final int CREATE_DONATION_REQUEST = 1;
 
     // TODO: Rename and change types of parameters
-    private List<DonationItem> donations;
+    public List<DonationItem> donations;
 
     private DonationAddListener mListener;
 
@@ -71,19 +75,51 @@ public class DonationsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        TextView donationMessage = getView().findViewById(R.id.donations);
+        View view = getView();
+        TextView donationMessage = view.findViewById(R.id.donations);
+        Button button = view.findViewById(R.id.faddDonation);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddDonationActivity.class);
+                startActivityForResult(intent, CREATE_DONATION_REQUEST);
+            }
+        });
         String message = "";
         for (DonationItem item : donations) {
-            message += String.format("%s: %s, %s \n", item.getName(), item.getQuantity(), item.getItemType().getAbbreviation());
+            message += String.format("%s: %s, %s \n", item.getName(), item.getQuantity(), item.getItemType().getName());
         }
         donationMessage.setText(message);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_DONATION_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                DonationItem item = bundle.getParcelable("donation");
+                Log.d("debug", String.format("%s: %s, %s", item.getName(), item.getQuantity(), item.getItemType().getName()));
+                donationAdded(item);
+//                TextView itemText = getView().findViewById(R.id.donationText);
+//                itemText.setText(String.format("%s, %s, %s", item.getName(), item.getQuantity(), item.getItemType().getName()));
+            }
+        }
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed() {
+    public void donationAdded(DonationItem item) {
         if (mListener != null) {
-            mListener.onDonationAdd();
+            mListener.onDonationAdd(item);
         }
+    }
+
+    public void updateDonations(ArrayList<DonationItem> donations) {
+        TextView donationMessage = getView().findViewById(R.id.donations);
+        String message = "";
+        for (DonationItem item : donations) {
+            message += String.format("%s: %s, %s \n", item.getName(), item.getQuantity(), item.getItemType().getName());
+        }
+        donationMessage.setText(message);
     }
 
     @Override
@@ -115,6 +151,6 @@ public class DonationsFragment extends Fragment {
      */
     public interface DonationAddListener {
         // TODO: Update argument type and name
-        void onDonationAdd();
+        void onDonationAdd(DonationItem item);
     }
 }
