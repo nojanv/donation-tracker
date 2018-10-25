@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cubico.donationtracker.ItemListFragment.OnListFragmentInteractionListener;
+import com.cubico.donationtracker.Fragments.ItemListFragment.OnListFragmentInteractionListener;
 import com.cubico.donationtracker.dummy.DummyContent.DummyItem;
 
 import java.util.List;

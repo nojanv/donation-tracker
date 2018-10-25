@@ -1,4 +1,4 @@
-package com.cubico.donationtracker;
+package com.cubico.donationtracker.POJOs;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -22,12 +22,12 @@ public class User implements Parcelable{
     User () {
 
     }
-    User(String name, String password, AccountType accountType) {
+    public User(String name, String password, AccountType accountType) {
         this.name = name;
         this.password = password;
         this.accountType = accountType;
     }
-    User(Parcel in) {
+    public User(Parcel in) {
         this.name = in.readString();
         this.password = in.readString();
         this.accountType = in.readParcelable(AccountType.class.getClassLoader());

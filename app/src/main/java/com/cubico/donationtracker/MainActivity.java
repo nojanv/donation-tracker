@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +18,8 @@ import android.widget.AdapterView;
 
 //import com.google.firebase.auth.AuthResult;
 //import com.google.firebase.auth.FirebaseAuth;
+import com.cubico.donationtracker.POJOs.Location;
+import com.cubico.donationtracker.POJOs.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     User user;
     ArrayList<Location> list;
     ArrayAdapter<Location> adapter;
-    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             user = User.DEFAULT;
         }
-        location = new Location();
         listView = findViewById(R.id.locationList);
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("Locations");
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    location = ds.getValue(Location.class);
+                    Location location = ds.getValue(Location.class);
                     list.add(location);
                 }
                 listView.setAdapter(adapter);

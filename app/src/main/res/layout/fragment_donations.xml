@@ -5,22 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".DonationsFragment">
+    tools:context=".Fragments.DonationsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/faddDonation"
+        android:id="@+id/addDonation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:visibility="invisible"
         android:text="@string/add_donation_button" />
 
     <TextView
         android:id="@+id/donations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/faddDonation"
+        android:layout_above="@+id/addDonation"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
         android:text="TextView" />

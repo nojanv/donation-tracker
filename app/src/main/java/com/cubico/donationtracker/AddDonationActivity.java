@@ -3,17 +3,16 @@ package com.cubico.donationtracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.cubico.donationtracker.POJOs.DonationItem;
+import com.cubico.donationtracker.POJOs.ItemType;
 
 public class AddDonationActivity extends AppCompatActivity {
 
@@ -82,7 +81,7 @@ public class AddDonationActivity extends AppCompatActivity {
         }
         Log.d("typeCorrected", itemType.getName());*/
         DonationItem item = new DonationItem(name, quantity, itemType);
-        Intent result = new Intent(AddDonationActivity.this, LocationDetailsActivity.class);
+        Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
         result.putExtra("donation", item);
         setResult(Activity.RESULT_OK, result);
         finish();

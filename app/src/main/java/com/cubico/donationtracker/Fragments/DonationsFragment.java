@@ -1,9 +1,8 @@
-package com.cubico.donationtracker;
+package com.cubico.donationtracker.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.cubico.donationtracker.AddDonationActivity;
+import com.cubico.donationtracker.POJOs.AccountType;
+import com.cubico.donationtracker.POJOs.DonationItem;
+import com.cubico.donationtracker.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +31,12 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class DonationsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "donations";
+    private static final String DONATION_ARG = "donations";
+    private static final String ACCOUNT_ARG = "accountType";
     static final int CREATE_DONATION_REQUEST = 1;
 
-    // TODO: Rename and change types of parameters
     public List<DonationItem> donations;
+    public AccountType accountType;
 
     private DonationAddListener mListener;
 
@@ -48,11 +51,11 @@ public class DonationsFragment extends Fragment {
      * @param donations Parameter 1.
      * @return A new instance of fragment DonationsFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static DonationsFragment newInstance(ArrayList<DonationItem> donations) {
+    public static DonationsFragment newInstance(ArrayList<DonationItem> donations, AccountType accountType) {
         DonationsFragment fragment = new DonationsFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_PARAM1, donations);
+        args.putParcelableArrayList(DONATION_ARG, donations);
+        args.putParcelable(ACCOUNT_ARG, accountType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,7 +64,8 @@ public class DonationsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            donations = getArguments().getParcelableArrayList(ARG_PARAM1);
+            donations = getArguments().getParcelableArrayList(DONATION_ARG);
+            accountType = getArguments().getParcelable(ACCOUNT_ARG);
         }
     }
 
@@ -77,7 +81,10 @@ public class DonationsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         View view = getView();
         TextView donationMessage = view.findViewById(R.id.donations);
-        Button button = view.findViewById(R.id.faddDonation);
+        Button button = view.findViewById(R.id.addDonation);
+        if (accountType.equals(AccountType.LOCATION_EMPLOYEE) || accountType.equals(AccountType.ADMIN)) {
+            button.setVisibility(View.VISIBLE);
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +92,7 @@ public class DonationsFragment extends Fragment {
                 startActivityForResult(intent, CREATE_DONATION_REQUEST);
             }
         });
-        String message = "";
+        String message = donations.size() > 0 ? "" : "No donations yet!";
         for (DonationItem item : donations) {
             message += String.format("%s: %s, %s \n", item.getName(), item.getQuantity(), item.getItemType().getName());
         }
@@ -98,15 +105,11 @@ public class DonationsFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
                 DonationItem item = bundle.getParcelable("donation");
-                Log.d("debug", String.format("%s: %s, %s", item.getName(), item.getQuantity(), item.getItemType().getName()));
                 donationAdded(item);
-//                TextView itemText = getView().findViewById(R.id.donationText);
-//                itemText.setText(String.format("%s, %s, %s", item.getName(), item.getQuantity(), item.getItemType().getName()));
             }
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void donationAdded(DonationItem item) {
         if (mListener != null) {
             mListener.onDonationAdd(item);
@@ -150,7 +153,6 @@ public class DonationsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface DonationAddListener {
-        // TODO: Update argument type and name
         void onDonationAdd(DonationItem item);
     }
 }

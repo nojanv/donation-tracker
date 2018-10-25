@@ -1,4 +1,4 @@
-package com.cubico.donationtracker;
+package com.cubico.donationtracker.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,10 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cubico.donationtracker.MyItemListRecyclerViewAdapter;
+import com.cubico.donationtracker.R;
 import com.cubico.donationtracker.dummy.DummyContent;
 import com.cubico.donationtracker.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.

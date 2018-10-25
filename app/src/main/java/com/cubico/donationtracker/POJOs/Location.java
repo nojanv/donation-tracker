@@ -1,4 +1,4 @@
-package com.cubico.donationtracker;
+package com.cubico.donationtracker.POJOs;
 
 import android.os.Parcel;
 import android.os.Parcelable;

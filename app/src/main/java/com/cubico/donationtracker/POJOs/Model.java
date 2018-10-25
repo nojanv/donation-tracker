@@ -1,4 +1,4 @@
-package com.cubico.donationtracker;
+package com.cubico.donationtracker.POJOs;
 
 import java.util.HashMap;
 

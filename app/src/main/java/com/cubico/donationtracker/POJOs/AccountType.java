@@ -1,4 +1,4 @@
-package com.cubico.donationtracker;
+package com.cubico.donationtracker.POJOs;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -40,4 +40,5 @@ public enum AccountType implements Parcelable{
     public String getName() {
         return name;
     }
+
 }
