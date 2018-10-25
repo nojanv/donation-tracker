@@ -7,7 +7,8 @@ public enum ItemType implements Parcelable{
     HOUSEHOLD_ITEMS("Household Items"),
     GAMES("Games"),
     FOOD("Food"),
-    CLOTHING("Clothing");
+    CLOTHING("Clothing"),
+    OTHER("Other");
 
     private String name;
     public static final Parcelable.Creator<ItemType> CREATOR = new Parcelable.Creator<ItemType>() {
@@ -18,7 +19,7 @@ public enum ItemType implements Parcelable{
                     return type;
                 }
             }
-            return ItemType.FOOD;
+            return ItemType.OTHER;
         }
 
         public ItemType[] newArray(int size) {

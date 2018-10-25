@@ -19,7 +19,9 @@ public class DonationItem implements Parcelable {
         }
     };
 
+    public DonationItem() {
 
+    }
     public DonationItem(String name, int quantity, ItemType itemType) {
         this.name = name;
         this.quantity = quantity;

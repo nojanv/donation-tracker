@@ -23,6 +23,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity implements DonationsFragment.DonationAddListener{
@@ -84,8 +87,6 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
 
         Bundle bundle = getIntent().getExtras();
         location = bundle.getParcelable("location");
-        location.addDonation(new DonationItem("Fresh Kicks", 1, ItemType.CLOTHING));
-        location.addDonation(new DonationItem("Beans, Greens, Potatoes, Tomatoes", 10, ItemType.FOOD));
         user = bundle.getParcelable("user");
 
     }
@@ -193,6 +194,10 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
     public void onDonationAdd(DonationItem item) {
         Log.d("interface", "logged");
         location.addDonation(item);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference locationRef = database.getReference().child("Locations");
+        DatabaseReference myRef = locationRef.child("" + location.getKey());
+        myRef.setValue(location);
         DonationsFragment frag = (DonationsFragment) mPagerAdapter.getRegisteredFragment(1);
         if (frag != null) {
             String message = "";

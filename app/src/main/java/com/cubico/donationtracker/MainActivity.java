@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         if (user == null) {
             user = User.DEFAULT;
         }
-        Log.d("tag", user == null ? "Null" : "Not null");
         location = new Location();
         listView = findViewById(R.id.locationList);
         database = FirebaseDatabase.getInstance();

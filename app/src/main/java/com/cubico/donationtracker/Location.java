@@ -18,7 +18,6 @@ public class Location implements Parcelable {
     private String phone;
     private String website;
     private ArrayList<DonationItem> donations;
-    private static boolean alreadyUploaded = false;
 
     Location(int key, String name, float lat, float longitude, String address, String city, String state, int zip, LocationType type, String phone, String website) {
         this.key = key;
@@ -141,6 +140,15 @@ public class Location implements Parcelable {
 
     public void addDonation(DonationItem item) {
         donations.add(item);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Location)) {
+            return false;
+        }
+        Location that = (Location) obj;
+        return this.name.equals(that.getName());
     }
 }
 

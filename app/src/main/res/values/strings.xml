@@ -51,6 +51,7 @@
         <item>Household Items</item>
         <item>Games</item>
         <item>Clothing</item>
+        <item>Other</item>
     </string-array>
     <string name="title_activity_add_donation">Enter Donation Details</string>
     <string name="title_activity_location">LocationActivity</string>
