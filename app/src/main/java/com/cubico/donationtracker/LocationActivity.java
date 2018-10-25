@@ -70,19 +70,12 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
-
 
         Bundle bundle = getIntent().getExtras();
         location = bundle.getParcelable("location");
         user = bundle.getParcelable("user");
 
-        getSupportActionBar().setTitle(location.getName());
     }
 
 

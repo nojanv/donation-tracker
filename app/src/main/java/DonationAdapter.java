@@ -10,13 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.POJOs.Location;
 
 import java.util.ArrayList;
 
-public class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{
+public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.OnClickListener{
 
-    private ArrayList<Location> dataSet;
+    private ArrayList<DonationItem> donations;
     Context mContext;
 
     // View lookup cache
@@ -24,21 +25,20 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
         TextView txtName;
     }
 
-    public LocationAdapter(ArrayList<Location> data, Context context) {
-        super(context, R.layout.list_item_destination, data);
-        this.dataSet = data;
-        this.mContext=context;
+    public DonationAdapter(ArrayList<DonationItem> donations, Context context) {
+        super(context, R.layout.list_item_donation, donations);
+        this.donations = donations;
+        this.mContext = context;
 
     }
 
     @Override
     public void onClick(View v) {
-
         int position=(Integer) v.getTag();
         Object object = getItem(position);
-        Location loc= (Location) object;
+        DonationItem donation = (DonationItem) object;
 
-        Toast.makeText(mContext, loc.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, donation.getName(), Toast.LENGTH_LONG).show();
     }
 
     private int lastPosition = -1;
@@ -46,7 +46,7 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Location location = getItem(position);
+        DonationItem donation = (DonationItem) getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
@@ -56,22 +56,22 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item_destination, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
+            convertView = inflater.inflate(R.layout.list_item_donation, parent, false);
+            viewHolder.txtName = (TextView) convertView.findViewById(R.id.donation_name);
 
-            result=convertView;
+            result = convertView;
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
+            result = convertView;
         }
 
         Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
 //        result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.txtName.setText(location.getName());
+        viewHolder.txtName.setText(donation.getName());
         // Return the completed view to render on screen
         return convertView;
     }

@@ -33,9 +33,4 @@
         android:text="Station Four"
         android:textColor="#FFF"
         android:textSize="24sp" />
-
-
-
-
-
 </RelativeLayout>

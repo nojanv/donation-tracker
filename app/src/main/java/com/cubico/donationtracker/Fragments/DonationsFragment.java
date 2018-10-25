@@ -5,15 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.cubico.donationtracker.AddDonationActivity;
+import com.cubico.donationtracker.DonationAdapter;
+import com.cubico.donationtracker.DonationViewActivity;
 import com.cubico.donationtracker.POJOs.AccountType;
 import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.R;
@@ -35,10 +38,14 @@ public class DonationsFragment extends Fragment {
     private static final String ACCOUNT_ARG = "accountType";
     static final int CREATE_DONATION_REQUEST = 1;
 
+    ArrayAdapter<DonationItem> donationAdapter;
+
     public List<DonationItem> donations;
     public AccountType accountType;
 
     private DonationAddListener mListener;
+
+    ListView donationListView;
 
     public DonationsFragment() {
         // Required empty public constructor
@@ -80,8 +87,8 @@ public class DonationsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         View view = getView();
-        TextView donationMessage = view.findViewById(R.id.donations);
-        Button button = view.findViewById(R.id.addDonation);
+
+        FloatingActionButton button = (FloatingActionButton) view.findViewById(R.id.addDonation);
         if (accountType.equals(AccountType.LOCATION_EMPLOYEE) || accountType.equals(AccountType.ADMIN)) {
             button.setVisibility(View.VISIBLE);
         }
@@ -92,11 +99,21 @@ public class DonationsFragment extends Fragment {
                 startActivityForResult(intent, CREATE_DONATION_REQUEST);
             }
         });
-        String message = donations.size() > 0 ? "" : "No donations yet!";
-        for (DonationItem item : donations) {
-            message += String.format("%s: %s, %s \n", item.getName(), item.getQuantity(), item.getItemType().getName());
+        donationListView = (ListView) view.findViewById(R.id.donations);
+        donationAdapter = new DonationAdapter((ArrayList) donations, getActivity().getApplicationContext());
+        if (donations.size() > 0) {
+            donationListView.setAdapter(donationAdapter);
         }
-        donationMessage.setText(message);
+        donationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DonationItem selected = donationAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), DonationViewActivity.class);
+                intent.putExtra("donation", selected);
+                getActivity().startActivity(intent);
+            }
+        });
+        //String message = donations.size() > 0 ? "" : "No donations yet!";
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -117,12 +134,8 @@ public class DonationsFragment extends Fragment {
     }
 
     public void updateDonations(ArrayList<DonationItem> donations) {
-        TextView donationMessage = getView().findViewById(R.id.donations);
-        String message = "";
-        for (DonationItem item : donations) {
-            message += String.format("%s: %s, %s \n", item.getName(), item.getQuantity(), item.getItemType().getName());
-        }
-        donationMessage.setText(message);
+        donationAdapter = new DonationAdapter(donations, getActivity().getApplicationContext());
+        donationListView.setAdapter(donationAdapter);
     }
 
     @Override
