@@ -68,7 +68,7 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
         }
 
         Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-        result.startAnimation(animation);
+//        result.startAnimation(animation);
         lastPosition = position;
 
         viewHolder.txtName.setText(location.getName());

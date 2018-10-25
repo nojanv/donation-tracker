@@ -29,6 +29,7 @@
     <string name="error_password_short">Password must be longer than 6 characters</string>
     <string name="error_unmatched_passwords">These passwords don\'t match</string>
     <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_quantity">Must be greater than 0</string>
     <string name="acc_type">Account Type</string>
     <string name="item_type">Item Type</string>
     <string name="firebase_inner_error">Firebase Inner Error</string>

@@ -66,25 +66,33 @@ public class AddDonationActivity extends AppCompatActivity {
     }
 
     private void createDonation() {
+        boolean error = false;
         name = mNameView.getText().toString();
         quantity = Integer.parseInt(mQuantityView.getText().toString());
         String type = mTypeSpinner.getSelectedItem().toString();
+        if (quantity == 0) {
+            mQuantityView.setError(getString(R.string.error_invalid_quantity));
+            mQuantityView.requestFocus();
+            error = true;
+        }
+        if (name.length() == 0) {
+            mNameView.setError(getString(R.string.error_field_required));
+            mNameView.requestFocus();
+            error = true;
+        }
         for (ItemType t : ItemType.values()) {
             if (type.equals(t.getName())) {
                 itemType = t;
             }
         }
-        itemType = itemType == null ? ItemType.FOOD : itemType;
-        /*Log.d("type", type);
-        if (itemType == null) {
-            itemType = ItemType.FOOD;
+        itemType = itemType == null ? ItemType.OTHER : itemType;
+        if (!error) {
+            DonationItem item = new DonationItem(name, quantity, itemType);
+            Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
+            result.putExtra("donation", item);
+            setResult(Activity.RESULT_OK, result);
+            finish();
         }
-        Log.d("typeCorrected", itemType.getName());*/
-        DonationItem item = new DonationItem(name, quantity, itemType);
-        Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
-        result.putExtra("donation", item);
-        setResult(Activity.RESULT_OK, result);
-        finish();
     }
 
 }
