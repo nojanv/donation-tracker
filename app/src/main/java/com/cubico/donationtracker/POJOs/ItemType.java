@@ -5,9 +5,11 @@ import android.os.Parcelable;
 
 public enum ItemType implements Parcelable{
     HOUSEHOLD_ITEMS("Household Items"),
-    GAMES("Games"),
+    ELECTRONICS("Electronics"),
+    HAT("Hat"),
     FOOD("Food"),
     CLOTHING("Clothing"),
+    KITCHEN("Kitchen"),
     OTHER("Other");
 
     private String name;
@@ -46,3 +48,4 @@ public enum ItemType implements Parcelable{
     }
 
 }
+

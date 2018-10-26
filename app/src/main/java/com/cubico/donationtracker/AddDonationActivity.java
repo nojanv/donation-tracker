@@ -20,6 +20,11 @@ public class AddDonationActivity extends AppCompatActivity {
     private AutoCompleteTextView mNameView;
     private EditText mQuantityView;
     private Spinner mTypeSpinner;
+    private AutoCompleteTextView mTimeStampView;
+    private AutoCompleteTextView mLocationView;
+    private AutoCompleteTextView mFullDescriptionView;
+    private EditText mValueView;
+
     private View mRegisterFormView;
 
     // User variables
@@ -27,14 +32,22 @@ public class AddDonationActivity extends AppCompatActivity {
     private int quantity;
     private ItemType itemType = null;
 
+    private String timeStamp;
+    private String location;
+    private String fullDescription;
+    private float value;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        mNameView = (AutoCompleteTextView) findViewById(R.id.item_name);
-        mQuantityView = (EditText) findViewById(R.id.quantity);
-
+        mNameView = (AutoCompleteTextView) findViewById(R.id.item_description);
+        mTimeStampView = (AutoCompleteTextView) findViewById(R.id.time_stamp);
+        mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
+        mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
+        mValueView = (EditText) findViewById(R.id.time_stamp);
 
 
         mTypeSpinner = (Spinner) findViewById(R.id.item_type);
@@ -49,7 +62,7 @@ public class AddDonationActivity extends AppCompatActivity {
                 itemType = t;
             }
         }
-        itemType = itemType == null ? ItemType.FOOD : itemType;
+        itemType = itemType == null ? ItemType.CLOTHING : itemType;
 
         Button createDonation = findViewById(R.id.create_donation_button);
         createDonation.setOnClickListener(new View.OnClickListener() {
@@ -68,11 +81,18 @@ public class AddDonationActivity extends AppCompatActivity {
     private void createDonation() {
         boolean error = false;
         name = mNameView.getText().toString();
-        quantity = Integer.parseInt(mQuantityView.getText().toString());
+        location = mLocationView.getText().toString();
+        value = Float.parseFloat(mValueView.getText().toString());
+        fullDescription = mFullDescriptionView.getText().toString();
+        timeStamp = mTimeStampView.getText().toString();
+
         String type = mTypeSpinner.getSelectedItem().toString();
-        if (quantity == 0) {
-            mQuantityView.setError(getString(R.string.error_invalid_quantity));
-            mQuantityView.requestFocus();
+
+
+
+        if (value == 0) {
+            mValueView.setError(getString(R.string.error_invalid_quantity));
+            mValueView.requestFocus();
             error = true;
         }
         if (name.length() == 0) {
@@ -85,9 +105,10 @@ public class AddDonationActivity extends AppCompatActivity {
                 itemType = t;
             }
         }
+
         itemType = itemType == null ? ItemType.OTHER : itemType;
         if (!error) {
-            DonationItem item = new DonationItem(name, quantity, itemType);
+            DonationItem item = new DonationItem(name, timeStamp, location, fullDescription, value, itemType);
             Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
             result.putExtra("donation", item);
             setResult(Activity.RESULT_OK, result);
@@ -96,3 +117,4 @@ public class AddDonationActivity extends AppCompatActivity {
     }
 
 }
+

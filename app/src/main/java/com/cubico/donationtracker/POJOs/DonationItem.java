@@ -6,7 +6,10 @@ import android.os.Parcelable;
 public class DonationItem implements Parcelable {
 
     private String name;
-    private int quantity;
+    private String timeStamp;
+    private String location;
+    private String fullDescription;
+    private float value;
     private ItemType itemType;
 
     public static final Parcelable.Creator<DonationItem> CREATOR = new Parcelable.Creator<DonationItem>() {
@@ -22,16 +25,26 @@ public class DonationItem implements Parcelable {
     public DonationItem() {
 
     }
-    public DonationItem(String name, int quantity, ItemType itemType) {
+
+    public DonationItem(String name, String timeStamp, String location, String fullDescription, float value, ItemType itemType) {
         this.name = name;
-        this.quantity = quantity;
+        this.timeStamp = timeStamp;
+        this.location = location;
+        this.fullDescription = fullDescription;
+        this.value = value;
         this.itemType = itemType;
     }
+
     public DonationItem(Parcel in) {
         this.name = in.readString();
-        this.quantity = in.readInt();
+        this.timeStamp = in.readString();
+        this.location = in.readString();
+        this.fullDescription = in.readString();
+        this.value = in.readFloat();
         this.itemType = in.readParcelable(ItemType.class.getClassLoader());
     }
+
+
 
     @Override
     public int describeContents() {
@@ -41,8 +54,43 @@ public class DonationItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeInt(quantity);
+        dest.writeString(timeStamp);
+        dest.writeString(location);
+        dest.writeString(fullDescription);
+        dest.writeFloat(value);
         dest.writeParcelable(itemType, flags);
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
+
+    public float getValue() {
+        return value;
+    }
+
+    public void setValue(float value) {
+        this.value = value;
     }
 
     public String getName() {
@@ -53,13 +101,6 @@ public class DonationItem implements Parcelable {
         this.name = name;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public ItemType getItemType() {
         return itemType;
