@@ -20,7 +20,13 @@ public class DonationViewActivity extends AppCompatActivity {
 
         TextView name = (TextView) findViewById(R.id.donation_name);
         name.setText(donation.getName());
-        TextView quantity = (TextView) findViewById(R.id.donation_quantity);
-        quantity.setText(donation.getValue() + "");
+
+        TextView description = (TextView) findViewById(R.id.donation_quantity);
+        String descText = "Description: " + donation.getFullDescription() +
+                "\nStamp: " + donation.getTimeStamp() +
+                "\nLocation: " + donation.getLocation() +
+                "\nPrice: " + donation.getValue() +
+                "\nType: " + donation.getItemType();
+        description.setText(descText);
     }
 }
