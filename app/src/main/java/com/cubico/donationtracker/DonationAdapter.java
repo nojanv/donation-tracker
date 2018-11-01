@@ -7,18 +7,22 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cubico.donationtracker.POJOs.DonationItem;
-import com.cubico.donationtracker.POJOs.Location;
-
 import java.util.ArrayList;
+import java.util.List;
 
-public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.OnClickListener{
+import com.cubico.donationtracker.POJOs.DonationItem;
+
+public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.OnClickListener, Filterable {
 
     private ArrayList<DonationItem> donations;
-    Context mContext;
+    private List<DonationItem> donationsCopy;
+    private Context mContext;
+    private ValueFilter valueFilter;
 
     // View lookup cache
     private static class ViewHolder {
@@ -28,6 +32,7 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
     public DonationAdapter(ArrayList<DonationItem> donations, Context context) {
         super(context, R.layout.list_item_donation, donations);
         this.donations = donations;
+        donationsCopy = donations;
         this.mContext = context;
 
     }
@@ -74,5 +79,56 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
         viewHolder.txtName.setText(donation.getName());
         // Return the completed view to render on screen
         return convertView;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<DonationItem> filterList = new ArrayList<DonationItem>();
+                for (int i = 0; i < donationsCopy.size(); i++) {
+                    if ((donationsCopy.get(i).getName().toUpperCase())
+                            .contains(constraint.toString().toUpperCase())) {
+
+                        DonationItem curr = donationsCopy.get(i);
+                        System.out.println(curr.getName());
+
+                        DonationItem donation = new DonationItem(curr.getName(),
+                                curr.getTimeStamp(),
+                                curr.getLocation(),
+                                curr.getFullDescription(),
+                                curr.getValue(),
+                                curr.getItemType());
+
+                        filterList.add(donation);
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = donationsCopy.size();
+                results.values = donationsCopy;
+            }
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            donations = (ArrayList<DonationItem>) results.values;
+            notifyDataSetChanged();
+        }
+
     }
 }
