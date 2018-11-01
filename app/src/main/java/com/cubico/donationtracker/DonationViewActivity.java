@@ -2,6 +2,7 @@ package com.cubico.donationtracker;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.cubico.donationtracker.POJOs.DonationItem;
@@ -28,5 +29,9 @@ public class DonationViewActivity extends AppCompatActivity {
                 "\nPrice: " + donation.getValue() +
                 "\nType: " + donation.getItemType();
         description.setText(descText);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

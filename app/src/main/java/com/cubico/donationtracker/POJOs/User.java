@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 public class User implements Parcelable{
     private String name;
-    private String password;
+    private String email;
     private AccountType accountType;
-    public static User DEFAULT = new User("No name", "password", AccountType.USER);
+    public static User DEFAULT = new User("No name", "noEmail@gmail.com", AccountType.USER);
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
         public User createFromParcel(Parcel in) {
@@ -24,12 +24,12 @@ public class User implements Parcelable{
     }
     public User(String name, String password, AccountType accountType) {
         this.name = name;
-        this.password = password;
+        this.email = email;
         this.accountType = accountType;
     }
     public User(Parcel in) {
         this.name = in.readString();
-        this.password = in.readString();
+        this.email = in.readString();
         this.accountType = in.readParcelable(AccountType.class.getClassLoader());
     }
 
@@ -41,7 +41,7 @@ public class User implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeString(password);
+        dest.writeString(email);
         dest.writeParcelable(accountType, flags);
     }
 
@@ -49,8 +49,8 @@ public class User implements Parcelable{
         return name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
     public AccountType getAccountType() {

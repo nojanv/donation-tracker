@@ -43,6 +43,8 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
     static final int CREATE_DONATION_REQUEST = 1;
     Location location;
     User user;
+    private static final String LOCATION_ARG = "location";
+    private static final String USER_ARG = "user";
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -72,9 +74,13 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle bundle = getIntent().getExtras();
-        location = bundle.getParcelable("location");
-        user = bundle.getParcelable("user");
+
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                location = bundle.getParcelable("location");
+                user = bundle.getParcelable("user");
+            }
+
 
     }
 
@@ -188,6 +194,25 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
             frag.updateDonations(location.getDonations());
         } else {
             Log.d("debug", "Cant find fragment");
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LOCATION_ARG, location);
+        outState.putParcelable(USER_ARG, user);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.d("debug", "reached onRestore");
+        super.onRestoreInstanceState(savedInstanceState);
+        location = savedInstanceState.getParcelable(LOCATION_ARG);
+        user = savedInstanceState.getParcelable(USER_ARG);
+
+        if (location == null) {
+            Log.d("debug", "didnt work");
         }
     }
 }

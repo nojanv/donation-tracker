@@ -14,13 +14,14 @@ import android.widget.Spinner;
 import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.POJOs.ItemType;
 
+import java.util.Date;
+
 public class AddDonationActivity extends AppCompatActivity {
 
     // UI references.
     private AutoCompleteTextView mNameView;
     private EditText mQuantityView;
     private Spinner mTypeSpinner;
-    private AutoCompleteTextView mTimeStampView;
     private AutoCompleteTextView mLocationView;
     private AutoCompleteTextView mFullDescriptionView;
     private EditText mValueView;
@@ -44,7 +45,6 @@ public class AddDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_donation);
 
         mNameView = (AutoCompleteTextView) findViewById(R.id.item_description);
-        mTimeStampView = (AutoCompleteTextView) findViewById(R.id.time_stamp);
         mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
         mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
         mValueView = (EditText) findViewById(R.id.time_stamp);
@@ -84,8 +84,8 @@ public class AddDonationActivity extends AppCompatActivity {
         location = mLocationView.getText().toString();
         value = Float.parseFloat(mValueView.getText().toString());
         fullDescription = mFullDescriptionView.getText().toString();
-        timeStamp = mTimeStampView.getText().toString();
-
+        Date date = new Date();
+        timeStamp = date.toString();
         String type = mTypeSpinner.getSelectedItem().toString();
 
 

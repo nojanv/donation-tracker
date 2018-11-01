@@ -34,17 +34,6 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Sign Up" />
-        <!--
-        <activity
-            android:name=".LocationDetailsActivity"
-            android:label="Details"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cubico.donationtracker.MainActivity" />
-        </activity>
-        -->
         <activity
             android:name=".AddDonationActivity"
             android:label="@string/title_activity_add_donation"
@@ -63,7 +52,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cubico.donationtracker.MainActivity" />
         </activity>
-        <activity android:name=".DonationViewActivity"></activity>
+        <activity
+            android:name=".DonationViewActivity"
+            android:parentActivityName=".LocationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cubico.donationtracker.LocationActivity" />
+        </activity>
     </application>
 
 </manifest>
