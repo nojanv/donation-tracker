@@ -168,7 +168,7 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
             if (position == 0) {
                 return LocationDetails.newInstance(location);
             } else if (position == 1) {
-                return DonationsFragment.newInstance(location.getDonations(), user.getAccountType());
+                return DonationsFragment.newInstance(location, user.getAccountType());
             } else {
                 return PlaceholderFragment.newInstance(position);
             }

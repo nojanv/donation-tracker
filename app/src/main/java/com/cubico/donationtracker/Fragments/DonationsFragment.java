@@ -19,6 +19,7 @@ import com.cubico.donationtracker.DonationAdapter;
 import com.cubico.donationtracker.DonationViewActivity;
 import com.cubico.donationtracker.POJOs.AccountType;
 import com.cubico.donationtracker.POJOs.DonationItem;
+import com.cubico.donationtracker.POJOs.Location;
 import com.cubico.donationtracker.R;
 
 import java.util.ArrayList;
@@ -34,12 +35,14 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class DonationsFragment extends Fragment {
+    private static final String LOCATION_ARG = "location";
     private static final String DONATION_ARG = "donations";
     private static final String ACCOUNT_ARG = "accountType";
     static final int CREATE_DONATION_REQUEST = 1;
 
     ArrayAdapter<DonationItem> donationAdapter;
 
+    public Location location;
     public List<DonationItem> donations;
     public AccountType accountType;
 
@@ -55,13 +58,14 @@ public class DonationsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param donations Parameter 1.
+     * @param location Parameter 1.
      * @return A new instance of fragment DonationsFragment.
      */
-    public static DonationsFragment newInstance(ArrayList<DonationItem> donations, AccountType accountType) {
+    public static DonationsFragment newInstance(Location location, AccountType accountType) {
         DonationsFragment fragment = new DonationsFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(DONATION_ARG, donations);
+        args.putParcelable(LOCATION_ARG, location);
+        args.putParcelableArrayList(DONATION_ARG, location.getDonations());
         args.putParcelable(ACCOUNT_ARG, accountType);
         fragment.setArguments(args);
         return fragment;
@@ -71,6 +75,7 @@ public class DonationsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            location = getArguments().getParcelable(LOCATION_ARG);
             donations = getArguments().getParcelableArrayList(DONATION_ARG);
             accountType = getArguments().getParcelable(ACCOUNT_ARG);
         }
@@ -96,6 +101,7 @@ public class DonationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddDonationActivity.class);
+                intent.putExtra("location", location);
                 startActivityForResult(intent, CREATE_DONATION_REQUEST);
             }
         });
