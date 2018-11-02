@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cubico.donationtracker.AddDonationActivity;
 import com.cubico.donationtracker.DonationAdapter;
@@ -55,6 +57,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     ListView donationListView;
 
     SearchView searchDonations;
+    Spinner modeSpinner;
 
     public DonationsFragment() {
         // Required empty public constructor
@@ -133,7 +136,27 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         //search functionality
         searchDonations = (SearchView) view.findViewById(R.id.donationSearch);
         searchDonations.setOnQueryTextListener(this);
+
+        modeSpinner = (Spinner) view.findViewById(R.id.searchMode);
+        ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
+                R.array.searchMode_array, android.R.layout.simple_spinner_item);
+        accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        modeSpinner.setAdapter(accAdapter);
+        modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String mode = modeSpinner.getSelectedItem().toString();
+                donationAdapter.getFilter().setMode(mode.equals("By Name"));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
+
 
     @Override
     public boolean onQueryTextSubmit(String s) {
@@ -143,6 +166,9 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     @Override
     public boolean onQueryTextChange(String s) {
         donationAdapter.getFilter().filter(s);
+        if (donationAdapter.getFilter().isEmpty()) {
+            Toast.makeText(getActivity(), "No items match this text", Toast.LENGTH_SHORT).show();
+        }
         return false;
     }
 

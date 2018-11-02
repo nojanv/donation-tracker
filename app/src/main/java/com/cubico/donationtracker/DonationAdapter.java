@@ -7,18 +7,25 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cubico.donationtracker.POJOs.DonationItem;
-import com.cubico.donationtracker.POJOs.Location;
-
 import java.util.ArrayList;
+import java.util.List;
 
-public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.OnClickListener{
+import com.cubico.donationtracker.POJOs.DonationItem;
+
+public class DonationAdapter extends BaseAdapter implements View.OnClickListener, Filterable {
 
     private ArrayList<DonationItem> donations;
-    Context mContext;
+    private List<DonationItem> donationsCopy;
+    private Context mContext;
+    private ValueFilter valueFilter;
+
+    private TextView msg;
 
     // View lookup cache
     private static class ViewHolder {
@@ -26,10 +33,9 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
     }
 
     public DonationAdapter(ArrayList<DonationItem> donations, Context context) {
-        super(context, R.layout.list_item_donation, donations);
         this.donations = donations;
+        donationsCopy = donations;
         this.mContext = context;
-
     }
 
     @Override
@@ -44,6 +50,21 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
     private int lastPosition = -1;
 
     @Override
+    public int getCount() {
+        return donations.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return donations.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         DonationItem donation = (DonationItem) getItem(position);
@@ -55,7 +76,7 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
         if (convertView == null) {
 
             viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
+            LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.list_item_donation, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.donation_name);
 
@@ -74,5 +95,72 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
         viewHolder.txtName.setText(donation.getName());
         // Return the completed view to render on screen
         return convertView;
+    }
+
+    public ValueFilter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    public class ValueFilter extends Filter {
+        private boolean name = true;
+        private boolean empty = false;
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                ArrayList<DonationItem> filterList = new ArrayList<DonationItem>();
+                constraint = constraint.toString().toUpperCase();
+                empty = false;
+                for (int i = 0; i < donationsCopy.size(); i++) {
+                    DonationItem item = donationsCopy.get(i);
+                    if ((name && item.getName().toUpperCase().contains(constraint)) || (!name && item.getItemType().toString().toUpperCase().contains(constraint))) {
+
+
+
+                        DonationItem curr = donationsCopy.get(i);
+                        System.out.println(curr.getName());
+
+                        DonationItem donation = new DonationItem(curr.getName(),
+                                curr.getTimeStamp(),
+                                curr.getLocation(),
+                                curr.getFullDescription(),
+                                curr.getValue(),
+                                curr.getItemType());
+
+                        filterList.add(donation);
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+                if (filterList.size() == 0) {
+                    empty = true;
+                }
+            } else {
+                results.count = donationsCopy.size();
+                results.values = donationsCopy;
+            }
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            donations = (ArrayList<DonationItem>) results.values;
+            notifyDataSetChanged();
+
+        }
+
+        public void setMode(boolean nameMode) {
+            name = nameMode;
+        }
+
+        public boolean isEmpty() { return empty; }
+
     }
 }
