@@ -87,7 +87,7 @@ public class Location implements Parcelable {
 
 
     public String toString() {
-        return String.format("Welcome to %s, located in %s, %s", name, city, state);
+        return String.format(name);
     }
 
     public int getKey() {

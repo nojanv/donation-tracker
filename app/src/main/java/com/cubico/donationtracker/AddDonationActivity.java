@@ -13,6 +13,7 @@ import android.widget.Spinner;
 
 import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.POJOs.ItemType;
+import com.cubico.donationtracker.POJOs.Location;
 
 import java.util.Date;
 
@@ -34,7 +35,7 @@ public class AddDonationActivity extends AppCompatActivity {
     private ItemType itemType = null;
 
     private String timeStamp;
-    private String location;
+    private Location location;
     private String fullDescription;
     private float value;
 
@@ -45,8 +46,9 @@ public class AddDonationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_donation);
 
         mNameView = (AutoCompleteTextView) findViewById(R.id.item_description);
-        mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
+        //mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
         mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
+        mValueView = (EditText) findViewById(R.id.value);
 
 
         mTypeSpinner = (Spinner) findViewById(R.id.item_type);
@@ -71,6 +73,10 @@ public class AddDonationActivity extends AppCompatActivity {
             }
         });
 
+
+        Bundle bundle = getIntent().getExtras();
+        location = bundle.getParcelable("location");
+
        /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -80,7 +86,7 @@ public class AddDonationActivity extends AppCompatActivity {
     private void createDonation() {
         boolean error = false;
         name = mNameView.getText().toString();
-        location = mLocationView.getText().toString();
+        //location = mLocationView.getText().toString();
         value = Float.parseFloat(mValueView.getText().toString());
         fullDescription = mFullDescriptionView.getText().toString();
         Date date = new Date();
@@ -107,13 +113,11 @@ public class AddDonationActivity extends AppCompatActivity {
 
         itemType = itemType == null ? ItemType.OTHER : itemType;
         if (!error) {
-            DonationItem item = new DonationItem(name, timeStamp, location, fullDescription, value, itemType);
+            DonationItem item = new DonationItem(name, timeStamp, location.toString(), fullDescription, value, itemType);
             Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
             result.putExtra("donation", item);
             setResult(Activity.RESULT_OK, result);
             finish();
         }
     }
-
 }
-
