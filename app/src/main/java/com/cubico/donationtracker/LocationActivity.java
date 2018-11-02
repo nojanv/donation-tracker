@@ -74,12 +74,11 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-            Bundle bundle = getIntent().getExtras();
-            if (bundle != null) {
-                location = bundle.getParcelable("location");
-                user = bundle.getParcelable("user");
-            }
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            location = bundle.getParcelable("location");
+            user = bundle.getParcelable("user");
+        }
 
 
     }
@@ -197,22 +196,4 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(LOCATION_ARG, location);
-        outState.putParcelable(USER_ARG, user);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.d("debug", "reached onRestore");
-        super.onRestoreInstanceState(savedInstanceState);
-        location = savedInstanceState.getParcelable(LOCATION_ARG);
-        user = savedInstanceState.getParcelable(USER_ARG);
-
-        if (location == null) {
-            Log.d("debug", "didnt work");
-        }
-    }
 }

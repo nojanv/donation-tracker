@@ -47,7 +47,6 @@ public class AddDonationActivity extends AppCompatActivity {
         mNameView = (AutoCompleteTextView) findViewById(R.id.item_description);
         mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
         mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
-        mValueView = (EditText) findViewById(R.id.time_stamp);
 
 
         mTypeSpinner = (Spinner) findViewById(R.id.item_type);

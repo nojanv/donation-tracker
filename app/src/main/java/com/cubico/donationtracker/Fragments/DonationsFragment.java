@@ -100,7 +100,7 @@ public class DonationsFragment extends Fragment {
             }
         });
         donationListView = (ListView) view.findViewById(R.id.donations);
-        donationAdapter = new DonationAdapter((ArrayList) donations, getActivity().getApplicationContext());
+        donationAdapter = new DonationAdapter((ArrayList<DonationItem>) donations, getActivity().getApplicationContext());
         if (donations.size() > 0) {
             donationListView.setAdapter(donationAdapter);
         }
