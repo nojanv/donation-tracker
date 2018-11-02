@@ -54,6 +54,7 @@
     <string name="tab_text_2">Donations</string>
     <string name="tab_text_3">Other</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="empty_list_message">No Results</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

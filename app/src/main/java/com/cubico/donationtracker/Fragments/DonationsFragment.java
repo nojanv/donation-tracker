@@ -127,7 +127,11 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         //search functionality
         searchDonations = (SearchView) view.findViewById(R.id.donationSearch);
         searchDonations.setOnQueryTextListener(this);
+
+
+
     }
+
 
     @Override
     public boolean onQueryTextSubmit(String s) {

@@ -25,6 +25,8 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
     private Context mContext;
     private ValueFilter valueFilter;
 
+    private TextView msg;
+
     // View lookup cache
     private static class ViewHolder {
         TextView txtName;
@@ -141,6 +143,12 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
                                       FilterResults results) {
             donations = (ArrayList<DonationItem>) results.values;
             notifyDataSetChanged();
+
+
+
+
+
+
         }
 
     }

@@ -7,18 +7,20 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Fragments.DonationsFragment">
 
-    <SearchView android:id="@+id/donationSearch"
+    <SearchView
+        android:id="@+id/donationSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Search donations.."
-        android:inputType="textVisiblePassword"/>
+        android:inputType="textVisiblePassword" />
+
 
     <ListView
         android:id="@+id/donations"
-        android:layout_below="@+id/donationSearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true" />
+        android:layout_height="400dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/donationSearch" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addDonation"
@@ -30,5 +32,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="64dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <TextView
+        android:id="@+id/noResultsFoundView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/empty_list_message"
+        android:visibility="gone" />
+
 
 </RelativeLayout>
