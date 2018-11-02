@@ -7,12 +7,18 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Fragments.DonationsFragment">
 
+    <SearchView android:id="@+id/donationSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search donations.."
+        android:inputType="textVisiblePassword"/>
+
     <ListView
         android:id="@+id/donations"
+        android:layout_below="@+id/donationSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentStart="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addDonation"
