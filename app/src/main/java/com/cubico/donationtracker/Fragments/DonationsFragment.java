@@ -42,7 +42,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     private static final String ACCOUNT_ARG = "accountType";
     static final int CREATE_DONATION_REQUEST = 1;
 
-    ArrayAdapter<DonationItem> donationAdapter;
+    DonationAdapter donationAdapter;
 
     public List<DonationItem> donations;
     public AccountType accountType;
@@ -116,7 +116,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         donationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DonationItem selected = donationAdapter.getItem(position);
+                DonationItem selected = (DonationItem) donationAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), DonationViewActivity.class);
                 intent.putExtra("donation", selected);
                 getActivity().startActivity(intent);

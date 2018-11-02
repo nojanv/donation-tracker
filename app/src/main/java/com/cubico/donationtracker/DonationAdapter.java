@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import com.cubico.donationtracker.POJOs.DonationItem;
 
-public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.OnClickListener, Filterable {
+public class DonationAdapter extends BaseAdapter implements View.OnClickListener, Filterable {
 
     private ArrayList<DonationItem> donations;
     private List<DonationItem> donationsCopy;
@@ -30,11 +31,9 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
     }
 
     public DonationAdapter(ArrayList<DonationItem> donations, Context context) {
-        super(context, R.layout.list_item_donation, donations);
         this.donations = donations;
         donationsCopy = donations;
         this.mContext = context;
-
     }
 
     @Override
@@ -49,6 +48,21 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
     private int lastPosition = -1;
 
     @Override
+    public int getCount() {
+        return donations.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return donations.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         DonationItem donation = (DonationItem) getItem(position);
@@ -60,7 +74,7 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
         if (convertView == null) {
 
             viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
+            LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.list_item_donation, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.donation_name);
 
@@ -97,8 +111,7 @@ public class DonationAdapter extends ArrayAdapter<DonationItem> implements View.
             if (constraint != null && constraint.length() > 0) {
                 ArrayList<DonationItem> filterList = new ArrayList<DonationItem>();
                 for (int i = 0; i < donationsCopy.size(); i++) {
-                    if ((donationsCopy.get(i).getName().toUpperCase())
-                            .contains(constraint.toString().toUpperCase())) {
+                    if ((donationsCopy.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase()) || (donationsCopy.get(i).getItemType().toString().toUpperCase()).contains(constraint.toString().toUpperCase())) {
 
                         DonationItem curr = donationsCopy.get(i);
                         System.out.println(curr.getName());
