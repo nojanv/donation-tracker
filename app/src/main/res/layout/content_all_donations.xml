@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Fragments.DonationsFragment">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:id="@+id/searchBar"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <SearchView
+            android:id="@+id/donationSearch2"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:inputType="textVisiblePassword" />
+
+        <Spinner
+            android:id="@+id/searchMode2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:entries="@array/searchMode_array"
+            android:prompt="@string/searchMode"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/allDonations"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/searchBar"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/noResultsFoundView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/empty_list_message"
+        android:visibility="gone" />
+
+</RelativeLayout>

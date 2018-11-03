@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent welcomeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
-                startActivity(welcomeIntent);*/
-                finish();
+                startActivity(new Intent(MainActivity.this, AllDonations.class));
             }
         });
+
+
         FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
         if (current != null) {
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(current.getUid());
@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-
         }
+
         if (user == null) {
             user = User.DEFAULT;
         }
@@ -133,3 +133,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+

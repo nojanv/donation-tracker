@@ -1,6 +1,7 @@
 package com.cubico.donationtracker;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
 
 
                         DonationItem curr = donationsCopy.get(i);
-                        System.out.println(curr.getName());
+                        Log.d("item matches", curr.getName());
 
                         DonationItem donation = new DonationItem(curr.getName(),
                                 curr.getTimeStamp(),

@@ -60,6 +60,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cubico.donationtracker.LocationActivity" />
         </activity>
+        <activity
+            android:name=".AllDonations"
+            android:label="@string/title_activity_all_donations"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
