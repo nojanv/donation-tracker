@@ -48,12 +48,6 @@
         android:layout_marginBottom="64dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
-    <TextView
-        android:id="@+id/noResultsFoundView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/empty_list_message"
-        android:visibility="gone" />
 
 
 </RelativeLayout>

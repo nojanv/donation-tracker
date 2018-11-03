@@ -23,6 +23,7 @@
     <string name="prompt_donation_name">Name</string>
     <string name="prompt_donation_quantity">Quantity</string>
     <string name="action_create_donation">Create Donation</string>
+    <string name="action_cancel">Cancel</string>
 
     <string name="error_invalid_email">This email is invalid</string>
     <string name="error_email_exists">An account with this email already exists</string>
