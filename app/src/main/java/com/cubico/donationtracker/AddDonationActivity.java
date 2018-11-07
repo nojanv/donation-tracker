@@ -72,6 +72,14 @@ public class AddDonationActivity extends AppCompatActivity {
                 createDonation();
             }
         });
+        Button cancel = findViewById(R.id.cancel_button);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(Activity.RESULT_CANCELED);
+                finish();
+            }
+        });
 
 
         Bundle bundle = getIntent().getExtras();
