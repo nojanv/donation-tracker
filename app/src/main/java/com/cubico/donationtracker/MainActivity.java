@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 //import com.google.firebase.auth.FirebaseAuth;
 import com.cubico.donationtracker.POJOs.Location;
 import com.cubico.donationtracker.POJOs.User;
+import com.cubico.donationtracker.dummy.MapsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mapFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AllDonations.class));
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
             }
         });
 
