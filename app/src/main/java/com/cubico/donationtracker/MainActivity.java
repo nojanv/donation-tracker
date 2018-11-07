@@ -53,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AllDonations.class));
             }
         });
+        FloatingActionButton mapFab = findViewById(R.id.mapFAB);
+        mapFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AllDonations.class));
+            }
+        });
 
 
         FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
