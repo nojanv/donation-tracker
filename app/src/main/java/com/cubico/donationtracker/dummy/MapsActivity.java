@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -25,7 +26,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -37,11 +37,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap = googleMap;
+        LatLng afd = new LatLng(33.7541618347168, -84.3774185180664);
+        LatLng bgclub= new LatLng(33.73181915283203, -84.43971252441406);
+        LatLng pathway = new LatLng(33.70866012573242, -84.41853332519531);
+        LatLng pavilion = new LatLng(33.80128860473633, -84.25537109375);
+        LatLng dd = new LatLng(33.71746826171875, -84.2520980834961);
+        LatLng kNFB = new LatLng(33.96921157836914, -84.3687973022461);
+
+        float zoom = 11;
+
+        Marker afdStation4 = mMap.addMarker(new MarkerOptions().position(afd).title("AFD Station 4").snippet("(404) 555 - 3456"));
+
+        Marker boysAndGirlsClub = mMap.addMarker(new MarkerOptions().position(bgclub).title("Boys & Girls Club W.W. Woolfolk").snippet("(404) 555 - 1234"));
+
+        Marker pathwayUpper = mMap.addMarker(new MarkerOptions().position(pathway).title("Pathway Upper Room Christian Ministries ").snippet("(404) 555 - 5432"));
+
+        Marker pavilionOfHope = mMap.addMarker(new MarkerOptions().position(pavilion).title("Pavilion of Hope Inc").snippet("(404) 555 - 8765"));
+
+        Marker dAndD = mMap.addMarker(new MarkerOptions().position(dd).title("D&D Convenience Store").snippet("(404) 555 - 9876"));
+
+        Marker northFulton = mMap.addMarker(new MarkerOptions().position(kNFB).title("Keep North Fulton Beautiful").snippet("(770) 555 - 7321"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(afd, zoom));
+
     }
 }
