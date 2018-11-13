@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.cubico.donationtracker.POJOs.DonationItem;
 
+/**
+ * Donation VIew Activity
+ */
 public class DonationViewActivity extends AppCompatActivity {
 
     DonationItem donation;

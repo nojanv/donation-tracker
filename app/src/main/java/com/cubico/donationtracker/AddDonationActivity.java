@@ -17,6 +17,9 @@ import com.cubico.donationtracker.POJOs.Location;
 
 import java.util.Date;
 
+/**
+ * Activity to add donation
+ */
 public class AddDonationActivity extends AppCompatActivity {
 
     // UI references.
@@ -50,7 +53,6 @@ public class AddDonationActivity extends AppCompatActivity {
         mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
         mValueView = (EditText) findViewById(R.id.value);
 
-
         mTypeSpinner = (Spinner) findViewById(R.id.item_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
                 R.array.itemtypes_array, android.R.layout.simple_spinner_item);
@@ -81,14 +83,8 @@ public class AddDonationActivity extends AppCompatActivity {
             }
         });
 
-
         Bundle bundle = getIntent().getExtras();
         location = bundle.getParcelable("location");
-
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
     }
 
     private void createDonation() {
@@ -121,7 +117,13 @@ public class AddDonationActivity extends AppCompatActivity {
 
         itemType = itemType == null ? ItemType.OTHER : itemType;
         if (!error) {
-            DonationItem item = new DonationItem(name, timeStamp, location.toString(), fullDescription, value, itemType);
+            DonationItem item = new DonationItem(
+                                    name,
+                                    timeStamp,
+                                    location.toString(),
+                                    fullDescription,
+                                    value,
+                                    itemType);
             Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
             result.putExtra("donation", item);
             setResult(Activity.RESULT_OK, result);

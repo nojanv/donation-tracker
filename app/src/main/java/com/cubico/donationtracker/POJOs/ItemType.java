@@ -3,6 +3,9 @@ package com.cubico.donationtracker.POJOs;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Enum to decribe type of donation item
+ */
 public enum ItemType implements Parcelable{
     HOUSEHOLD_ITEMS("Household Items"),
     ELECTRONICS("Electronics"),
@@ -43,6 +46,10 @@ public enum ItemType implements Parcelable{
         dest.writeString(name);
     }
 
+    /**
+     * Public method that returns name of item type
+     * @return string of name
+     */
     public String getName() {
         return name;
     }

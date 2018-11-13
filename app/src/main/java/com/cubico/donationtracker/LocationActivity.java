@@ -29,7 +29,9 @@ import com.cubico.donationtracker.POJOs.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LocationActivity extends AppCompatActivity implements DonationsFragment.DonationAddListener{
+public class LocationActivity
+        extends AppCompatActivity
+        implements DonationsFragment.DonationAddListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -69,8 +71,10 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        mViewPager.addOnPageChangeListener(new TabLayout
+                .TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout
+                .ViewPagerOnTabSelectedListener(mViewPager));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -136,7 +140,10 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
                                  Bundle savedInstanceState) {
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                View rootView = inflater.inflate(R.layout.fragment_location_details, container, false);
+                View rootView = inflater.inflate(
+                        R.layout.fragment_location_details,
+                        container,
+                        false);
                 return rootView;
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
                 View rootView = inflater.inflate(R.layout.fragment_itemlist, container, false);
@@ -144,7 +151,9 @@ public class LocationActivity extends AppCompatActivity implements DonationsFrag
             } else {
                 View rootView = inflater.inflate(R.layout.fragment_location, container, false);
                 TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+                textView.setText(getString(
+                        R.string.section_format,
+                        getArguments().getInt(ARG_SECTION_NUMBER)));
                 return rootView;
             }
         }

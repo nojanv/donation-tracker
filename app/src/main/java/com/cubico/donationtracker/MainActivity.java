@@ -58,13 +58,18 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
         if (current != null) {
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(current.getUid());
+            DatabaseReference userRef = FirebaseDatabase
+                                        .getInstance()
+                                        .getReference("Users")
+                                        .child(current.getUid());
             userRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     user = dataSnapshot.getValue(User.class);
                     String firstName = user.getName().split(" ")[0];
-                    setTitle(String.format("Welcome %s (%s)", firstName, user.getAccountType().getName()));
+                    setTitle(String.format("Welcome %s (%s)",
+                                            firstName,
+                                            user.getAccountType().getName()));
                 }
 
                 @Override

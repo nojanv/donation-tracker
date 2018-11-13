@@ -6,12 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.cubico.donationtracker.MainActivity"
-    tools:showIn="@layout/activity_main">
-
-    <ListView
-        android:id="@+id/locationList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    tools:context=".MapActivity"
+    tools:showIn="@layout/activity_map">
 
 </android.support.constraint.ConstraintLayout>

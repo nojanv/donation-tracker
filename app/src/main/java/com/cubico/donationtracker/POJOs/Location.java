@@ -19,7 +19,8 @@ public class Location implements Parcelable {
     private String website;
     private ArrayList<DonationItem> donations;
 
-    Location(int key, String name, float lat, float longitude, String address, String city, String state, int zip, LocationType type, String phone, String website) {
+    Location(int key, String name, float lat, float longitude, String address, String city,
+             String state, int zip, LocationType type, String phone, String website) {
         this.key = key;
         this.name = name;
         this.lat = lat;

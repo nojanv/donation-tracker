@@ -196,40 +196,46 @@ public class RegisterActivity extends AppCompatActivity{
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // store the additional fields in firebase as well
-                                AccountType type = null;
-                                for (AccountType t : AccountType.values()) {
-                                    if (t.getName().equals(accountType)) {
-                                        type = t;
-                                    }
+                        if (task.isSuccessful()) {
+                            // store the additional fields in firebase as well
+                            AccountType type = null;
+                            for (AccountType t : AccountType.values()) {
+                                if (t.getName().equals(accountType)) {
+                                    type = t;
                                 }
-                                type = type == null ? AccountType.USER : type;
-                                User newUser = new User(name, email, type);
-                                FirebaseDatabase.getInstance().getReference("Users")
-                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(RegisterActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-                                            finish();
-                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                        } else {
-                                            Log.d("TAG", task.getException() + "");
-                                            Toast.makeText(RegisterActivity.this, getString(R.string.firebase_inner_error), Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-                            } else if (!task.isSuccessful()){
-                                Log.d("EXCEPTION", task.getException() + "");
-                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    mEmailView.setError(getString(R.string.error_email_exists));
-                                    focusView = mEmailView;
-                                    focusView.requestFocus();
-                                }
-
                             }
+                            type = type == null ? AccountType.USER : type;
+                            User newUser = new User(name, email, type);
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(newUser)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(RegisterActivity.this,
+                                                getString(R.string.registration_success),
+                                                Toast.LENGTH_LONG).show();
+                                        finish();
+                                        startActivity(new Intent(getApplicationContext(),
+                                                LoginActivity.class));
+                                    } else {
+                                        Log.d("TAG", task.getException() + "");
+                                        Toast.makeText(RegisterActivity.this,
+                                                getString(R.string.firebase_inner_error),
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                        } else if (!task.isSuccessful()){
+                            Log.d("EXCEPTION", task.getException() + "");
+                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                mEmailView.setError(getString(R.string.error_email_exists));
+                                focusView = mEmailView;
+                                focusView.requestFocus();
+                            }
+
+                        }
                         }
                     });
         }

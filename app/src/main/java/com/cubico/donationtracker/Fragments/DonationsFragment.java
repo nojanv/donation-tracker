@@ -59,15 +59,18 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     SearchView searchDonations;
     Spinner modeSpinner;
 
+    /**
+     * A necessary empty public constructor
+     */
     public DonationsFragment() {
-        // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param location Parameter 1.
+     * @param accountType is the users account type
+     * @param location is the location of the fragment
      * @return A new instance of fragment DonationsFragment.
      */
     public static DonationsFragment newInstance(Location location, AccountType accountType) {
@@ -104,7 +107,8 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
 
         //initiate fab
         FloatingActionButton button = (FloatingActionButton) view.findViewById(R.id.addDonation);
-        if (accountType.equals(AccountType.LOCATION_EMPLOYEE) || accountType.equals(AccountType.ADMIN)) {
+        if (accountType.equals(AccountType.LOCATION_EMPLOYEE) ||
+            accountType.equals(AccountType.ADMIN)) {
             button.setVisibility(View.VISIBLE);
         }
         button.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +122,8 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
 
         //initiate donation list view
         donationListView = (ListView) view.findViewById(R.id.donations);
-        donationAdapter = new DonationAdapter((ArrayList<DonationItem>) donations, getActivity().getApplicationContext());
+        donationAdapter = new DonationAdapter((ArrayList<DonationItem>) donations,
+                                              getActivity().getApplicationContext());
         if (donations.size() > 0) {
             donationListView.setAdapter(donationAdapter);
         }
@@ -138,7 +143,8 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         searchDonations.setOnQueryTextListener(this);
 
         modeSpinner = (Spinner) view.findViewById(R.id.searchMode);
-        ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(),
+        ArrayAdapter<CharSequence> accAdapter =
+                ArrayAdapter.createFromResource(getActivity().getBaseContext(),
                 R.array.searchMode_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeSpinner.setAdapter(accAdapter);
@@ -184,12 +190,20 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         }
     }
 
+    /**
+     * A void methon to happen after donation is added
+     * @param item is the donation item added
+     */
     public void donationAdded(DonationItem item) {
         if (mListener != null) {
             mListener.onDonationAdd(item);
         }
     }
 
+    /**
+     * An update donations method to update all donations
+     * @param donations is the list of evident donations
+     */
     public void updateDonations(ArrayList<DonationItem> donations) {
         donationAdapter = new DonationAdapter(donations, getActivity().getApplicationContext());
         donationListView.setAdapter(donationAdapter);
@@ -223,6 +237,10 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface DonationAddListener {
+        /**
+         * Method that must be implemented in subsequent calls
+         * @param item is the donation item that is added
+         */
         void onDonationAdd(DonationItem item);
     }
 }

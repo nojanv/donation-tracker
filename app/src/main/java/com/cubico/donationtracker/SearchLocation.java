@@ -41,7 +41,6 @@ public class SearchLocation extends Fragment {
      * @param donations Parameter 1.
      * @return A new instance of fragment SearchLocation.
      */
-    // TODO: Rename and change types and number of parameters
     public static SearchLocation newInstance(List<DonationItem> donations) {
         SearchLocation fragment = new SearchLocation();
         Bundle args = new Bundle();
@@ -65,7 +64,6 @@ public class SearchLocation extends Fragment {
         return inflater.inflate(R.layout.fragment_search_location, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -100,7 +98,6 @@ public class SearchLocation extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

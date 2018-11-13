@@ -22,7 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A class that comprises of all donations
+ */
 public class AllDonations extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     ListView listView;
@@ -45,7 +47,6 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_all_donations);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +62,10 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
 
         ref.addValueEventListener(new ValueEventListener() {
+            /**
+             * Updates data on screen when database changed
+             * @param DataSnapshot dataSnapshot
+             */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -74,7 +79,10 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
                 listView.setAdapter(donationAdapter);
             }
 
-
+            /**
+             * Do nothing when cancelled
+             * @param DatabaseError databaseError
+             */
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -90,12 +98,23 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeSpinner.setAdapter(accAdapter);
         modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Gets selected string when clicked and sets as filter mode
+             * @param AdapterView parent
+             * @param View view
+             * @param int position
+             * @param long id
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String mode = modeSpinner.getSelectedItem().toString();
                 donationAdapter.getFilter().setMode(mode.equals("By Name"));
             }
 
+            /**
+             * DOes nothing when nothing is done to spinner
+             * @param AdapterView parent
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -105,16 +124,28 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
     }
 
+    /**
+     * Does action once searchview is submitted, must have in order to implement query text listener
+     * @param String s
+     * @return false (void method that always returns false)
+     */
     @Override
     public boolean onQueryTextSubmit(String s) {
         return false;
     }
 
+    /**
+     * Takes char sequence from edit text every time the text is altered and updates filter
+     * @param String s
+     * @return false (void method that always returns false)
+     */
     @Override
     public boolean onQueryTextChange(String s) {
         donationAdapter.getFilter().filter(s);
         if (donationAdapter.getFilter().isEmpty()) {
-            Toast.makeText(AllDonations.this, "No items match this text", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AllDonations.this,
+                            "No items match this text",
+                            Toast.LENGTH_SHORT).show();
         }
         return false;
     }

@@ -19,6 +19,9 @@ import java.util.List;
 
 import com.cubico.donationtracker.POJOs.DonationItem;
 
+/**
+ * Adapter for donation list view
+ */
 public class DonationAdapter extends BaseAdapter implements View.OnClickListener, Filterable {
 
     private List<DonationItem> donations;
@@ -33,6 +36,11 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
         TextView txtName;
     }
 
+    /**
+     * Public adapter constructor for donation
+     * @param donations is a list of donation items
+     * @param context in which method is called
+     */
     public DonationAdapter(List<DonationItem> donations, Context context) {
         this.donations = donations;
         donationsCopy = donations;
@@ -89,7 +97,8 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
             result = convertView;
         }
 
-        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+        Animation animation = AnimationUtils.loadAnimation(mContext,
+                (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
 //        result.startAnimation(animation);
         lastPosition = position;
 
@@ -119,9 +128,11 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
                 empty = false;
                 for (int i = 0; i < donationsCopy.size(); i++) {
                     DonationItem item = donationsCopy.get(i);
-                    if ((name && item.getName().toUpperCase().contains(constraint)) || (!name && item.getItemType().toString().toUpperCase().contains(constraint))) {
-
-
+                    if ((name && item.getName().toUpperCase().contains(constraint)) ||
+                            (!name && item.getItemType()
+                                          .toString()
+                                          .toUpperCase()
+                                          .contains(constraint))) {
 
                         DonationItem curr = donationsCopy.get(i);
                         Log.d("item matches", curr.getName());
@@ -157,11 +168,20 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
 
         }
 
+        /**
+         * set mode function for donation adapter
+         * @param nameMode that we want to set mode to
+         */
         public void setMode(boolean nameMode) {
             name = nameMode;
         }
 
-        public boolean isEmpty() { return empty; }
-
+        /**
+         * Returns if adapter is empty
+         * @return boolean representation of empty
+         */
+        public boolean isEmpty() {
+            return empty;
+        }
     }
 }

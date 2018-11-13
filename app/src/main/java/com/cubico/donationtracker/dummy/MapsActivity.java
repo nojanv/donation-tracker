@@ -59,17 +59,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         float zoom = 11;
 
-        Marker afdStation4 = mMap.addMarker(new MarkerOptions().position(afd).title("AFD Station 4").snippet("(404) 555 - 3456"));
+        Marker afdStation4 = mMap.addMarker(new MarkerOptions()
+                                            .position(afd)
+                                            .title("AFD Station 4")
+                                            .snippet("(404) 555 - 3456"));
 
-        Marker boysAndGirlsClub = mMap.addMarker(new MarkerOptions().position(bgclub).title("Boys & Girls Club W.W. Woolfolk").snippet("(404) 555 - 1234"));
+        Marker boysAndGirlsClub = mMap.addMarker(new MarkerOptions()
+                                        .position(bgclub).title("Boys & Girls Club W.W. Woolfolk")
+                                        .snippet("(404) 555 - 1234"));
 
-        Marker pathwayUpper = mMap.addMarker(new MarkerOptions().position(pathway).title("Pathway Upper Room Christian Ministries ").snippet("(404) 555 - 5432"));
+        Marker pathwayUpper = mMap.addMarker(new MarkerOptions()
+                                .position(pathway).title("Pathway Upper Room Christian Ministries ")
+                                .snippet("(404) 555 - 5432"));
 
-        Marker pavilionOfHope = mMap.addMarker(new MarkerOptions().position(pavilion).title("Pavilion of Hope Inc").snippet("(404) 555 - 8765"));
+        Marker pavilionOfHope = mMap.addMarker(new MarkerOptions()
+                                .position(pavilion).title("Pavilion of Hope Inc")
+                                .snippet("(404) 555 - 8765"));
 
-        Marker dAndD = mMap.addMarker(new MarkerOptions().position(dd).title("D&D Convenience Store").snippet("(404) 555 - 9876"));
+        Marker dAndD = mMap.addMarker(new MarkerOptions()
+                                .position(dd).title("D&D Convenience Store")
+                                .snippet("(404) 555 - 9876"));
 
-        Marker northFulton = mMap.addMarker(new MarkerOptions().position(kNFB).title("Keep North Fulton Beautiful").snippet("(770) 555 - 7321"));
+        Marker northFulton = mMap.addMarker(new MarkerOptions()
+                                .position(kNFB).title("Keep North Fulton Beautiful")
+                                .snippet("(770) 555 - 7321"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(afd, zoom));
 

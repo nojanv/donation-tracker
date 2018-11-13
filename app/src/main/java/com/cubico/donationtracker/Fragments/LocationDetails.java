@@ -23,11 +23,9 @@ import com.cubico.donationtracker.R;
  * create an instance of this fragment.
  */
 public class LocationDetails extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "location";
 
-    // TODO: Rename and change types of parameters
     private Location location;
 
 
@@ -43,7 +41,6 @@ public class LocationDetails extends Fragment {
      * @param location Parameter 1.
      * @return A new instance of fragment LocationDetails.
      */
-    // TODO: Rename and change types and number of parameters
     public static LocationDetails newInstance(Location location) {
         LocationDetails fragment = new LocationDetails();
         Bundle args = new Bundle();
@@ -79,6 +76,7 @@ public class LocationDetails extends Fragment {
 
 
 
+    @SuppressWarnings("FeatureEnvy")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -88,13 +86,19 @@ public class LocationDetails extends Fragment {
         TextView type = view.findViewById(R.id.locationType);
         type.setText(location.getType().getName());
         TextView message = view.findViewById(R.id.message);
-        message.setText(String.format("Call %s to get started on your donation.", location.getPhone()));
+        message.setText(String.format("Call %s to get started on your donation.",
+                location.getPhone()));
         TextView address = view.findViewById(R.id.locationAddress);
         address.setText(location.getAddress());
         TextView cityStateZip = view.findViewById(R.id.locationCityStateZip);
-        cityStateZip.setText(String.format("%s, %s %d", location.getCity(), location.getState(), location.getZip()) );
+        cityStateZip.setText(String.format("%s, %s %d",
+                location.getCity(),
+                location.getState(),
+                location.getZip()) );
         TextView latLong = view.findViewById(R.id.locationLatLong);
-        latLong.setText(String.format("%s, %s", location.getLat(), location.getLongitude()));
+        latLong.setText(String.format("%s, %s",
+                location.getLat(),
+                location.getLongitude()));
     }
 
     @Override

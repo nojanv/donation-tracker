@@ -9,7 +9,6 @@ import java.util.Map;
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>
- * TODO: Replace all uses of this class before publishing your app.
  */
 public class DummyContent {
 
@@ -58,6 +57,12 @@ public class DummyContent {
         public final String content;
         public final String details;
 
+        /**
+         * A public constructor for a dummy item
+         * @param id is the id of the item
+         * @param content is the content string of item
+         * @param details is the details string of item
+         */
         public DummyItem(String id, String content, String details) {
             this.id = id;
             this.content = content;

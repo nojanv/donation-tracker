@@ -3,11 +3,15 @@ package com.cubico.donationtracker.POJOs;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Account type enum
+ */
 public enum AccountType implements Parcelable{
     USER("User"), ADMIN("Admin"), LOCATION_EMPLOYEE("Location Employee");
 
     private String name;
-    public static final Parcelable.Creator<AccountType> CREATOR = new Parcelable.Creator<AccountType>() {
+    public static final Parcelable.Creator<AccountType> CREATOR =
+            new Parcelable.Creator<AccountType>() {
         public AccountType createFromParcel(Parcel in) {
             String inName = in.readString();
             for (AccountType type : AccountType.values()) {
@@ -37,7 +41,7 @@ public enum AccountType implements Parcelable{
         dest.writeString(name);
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 

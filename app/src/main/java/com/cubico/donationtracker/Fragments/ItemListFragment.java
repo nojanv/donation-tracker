@@ -23,9 +23,7 @@ import com.cubico.donationtracker.dummy.DummyContent.DummyItem;
  */
 public class ItemListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -36,7 +34,11 @@ public class ItemListFragment extends Fragment {
     public ItemListFragment() {
     }
 
-    // TODO: Customize parameter initialization
+    /**
+     * newInstance method for fragmenr
+     * @param columnCount is amount of columns wanted in fragment
+     * @return fragment thats needed by application
+     */
     @SuppressWarnings("unused")
     public static ItemListFragment newInstance(int columnCount) {
         ItemListFragment fragment = new ItemListFragment();
@@ -69,7 +71,9 @@ public class ItemListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(
+                    new MyItemListRecyclerViewAdapter(
+                            DummyContent.ITEMS, mListener));
         }
         return view;
     }
@@ -103,7 +107,10 @@ public class ItemListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
+        /**
+         * necessary method header for subsequent implementations
+         * @param item is dummy item that is being interacted with
+         */
         void onListFragmentInteraction(DummyItem item);
     }
 }

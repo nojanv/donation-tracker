@@ -7,7 +7,8 @@ public enum LocationType implements Parcelable {
     DROP_OFF ("Drop Off"), STORE("Store"), WAREHOUSE("Warehouse");
 
     private String name;
-    public static final Parcelable.Creator<LocationType> CREATOR = new Parcelable.Creator<LocationType>() {
+    public static final Parcelable.Creator<LocationType> CREATOR =
+            new Parcelable.Creator<LocationType>() {
         public LocationType createFromParcel(Parcel in) {
             String inName = in.readString();
             for(LocationType type: LocationType.values()) {

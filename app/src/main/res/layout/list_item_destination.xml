@@ -14,7 +14,8 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         app:srcCompat="@drawable/atlanta"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:contentDescription="TODO" />
 
     <TextView
         android:layout_width="match_parent"

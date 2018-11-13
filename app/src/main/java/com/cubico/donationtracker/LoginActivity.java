@@ -140,7 +140,9 @@ public class LoginActivity extends AppCompatActivity{
                                 startActivity(intent);
                             } else {
                                 Log.w(TAG, "signInError", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentification failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,
+                                        "Authentification failed.",
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
