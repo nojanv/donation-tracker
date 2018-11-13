@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.cubico.donationtracker.POJOs.DonationItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -25,7 +26,7 @@ public class SearchLocation extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String DONATION_ARG = "donations";
 
-    private ArrayList<DonationItem> donations;
+    private List<DonationItem> donations;
 
     private OnFragmentInteractionListener mListener;
 
@@ -41,10 +42,10 @@ public class SearchLocation extends Fragment {
      * @return A new instance of fragment SearchLocation.
      */
     // TODO: Rename and change types and number of parameters
-    public static SearchLocation newInstance(ArrayList<DonationItem> donations) {
+    public static SearchLocation newInstance(List<DonationItem> donations) {
         SearchLocation fragment = new SearchLocation();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(DONATION_ARG, donations);
+        args.putParcelableArrayList(DONATION_ARG, (ArrayList<DonationItem>) donations);
         fragment.setArguments(args);
         return fragment;
     }

@@ -13,10 +13,11 @@ import android.widget.Toast;
 import com.cubico.donationtracker.POJOs.Location;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{
 
-    private ArrayList<Location> dataSet;
+    private List<Location> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -24,7 +25,7 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
         TextView txtName;
     }
 
-    public LocationAdapter(ArrayList<Location> data, Context context) {
+    public LocationAdapter(List<Location> data, Context context) {
         super(context, R.layout.list_item_destination, data);
         this.dataSet = data;
         this.mContext=context;

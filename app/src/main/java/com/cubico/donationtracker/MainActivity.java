@@ -54,13 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, AllDonations.class));
             }
         });
-        FloatingActionButton mapFab = findViewById(R.id.mapFAB);
-        mapFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MapsActivity.class));
-            }
-        });
 
 
         FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
@@ -100,10 +93,18 @@ public class MainActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        FloatingActionButton mapFab = findViewById(R.id.mapFAB);
+        mapFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                intent.putExtra("locations", list.toArray());
+                startActivity(intent);
             }
         });
 

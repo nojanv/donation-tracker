@@ -21,7 +21,7 @@ import com.cubico.donationtracker.POJOs.DonationItem;
 
 public class DonationAdapter extends BaseAdapter implements View.OnClickListener, Filterable {
 
-    private ArrayList<DonationItem> donations;
+    private List<DonationItem> donations;
     private List<DonationItem> donationsCopy;
     private Context mContext;
     private ValueFilter valueFilter;
@@ -33,7 +33,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
         TextView txtName;
     }
 
-    public DonationAdapter(ArrayList<DonationItem> donations, Context context) {
+    public DonationAdapter(List<DonationItem> donations, Context context) {
         this.donations = donations;
         donationsCopy = donations;
         this.mContext = context;
@@ -114,7 +114,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
             FilterResults results = new FilterResults();
 
             if (constraint != null && constraint.length() > 0) {
-                ArrayList<DonationItem> filterList = new ArrayList<DonationItem>();
+                List<DonationItem> filterList = new ArrayList<DonationItem>();
                 constraint = constraint.toString().toUpperCase();
                 empty = false;
                 for (int i = 0; i < donationsCopy.size(); i++) {

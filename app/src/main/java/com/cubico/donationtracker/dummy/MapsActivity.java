@@ -3,6 +3,7 @@ package com.cubico.donationtracker.dummy;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.cubico.donationtracker.POJOs.Location;
 import com.cubico.donationtracker.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,9 +13,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private List<Location> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+//        Bundle bundle = getIntent().getExtras();
+//        Location[] locationArray = (Location[]) bundle.getParcelableArray("locations");
+//        for (Location l : locationArray) {
+//            locations.add(l);
+//        }
     }
 
     /**
@@ -40,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
         LatLng afd = new LatLng(33.7541618347168, -84.3774185180664);
+        //LatLng afd = new LatLng(locations.get(0).getLat(), locations.get(0).getLongitude());
         LatLng bgclub= new LatLng(33.73181915283203, -84.43971252441406);
         LatLng pathway = new LatLng(33.70866012573242, -84.41853332519531);
         LatLng pavilion = new LatLng(33.80128860473633, -84.25537109375);
