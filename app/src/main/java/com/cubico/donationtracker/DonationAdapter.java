@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -28,8 +27,6 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
     private List<DonationItem> donationsCopy;
     private Context mContext;
     private ValueFilter valueFilter;
-
-    private TextView msg;
 
     // View lookup cache
     private static class ViewHolder {

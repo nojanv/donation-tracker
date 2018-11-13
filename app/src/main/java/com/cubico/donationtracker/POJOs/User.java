@@ -3,6 +3,9 @@ package com.cubico.donationtracker.POJOs;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * A class representing individual users of the application
+ */
 public class User implements Parcelable{
     private String name;
     private String email;
@@ -19,15 +22,19 @@ public class User implements Parcelable{
         }
     };
 
-    User () {
-
-    }
+    /**
+     * Constructor for User
+     * @param name of user
+     * @param password of user
+     * @param accountType of user
+     */
     public User(String name, String password, AccountType accountType) {
         this.name = name;
         this.email = email;
         this.accountType = accountType;
     }
-    public User(Parcel in) {
+
+    private User(Parcel in) {
         this.name = in.readString();
         this.email = in.readString();
         this.accountType = in.readParcelable(AccountType.class.getClassLoader());
@@ -45,14 +52,26 @@ public class User implements Parcelable{
         dest.writeParcelable(accountType, flags);
     }
 
+    /**
+     * Get the name of user
+     * @return string representation of name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the email of user
+     * @return string representation of email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Get the account of user
+     * @return AccountType representation of account
+     */
     public AccountType getAccountType() {
         return accountType;
     }

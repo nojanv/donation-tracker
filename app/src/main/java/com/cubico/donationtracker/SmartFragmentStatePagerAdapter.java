@@ -11,10 +11,18 @@ import android.view.ViewGroup;
    all active fragments and manages the fragment lifecycles.
    Usage involves extending from SmartFragmentStatePagerAdapter as you would any other PagerAdapter.
 */
+
+/**
+ * Smart Fragment adapter for tabbed view
+ */
 public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     // Sparse array to keep track of registered fragments in memory
     private SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
 
+    /**
+     * Constructor for class
+     * @param fragmentManager is the manager the fragments are within
+     */
     public SmartFragmentStatePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
@@ -35,6 +43,12 @@ public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerA
     }
 
     // Returns the fragment for the position (if instantiated)
+
+    /**
+     * Returns fragment
+     * @param position within adapter
+     * @return specific fragment in the position
+     */
     public Fragment getRegisteredFragment(int position) {
         return registeredFragments.get(position);
     }

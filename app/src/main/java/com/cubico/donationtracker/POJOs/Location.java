@@ -86,7 +86,6 @@ public class Location implements Parcelable {
         return this.hashCode();
     }
 
-
     public String toString() {
         return String.format(name);
     }

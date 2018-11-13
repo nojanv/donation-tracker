@@ -30,6 +30,9 @@ public class SearchLocation extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * required empty public constructor
+     */
     public SearchLocation() {
         // Required empty public constructor
     }
@@ -62,12 +65,6 @@ public class SearchLocation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search_location, container, false);
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override

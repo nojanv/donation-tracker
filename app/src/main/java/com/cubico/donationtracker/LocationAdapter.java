@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.cubico.donationtracker.POJOs.Location;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{

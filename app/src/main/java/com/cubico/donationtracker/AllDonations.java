@@ -36,9 +36,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
     DonationAdapter donationAdapter;
 
-    public Location location;
-    public List<DonationItem> donations;
-
+    private Location location;
 
     SearchView searchDonations;
     Spinner modeSpinner;
@@ -64,12 +62,12 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
         ref.addValueEventListener(new ValueEventListener() {
             /**
              * Updates data on screen when database changed
-             * @param DataSnapshot dataSnapshot
+             * @param dataSnapshot is the snapshot of data used by methof
              */
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Location location = ds.getValue(Location.class);
+                    location = ds.getValue(Location.class);
                     list.add(location);
                     if (location.getDonations() != null) {
                         list2.addAll(location.getDonations());
@@ -81,7 +79,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
             /**
              * Do nothing when cancelled
-             * @param DatabaseError databaseError
+             * @param databaseError is the error that is passed through to the method
              */
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -100,10 +98,10 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
         modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             /**
              * Gets selected string when clicked and sets as filter mode
-             * @param AdapterView parent
-             * @param View view
-             * @param int position
-             * @param long id
+             * @param parent in which the class exists
+             * @param view in which the method is being called
+             * @param position in the listview
+             * @param id id of the item within the list
              */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -113,7 +111,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
             /**
              * DOes nothing when nothing is done to spinner
-             * @param AdapterView parent
+             * @param parent on which nothing is selected
              */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -126,7 +124,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
     /**
      * Does action once searchview is submitted, must have in order to implement query text listener
-     * @param String s
+     * @param s is the string passed to the method once submitted
      * @return false (void method that always returns false)
      */
     @Override
@@ -136,7 +134,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
     /**
      * Takes char sequence from edit text every time the text is altered and updates filter
-     * @param String s
+     * @param s passed to the method everytime the query text is altered
      * @return false (void method that always returns false)
      */
     @Override

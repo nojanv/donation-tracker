@@ -41,7 +41,11 @@ public enum AccountType implements Parcelable{
         dest.writeString(name);
     }
 
-    private String getName() {
+    /**
+     * Get name of account type
+     * @return string representation of name
+     */
+    public String getName() {
         return name;
     }
 
