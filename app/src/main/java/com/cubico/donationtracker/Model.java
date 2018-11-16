@@ -6,9 +6,16 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class for validation, i.e. donation items added are acceptable
+ */
 public class Model extends Activity {
     private static final Model ourInstance = new Model();
 
+    /**
+     * Used to get instance of model
+     * @return an instance of model
+     */
     public static Model getInstance() {
         return ourInstance;
     }
@@ -17,6 +24,7 @@ public class Model extends Activity {
      * Constructor for model
      */
     public Model() {
+
     }
 
 
