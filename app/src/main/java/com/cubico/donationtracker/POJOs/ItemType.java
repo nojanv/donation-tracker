@@ -15,7 +15,7 @@ public enum ItemType implements Parcelable{
     KITCHEN("Kitchen"),
     OTHER("Other");
 
-    private String name;
+    private final String name;
     public static final Parcelable.Creator<ItemType> CREATOR = new Parcelable.Creator<ItemType>() {
         public ItemType createFromParcel(Parcel in) {
             String ab = in.readString();

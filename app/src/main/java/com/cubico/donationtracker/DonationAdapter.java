@@ -25,8 +25,8 @@ import com.cubico.donationtracker.POJOs.DonationItem;
 public class DonationAdapter extends BaseAdapter implements View.OnClickListener, Filterable {
 
     private List<DonationItem> donations;
-    private List<DonationItem> donationsCopy;
-    private Context mContext;
+    private final List<DonationItem> donationsCopy;
+    private final Context mContext;
     private ValueFilter valueFilter;
 
     // View lookup cache

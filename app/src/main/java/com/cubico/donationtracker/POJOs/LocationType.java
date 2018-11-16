@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public enum LocationType implements Parcelable {
     DROP_OFF ("Drop Off"), STORE("Store"), WAREHOUSE("Warehouse");
 
-    private String name;
+    private final String name;
     public static final Parcelable.Creator<LocationType> CREATOR =
             new Parcelable.Creator<LocationType>() {
         public LocationType createFromParcel(Parcel in) {
