@@ -106,7 +106,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String mode = modeSpinner.getSelectedItem().toString();
-                donationAdapter.getFilter().setMode(mode.equals("By Name"));
+                donationAdapter.getFilter().setMode("By Name".equals(mode));
             }
 
             /**
