@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                intent.putExtra("locations", list.toArray());
+                intent.putParcelableArrayListExtra("locations", list);
                 startActivity(intent);
             }
         });
