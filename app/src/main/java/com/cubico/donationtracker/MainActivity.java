@@ -33,12 +33,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
-    FirebaseDatabase database;
-    DatabaseReference ref;
-    User user;
-    ArrayList<Location> list;
-    ArrayAdapter<Location> adapter;
+    private ListView listView;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
+    private User user;
+    private ArrayList<Location> list;
+    private ArrayAdapter<Location> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

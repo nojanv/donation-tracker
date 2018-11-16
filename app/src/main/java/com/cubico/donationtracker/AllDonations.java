@@ -27,19 +27,19 @@ import java.util.List;
  */
 public class AllDonations extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-    ListView listView;
-    FirebaseDatabase database;
-    DatabaseReference ref;
-    ArrayList<Location> list;
-    ArrayList<DonationItem> list2;
-    ArrayAdapter<Location> adapter;
+    private ListView listView;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
+    private ArrayList<Location> list;
+    private ArrayList<DonationItem> list2;
+    private ArrayAdapter<Location> adapter;
 
-    DonationAdapter donationAdapter;
+    private DonationAdapter donationAdapter;
 
     private Location location;
 
-    SearchView searchDonations;
-    Spinner modeSpinner;
+    private SearchView searchDonations;
+    private Spinner modeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

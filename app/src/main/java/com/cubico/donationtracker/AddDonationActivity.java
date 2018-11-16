@@ -39,7 +39,7 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private Location location;
 
-    public Model validService;
+    private Model validService;
 
 
     @Override

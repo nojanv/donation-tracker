@@ -15,7 +15,7 @@ import com.cubico.donationtracker.POJOs.DonationItem;
  */
 public class DonationViewActivity extends AppCompatActivity {
 
-    DonationItem donation;
+    private DonationItem donation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

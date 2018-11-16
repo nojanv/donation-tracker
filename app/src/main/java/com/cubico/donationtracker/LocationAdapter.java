@@ -14,9 +14,9 @@ import com.cubico.donationtracker.POJOs.Location;
 
 import java.util.List;
 
-public class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{
+class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{
 
-    Context mContext;
+    private Context mContext;
 
     // View lookup cache
     private static class ViewHolder {

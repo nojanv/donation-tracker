@@ -41,21 +41,21 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     private static final String LOCATION_ARG = "location";
     private static final String DONATION_ARG = "donations";
     private static final String ACCOUNT_ARG = "accountType";
-    static final int CREATE_DONATION_REQUEST = 1;
+    private static final int CREATE_DONATION_REQUEST = 1;
 
-    DonationAdapter donationAdapter;
+    private DonationAdapter donationAdapter;
 
-    public Location location;
-    public List<DonationItem> donations;
-    public AccountType accountType;
+    private Location location;
+    private List<DonationItem> donations;
+    private AccountType accountType;
 
     @Nullable
     private DonationAddListener mListener;
 
-    ListView donationListView;
+    private ListView donationListView;
 
-    SearchView searchDonations;
-    Spinner modeSpinner;
+    private SearchView searchDonations;
+    private Spinner modeSpinner;
 
     /**
      * A necessary empty public constructor
@@ -192,7 +192,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
      * A void methon to happen after donation is added
      * @param item is the donation item added
      */
-    public void donationAdded(DonationItem item) {
+    private void donationAdded(DonationItem item) {
         if (mListener != null) {
             mListener.onDonationAdd(item);
         }

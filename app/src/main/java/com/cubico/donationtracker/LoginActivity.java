@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity{
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-                        public static final String TAG = "";
+                        static final String TAG = "";
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {

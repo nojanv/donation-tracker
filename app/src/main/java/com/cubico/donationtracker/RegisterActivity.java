@@ -125,13 +125,14 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     @Nullable
+    private
     View focusView;
 
     /**
      * Creates the new user account with email and password.
 
      */
-    public void attemptRegistration() {
+    private void attemptRegistration() {
 
         // Reset errors.
         mEmailView.setError(null);

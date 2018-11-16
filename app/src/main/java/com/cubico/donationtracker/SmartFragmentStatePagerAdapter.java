@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 /**
  * Smart Fragment adapter for tabbed view
  */
-public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
+abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     // Sparse array to keep track of registered fragments in memory
     private final SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
 
@@ -23,7 +23,7 @@ public abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerA
      * Constructor for class
      * @param fragmentManager is the manager the fragments are within
      */
-    public SmartFragmentStatePagerAdapter(FragmentManager fragmentManager) {
+    SmartFragmentStatePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 

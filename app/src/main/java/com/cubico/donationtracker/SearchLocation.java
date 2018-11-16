@@ -94,7 +94,7 @@ public class SearchLocation extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    private interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
 }

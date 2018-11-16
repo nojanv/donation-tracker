@@ -11,7 +11,7 @@ public class Model extends Activity {
         return ourInstance;
     }
 
-    HashMap<String, String> credentials;
+    private HashMap<String, String> credentials;
 
     public Model() {
         credentials = new HashMap<>();
