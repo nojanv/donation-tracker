@@ -11,7 +11,7 @@ public class Model extends Activity {
         return ourInstance;
     }
 
-    HashMap<String, String> credentials;
+    private final HashMap<String, String> credentials;
 
     public Model() {
         credentials = new HashMap<>();
@@ -31,15 +31,13 @@ public class Model extends Activity {
         return credentials.get(email).equals(password);
     }
 
-    public boolean validDonation(float value, String name, String description) {
+    public boolean validDonation(float value, CharSequence name, CharSequence description) {
         if (value == 0) {
             return false;
         } else if (name.length() == 0) {
             return false;
-        } else if (description.length() == 0) {
-            return false;
         } else {
-            return true;
+            return description.length() != 0;
         }
     }
 }

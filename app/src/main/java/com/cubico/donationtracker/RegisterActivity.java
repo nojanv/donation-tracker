@@ -3,6 +3,7 @@ package com.cubico.donationtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,21 +39,17 @@ public class RegisterActivity extends AppCompatActivity{
     private EditText mPasswordView;
     private EditText ConfrimPasswordView;
     private Spinner mAccountSpinner;
-    private View mProgressView;
-    private View mRegisterFormView;
 
     // User variables
     private String name;
     private String email;
     private String accountType;
-    private String password;
-    private String cPassword;
 
     // Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference userRef = database.getReference("Users");
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference userRef = database.getReference("Users");
 
 
     @Override
@@ -85,8 +82,8 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-        mRegisterFormView = findViewById(R.id.register_form);
-        mProgressView = findViewById(R.id.register_progress);
+        View mRegisterFormView = findViewById(R.id.register_form);
+        View mProgressView = findViewById(R.id.register_progress);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -115,14 +112,15 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    public boolean isEmailValid(String email) {
+    private boolean isEmailValid(CharSequence email) {
         String expression = "^[\\w-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public boolean isPasswordValid(String password) {
+    private boolean isPasswordValid(CharSequence password) {
         if (password.length() >= 6) {
             Pattern letter = Pattern.compile("[a-zA-z]");
             Pattern digit = Pattern.compile("[0-9]");
@@ -137,14 +135,15 @@ public class RegisterActivity extends AppCompatActivity{
         return false;
     }
 
-
+    @Nullable
+    private
     View focusView;
 
     /**
      * Creates the new user account with email and password.
 
      */
-    public void attemptRegistration() {
+    private void attemptRegistration() {
 
         // Reset errors.
         mEmailView.setError(null);
@@ -154,8 +153,8 @@ public class RegisterActivity extends AppCompatActivity{
 
         name = mNameView.getText().toString();
         email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
-        cPassword = ConfrimPasswordView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        String cPassword = ConfrimPasswordView.getText().toString();
         accountType = mAccountSpinner.getSelectedItem().toString();
 
         boolean cancel = false;
@@ -197,7 +196,9 @@ public class RegisterActivity extends AppCompatActivity{
         }
 
         if (cancel) {
-            focusView.requestFocus();
+            if (focusView != null) {
+                focusView.requestFocus();
+            }
         } else {
 
 
@@ -218,7 +219,7 @@ public class RegisterActivity extends AppCompatActivity{
                         type = t;
                     }
                 }
-                type = type == null ? AccountType.USER : type;
+                type = (type == null) ? AccountType.USER : type;
                 User newUser = new User(name, email, type);
                 FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
                 if (current != null) {

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public enum LocationType implements Parcelable {
     DROP_OFF ("Drop Off"), STORE("Store"), WAREHOUSE("Warehouse");
 
-    private String name;
+    private final String name;
     public static final Parcelable.Creator<LocationType> CREATOR =
             new Parcelable.Creator<LocationType>() {
         @Override
@@ -33,7 +33,7 @@ public enum LocationType implements Parcelable {
         name = in.readString();
     }
 
-    public String getName() {return name;}
+    public CharSequence getName() {return name;}
 
     @Override
     public int describeContents() {

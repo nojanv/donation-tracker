@@ -96,7 +96,7 @@ public class Location implements Parcelable {
         return key;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return name;
     }
 
@@ -108,7 +108,7 @@ public class Location implements Parcelable {
         return longitude;
     }
 
-    public String getAddress() {
+    public CharSequence getAddress() {
         return address;
     }
 
@@ -146,7 +146,7 @@ public class Location implements Parcelable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Location)) {
+        if ((obj == null) || !(obj instanceof Location)) {
             return false;
         }
         Location that = (Location) obj;

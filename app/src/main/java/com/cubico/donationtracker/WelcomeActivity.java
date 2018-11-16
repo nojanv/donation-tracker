@@ -15,14 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class  WelcomeActivity extends AppCompatActivity {
 
-    // Firebase
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // if the user is on the welcome page, signout current firebase user
         // (BTW firebase auto-logins in upon registration)
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
 
         super.onCreate(savedInstanceState);

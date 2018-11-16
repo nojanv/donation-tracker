@@ -16,8 +16,6 @@ import com.cubico.donationtracker.POJOs.DonationItem;
  */
 public class DonationViewActivity extends AppCompatActivity {
 
-    DonationItem donation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +23,10 @@ public class DonationViewActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        donation = bundle == null ? new DonationItem() :
-                (DonationItem) bundle.getParcelable("donation");
+        DonationItem donation = (bundle == null) ? new DonationItem() : (DonationItem) bundle.getParcelable("donation");
 
         TextView name = findViewById(R.id.donation_name);
+        assert donation != null;
         name.setText(donation.getName());
 
         TextView description = findViewById(R.id.donation_quantity);

@@ -2,6 +2,7 @@ package com.cubico.donationtracker.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class LocationDetails extends Fragment {
      * @param location Parameter 1.
      * @return A new instance of fragment LocationDetails.
      */
-    public static LocationDetails newInstance(Location location) {
+    public static LocationDetails newInstance(Parcelable location) {
         LocationDetails fragment = new LocationDetails();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM1, location);
@@ -74,7 +75,6 @@ public class LocationDetails extends Fragment {
 
 
 
-    @SuppressWarnings("FeatureEnvy")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -98,16 +98,6 @@ public class LocationDetails extends Fragment {
         latLong.setText(String.format("%s, %s",
                 location.getLat(),
                 location.getLongitude()));
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
 }

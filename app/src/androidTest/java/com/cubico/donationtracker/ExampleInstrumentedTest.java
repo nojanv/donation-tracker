@@ -21,7 +21,7 @@ public class ExampleInstrumentedTest {
      * @throws Exception
      */
     @Test
-    public void useAppContext() throws Exception {
+    public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("com.cubico.donationtracker", appContext.getPackageName());

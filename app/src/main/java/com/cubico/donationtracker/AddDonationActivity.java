@@ -3,6 +3,7 @@ package com.cubico.donationtracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,17 +34,10 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private View mRegisterFormView;
 
-    // User variables
-    private String name;
     private int quantity;
-    private ItemType itemType = null;
+    private ItemType itemType;
 
-    private String timeStamp;
     private Location location;
-    private String fullDescription;
-    private float value;
-
-    public Model validService;
 
 
     @Override
@@ -68,7 +62,7 @@ public class AddDonationActivity extends AppCompatActivity {
                 itemType = t;
             }
         }
-        itemType = itemType == null ? ItemType.CLOTHING : itemType;
+        itemType = (itemType == null) ? ItemType.CLOTHING : itemType;
 
         Button createDonation = findViewById(R.id.create_donation_button);
         createDonation.setOnClickListener(new View.OnClickListener() {
@@ -93,20 +87,20 @@ public class AddDonationActivity extends AppCompatActivity {
     }
 
     private void createDonation() {
-        name = mNameView.getText().toString();
+        String name = mNameView.getText().toString();
         //location = mLocationView.getText().toString();
-        value = Float.parseFloat(mValueView.getText().toString());
+        float value = Float.parseFloat(mValueView.getText().toString());
 
-        fullDescription = mFullDescriptionView.getText().toString();
+        String fullDescription = mFullDescriptionView.getText().toString();
         Date date = new Date();
-        timeStamp = date.toString();
+        String timeStamp = date.toString();
         String type = mTypeSpinner.getSelectedItem().toString();
 
-        validService = new Model();
+        Model validService = new Model();
 
-        if (validService.validDonation(value, name, fullDescription) && location != null) {
-            itemType = itemType == null ? ItemType.OTHER : itemType;
-            DonationItem item = new DonationItem(
+        if (validService.validDonation(value, name, fullDescription) && (location != null)) {
+            itemType = (itemType == null) ? ItemType.OTHER : itemType;
+            Parcelable item = new DonationItem(
                     name,
                     timeStamp,
                     location.toString(),

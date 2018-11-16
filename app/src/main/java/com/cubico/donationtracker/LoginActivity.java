@@ -28,15 +28,11 @@ public class LoginActivity extends AppCompatActivity{
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
 
     // Firebase
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private String email;
-    private String password;
 
 
     @Override
@@ -63,7 +59,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                 String TAG = "debug";
-                if (user != null && currentUser != null) {
+                if ((user != null) && (currentUser != null)) {
                     Log.d("username", "username"+ currentUser.getDisplayName());
                     user = currentUser;
                 } else {
@@ -72,8 +68,8 @@ public class LoginActivity extends AppCompatActivity{
             }
         };
 
-        mLoginFormView = findViewById(R.id.register_form);
-        mProgressView = findViewById(R.id.register_progress);
+        View mLoginFormView = findViewById(R.id.register_form);
+        View mProgressView = findViewById(R.id.register_progress);
 
     }
 
@@ -98,8 +94,8 @@ public class LoginActivity extends AppCompatActivity{
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -134,7 +130,7 @@ public class LoginActivity extends AppCompatActivity{
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-                        public static final String TAG = "";
+                        static final String TAG = "";
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
@@ -152,14 +148,14 @@ public class LoginActivity extends AppCompatActivity{
         }
     }
 
-    public boolean isEmailValid(String email) {
+    public boolean isEmailValid(CharSequence email) {
         String expression = "^[\\w-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public boolean isPasswordValid(String password) {
+    public boolean isPasswordValid(CharSequence password) {
         if (password.length() >= 6) {
             Pattern letter = Pattern.compile("[a-zA-z]");
             Pattern digit = Pattern.compile("[0-9]");

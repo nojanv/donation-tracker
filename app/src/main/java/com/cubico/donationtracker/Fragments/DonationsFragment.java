@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -40,20 +41,20 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     private static final String LOCATION_ARG = "location";
     private static final String DONATION_ARG = "donations";
     private static final String ACCOUNT_ARG = "accountType";
-    static final int CREATE_DONATION_REQUEST = 1;
+    private static final int CREATE_DONATION_REQUEST = 1;
 
-    DonationAdapter donationAdapter;
+    private DonationAdapter donationAdapter;
 
-    public Location location;
-    public List<DonationItem> donations;
-    public AccountType accountType;
+    private Location location;
+    private List<DonationItem> donations;
+    private AccountType accountType;
 
+    @Nullable
     private DonationAddListener mListener;
 
-    ListView donationListView;
+    private ListView donationListView;
 
-    SearchView searchDonations;
-    Spinner modeSpinner;
+    private Spinner modeSpinner;
 
     /**
      * A necessary empty public constructor
@@ -69,7 +70,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
      * @param location is the location of the fragment
      * @return A new instance of fragment DonationsFragment.
      */
-    public static DonationsFragment newInstance(Location location, AccountType accountType) {
+    public static DonationsFragment newInstance(Location location, Parcelable accountType) {
         DonationsFragment fragment = new DonationsFragment();
         Bundle args = new Bundle();
         args.putParcelable(LOCATION_ARG, location);
@@ -121,13 +122,13 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         donationListView = view.findViewById(R.id.donations);
         donationAdapter = new DonationAdapter(donations,
                                               getActivity().getApplicationContext());
-        if (donations.size() > 0) {
+        if (!donations.isEmpty()) {
             donationListView.setAdapter(donationAdapter);
         }
         donationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DonationItem selected = (DonationItem) donationAdapter.getItem(position);
+                Parcelable selected = (DonationItem) donationAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), DonationViewActivity.class);
                 intent.putExtra("donation", selected);
                 getActivity().startActivity(intent);
@@ -136,7 +137,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         //String message = donations.size() > 0 ? "" : "No donations yet!";
 
         //search functionality
-        searchDonations = view.findViewById(R.id.donationSearch);
+        SearchView searchDonations = view.findViewById(R.id.donationSearch);
         searchDonations.setOnQueryTextListener(this);
 
         modeSpinner = view.findViewById(R.id.searchMode);
@@ -149,7 +150,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String mode = modeSpinner.getSelectedItem().toString();
-                donationAdapter.getFilter().setMode(mode.equals("By Name"));
+                donationAdapter.getFilter().setMode("By Name".equals(mode));
             }
 
             @Override
@@ -193,7 +194,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
      * A void methon to happen after donation is added
      * @param item is the donation item added
      */
-    public void donationAdded(DonationItem item) {
+    private void donationAdded(DonationItem item) {
         if (mListener != null) {
             mListener.onDonationAdd(item);
         }
