@@ -11,7 +11,7 @@ public class Model extends Activity {
         return ourInstance;
     }
 
-    private HashMap<String, String> credentials;
+    private final HashMap<String, String> credentials;
 
     public Model() {
         credentials = new HashMap<>();
@@ -36,6 +36,8 @@ public class Model extends Activity {
             return false;
         } else if (name.length() == 0) {
             return false;
-        } else return description.length() != 0;
+        } else {
+            return description.length() != 0;
+        }
     }
 }

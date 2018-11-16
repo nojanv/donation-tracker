@@ -16,7 +16,7 @@ import java.util.List;
 
 class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{
 
-    private Context mContext;
+    private final Context mContext;
 
     // View lookup cache
     private static class ViewHolder {
