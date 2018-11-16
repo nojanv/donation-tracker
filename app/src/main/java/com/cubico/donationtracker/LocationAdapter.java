@@ -25,7 +25,6 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
 
     public LocationAdapter(List<Location> data, Context context) {
         super(context, R.layout.list_item_destination, data);
-        List<Location> dataSet = data;
         this.mContext=context;
 
     }

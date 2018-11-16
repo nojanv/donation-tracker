@@ -134,14 +134,12 @@ public class LocationActivity
                                  Bundle savedInstanceState) {
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                View rootView = inflater.inflate(
+                return inflater.inflate(
                         R.layout.fragment_location_details,
                         container,
                         false);
-                return rootView;
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                View rootView = inflater.inflate(R.layout.fragment_itemlist, container, false);
-                return rootView;
+                return inflater.inflate(R.layout.fragment_itemlist, container, false);
             } else {
                 View rootView = inflater.inflate(R.layout.fragment_location, container, false);
                 TextView textView = (TextView) rootView.findViewById(R.id.section_label);
