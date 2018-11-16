@@ -23,10 +23,10 @@ public class DonationViewActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         DonationItem donation = bundle.getParcelable("donation");
 
-        TextView name = (TextView) findViewById(R.id.donation_name);
+        TextView name = findViewById(R.id.donation_name);
         name.setText(donation.getName());
 
-        TextView description = (TextView) findViewById(R.id.donation_quantity);
+        TextView description = findViewById(R.id.donation_quantity);
         String descText = "Description: " + donation.getFullDescription() +
                 "\nStamp: " + donation.getTimeStamp() +
                 "\nLocation: " + donation.getLocation() +
@@ -34,7 +34,7 @@ public class DonationViewActivity extends AppCompatActivity {
                 "\nType: " + donation.getItemType();
         description.setText(descText);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

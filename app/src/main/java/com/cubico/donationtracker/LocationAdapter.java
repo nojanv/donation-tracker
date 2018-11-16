@@ -56,14 +56,11 @@ class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickList
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView1 = inflater.inflate(R.layout.list_item_destination, parent, false);
-            viewHolder.txtName = (TextView) convertView1.findViewById(R.id.name);
-
-            result= convertView1;
+            viewHolder.txtName = convertView1.findViewById(R.id.name);
 
             convertView1.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView1.getTag();
-            result= convertView1;
         }
 
         Animation animation = AnimationUtils.loadAnimation(

@@ -86,14 +86,11 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView1 = inflater.inflate(R.layout.list_item_donation, parent, false);
-            viewHolder.txtName = (TextView) convertView1.findViewById(R.id.donation_name);
-
-            result = convertView1;
+            viewHolder.txtName = convertView1.findViewById(R.id.donation_name);
 
             convertView1.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView1.getTag();
-            result = convertView1;
         }
 
         Animation animation = AnimationUtils.loadAnimation(mContext,

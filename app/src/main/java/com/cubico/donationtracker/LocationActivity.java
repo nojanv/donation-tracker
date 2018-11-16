@@ -55,7 +55,7 @@ public class LocationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -65,10 +65,10 @@ public class LocationActivity
         /*
       The {@link ViewPager} that will host the section contents.
      */
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout
                 .TabLayoutOnPageChangeListener(tabLayout));
@@ -136,20 +136,21 @@ public class LocationActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                return inflater.inflate(
-                        R.layout.fragment_location_details,
-                        container,
-                        false);
-            } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                return inflater.inflate(R.layout.fragment_itemlist, container, false);
-            } else {
-                View rootView = inflater.inflate(R.layout.fragment_location, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(getString(
-                        R.string.section_format,
-                        getArguments().getInt(ARG_SECTION_NUMBER)));
-                return rootView;
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+                case 1:
+                    return inflater.inflate(
+                            R.layout.fragment_location_details,
+                            container,
+                            false);
+                case 2:
+                    return inflater.inflate(R.layout.fragment_itemlist, container, false);
+                default:
+                    View rootView = inflater.inflate(R.layout.fragment_location, container, false);
+                    TextView textView = rootView.findViewById(R.id.section_label);
+                    textView.setText(getString(
+                            R.string.section_format,
+                            getArguments().getInt(ARG_SECTION_NUMBER)));
+                    return rootView;
             }
         }
     }
@@ -168,12 +169,13 @@ public class LocationActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0) {
-                return LocationDetails.newInstance(location);
-            } else if (position == 1) {
-                return DonationsFragment.newInstance(location, user.getAccountType());
-            } else {
-                return PlaceholderFragment.newInstance(position);
+            switch (position) {
+                case 0:
+                    return LocationDetails.newInstance(location);
+                case 1:
+                    return DonationsFragment.newInstance(location, user.getAccountType());
+                default:
+                    return PlaceholderFragment.newInstance(position);
             }
         }
 

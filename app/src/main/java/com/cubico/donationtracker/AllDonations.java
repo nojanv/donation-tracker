@@ -41,7 +41,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_all_donations);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         listView = findViewById(R.id.allDonations);
@@ -82,10 +82,10 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        SearchView searchDonations = (SearchView) findViewById(R.id.donationSearch2);
+        SearchView searchDonations = findViewById(R.id.donationSearch2);
         searchDonations.setOnQueryTextListener(this);
 
-        modeSpinner = (Spinner) findViewById(R.id.searchMode2);
+        modeSpinner = findViewById(R.id.searchMode2);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(AllDonations.this,
                 R.array.searchMode_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

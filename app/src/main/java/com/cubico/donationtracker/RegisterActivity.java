@@ -57,14 +57,14 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mNameView = (AutoCompleteTextView) findViewById(R.id.name);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mConfrimPasswordView = (EditText) findViewById(R.id.confirm_password);
+        mEmailView = findViewById(R.id.email);
+        mNameView = findViewById(R.id.name);
+        mPasswordView = findViewById(R.id.password);
+        mConfrimPasswordView = findViewById(R.id.confirm_password);
 
 
 
-        mAccountSpinner = (Spinner) findViewById(R.id.acc_type);
+        mAccountSpinner = findViewById(R.id.acc_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
                 R.array.acctypes_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity{
         accountType = mAccountSpinner.getSelectedItem().toString();
 
 
-        Button mEmailRegisterButton = (Button) findViewById(R.id.email_register_button);
+        Button mEmailRegisterButton = findViewById(R.id.email_register_button);
 
         mEmailRegisterButton.setOnClickListener(new OnClickListener() {
             @Override

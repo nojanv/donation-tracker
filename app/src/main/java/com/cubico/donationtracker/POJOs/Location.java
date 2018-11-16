@@ -92,7 +92,7 @@ public class Location implements Parcelable {
     }
 
     public String toString() {
-        return String.format(name);
+        return name;
     }
 
     /**
@@ -193,7 +193,7 @@ public class Location implements Parcelable {
             return false;
         }
         Location that = (Location) obj;
-        return this.name.equals(that.getName());
+        return this.name.contentEquals(that.getName());
     }
 }
 

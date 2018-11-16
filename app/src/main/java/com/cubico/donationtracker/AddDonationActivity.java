@@ -50,12 +50,12 @@ public class AddDonationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        mNameView = (AutoCompleteTextView) findViewById(R.id.item_description);
+        mNameView = findViewById(R.id.item_description);
         //mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
-        mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
-        mValueView = (EditText) findViewById(R.id.value);
+        mFullDescriptionView = findViewById(R.id.full_description);
+        mValueView = findViewById(R.id.value);
 
-        mTypeSpinner = (Spinner) findViewById(R.id.item_type);
+        mTypeSpinner = findViewById(R.id.item_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
                 R.array.itemtypes_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
