@@ -23,15 +23,6 @@ public class ModelTest {
     }
 
     /**
-     * Tears down junit once it is completed
-     * @throws Exception throws exception
-     */
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
-    /**
      * Test the validDonation method
      */
     @Test

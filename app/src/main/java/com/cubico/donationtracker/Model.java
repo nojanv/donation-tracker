@@ -34,10 +34,6 @@ public class Model extends Activity {
             return false;
         } else if (name.length() == 0) {
             return false;
-        } else if (description.length() == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return description.length() != 0;
     }
 }
