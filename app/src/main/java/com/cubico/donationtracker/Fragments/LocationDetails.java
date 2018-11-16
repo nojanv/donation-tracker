@@ -75,7 +75,6 @@ public class LocationDetails extends Fragment {
 
 
 
-    @SuppressWarnings("FeatureEnvy")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
