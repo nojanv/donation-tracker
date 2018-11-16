@@ -30,6 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Activity that handles registering our users
+ */
 public class RegisterActivity extends AppCompatActivity{
 
 

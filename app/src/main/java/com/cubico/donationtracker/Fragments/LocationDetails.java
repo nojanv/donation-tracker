@@ -1,6 +1,5 @@
 package com.cubico.donationtracker.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -28,7 +27,9 @@ public class LocationDetails extends Fragment {
     private Location location;
 
 
-
+    /**
+     * If this constructor isn't here the app freaks out.
+     */
     public LocationDetails() {
         // Required empty public constructor
     }

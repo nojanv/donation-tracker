@@ -39,7 +39,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
      * @param donationList is a list of donation items
      * @param context in which method is called
      */
-    public DonationAdapter(List<DonationItem> donationList, Context context) {
+    public DonationAdapter(Iterable<DonationItem> donationList, Context context) {
         donations = new ArrayList<>();
         donationsCopy = new ArrayList<>();
         for (DonationItem d : donationList) {

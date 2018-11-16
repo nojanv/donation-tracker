@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,11 +63,10 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     location = ds.getValue(Location.class);
-                    List<DonationItem> locationItems = location.getDonations();
+                    List<DonationItem> locationItems = location == null
+                            ? null : location.getDonations();
                     if (locationItems != null) {
-                        for (DonationItem d : locationItems) {
-                            donations.add(d);
-                        }
+                        donations.addAll(locationItems);
                     }
                 }
                 donationAdapter = new DonationAdapter(donations, getApplicationContext());

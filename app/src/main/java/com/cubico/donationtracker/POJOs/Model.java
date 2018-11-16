@@ -34,10 +34,7 @@ public class Model extends Activity {
     public boolean validDonation(float value, CharSequence name, CharSequence description) {
         if (value == 0) {
             return false;
-        } else if (name.length() == 0) {
-            return false;
-        } else {
-            return description.length() != 0;
-        }
+        } else
+            return name.length() != 0 && description.length() != 0;
     }
 }

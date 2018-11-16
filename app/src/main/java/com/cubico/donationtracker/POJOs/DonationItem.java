@@ -28,6 +28,9 @@ public class DonationItem implements Parcelable {
         }
     };
 
+    /**
+     * If this constructor is not here the app FREAKS out!
+     */
     public DonationItem() {
     }
 

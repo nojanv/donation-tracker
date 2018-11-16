@@ -22,7 +22,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Activity class to login app users
+ */
 public class LoginActivity extends AppCompatActivity{
 
     // UI references.
@@ -73,6 +75,9 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -148,6 +153,11 @@ public class LoginActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * checks if inputted email is valid
+     * @param email the inputted email to check
+     * @return boolean true or false depending on validity
+     */
     public boolean isEmailValid(CharSequence email) {
         String expression = "^[\\w-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -155,6 +165,11 @@ public class LoginActivity extends AppCompatActivity{
         return matcher.matches();
     }
 
+    /**
+     * checks if inputted password is valid
+     * @param password the inputted email to check
+     * @return boolean true or false depending on validity
+     */
     public boolean isPasswordValid(CharSequence password) {
         if (password.length() >= 6) {
             Pattern letter = Pattern.compile("[a-zA-z]");

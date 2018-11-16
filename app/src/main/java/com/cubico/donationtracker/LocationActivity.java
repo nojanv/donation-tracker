@@ -28,6 +28,9 @@ import com.cubico.donationtracker.POJOs.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity holding our Location view after logging in
+ */
 public class LocationActivity
         extends AppCompatActivity
         implements DonationsFragment.DonationAddListener{
@@ -100,11 +103,8 @@ public class LocationActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -117,6 +117,9 @@ public class LocationActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        /**
+         * If this fragment is not present the app freaks out.
+         */
         public PlaceholderFragment() {
         }
 
