@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -48,6 +49,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
     public List<DonationItem> donations;
     public AccountType accountType;
 
+    @Nullable
     private DonationAddListener mListener;
 
     ListView donationListView;
@@ -69,7 +71,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
      * @param location is the location of the fragment
      * @return A new instance of fragment DonationsFragment.
      */
-    public static DonationsFragment newInstance(Location location, AccountType accountType) {
+    public static DonationsFragment newInstance(Location location, Parcelable accountType) {
         DonationsFragment fragment = new DonationsFragment();
         Bundle args = new Bundle();
         args.putParcelable(LOCATION_ARG, location);
@@ -126,7 +128,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         donationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DonationItem selected = (DonationItem) donationAdapter.getItem(position);
+                Parcelable selected = (DonationItem) donationAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), DonationViewActivity.class);
                 intent.putExtra("donation", selected);
                 getActivity().startActivity(intent);

@@ -3,6 +3,7 @@ package com.cubico.donationtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,15 +36,11 @@ public class RegisterActivity extends AppCompatActivity{
     private EditText mPasswordView;
     private EditText mConfrimPasswordView;
     private Spinner mAccountSpinner;
-    private View mProgressView;
-    private View mRegisterFormView;
 
     // User variables
     private String name;
     private String email;
     private String accountType;
-    private String password;
-    private String cPassword;
 
     // Firebase
     private FirebaseAuth mAuth;
@@ -82,8 +79,8 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-        mRegisterFormView = findViewById(R.id.register_form);
-        mProgressView = findViewById(R.id.register_progress);
+        View mRegisterFormView = findViewById(R.id.register_form);
+        View mProgressView = findViewById(R.id.register_progress);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -118,15 +115,16 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    private boolean isPasswordValid(String password) {
+    private boolean isPasswordValid(CharSequence password) {
         return password.length() > 6;
     }
 
-    private boolean isEmailValid(String email) {
+    private boolean isEmailValid(CharSequence email) {
         return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
     }
 
+    @Nullable
     View focusView;
 
     /**
@@ -143,8 +141,8 @@ public class RegisterActivity extends AppCompatActivity{
 
         name = mNameView.getText().toString();
         email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
-        cPassword = mConfrimPasswordView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        String cPassword = mConfrimPasswordView.getText().toString();
         accountType = mAccountSpinner.getSelectedItem().toString();
 
         boolean cancel = false;

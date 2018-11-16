@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.cubico.donationtracker.POJOs.DonationItem;
@@ -73,25 +74,26 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
+        View convertView1 = convertView;
         DonationItem donation = (DonationItem) getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
         final View result;
 
-        if (convertView == null) {
+        if (convertView1 == null) {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(R.layout.list_item_donation, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.donation_name);
+            convertView1 = inflater.inflate(R.layout.list_item_donation, parent, false);
+            viewHolder.txtName = (TextView) convertView1.findViewById(R.id.donation_name);
 
-            result = convertView;
+            result = convertView1;
 
-            convertView.setTag(viewHolder);
+            convertView1.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            result = convertView;
+            viewHolder = (ViewHolder) convertView1.getTag();
+            result = convertView1;
         }
 
         Animation animation = AnimationUtils.loadAnimation(mContext,
@@ -101,7 +103,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
 
         viewHolder.txtName.setText(donation.getName());
         // Return the completed view to render on screen
-        return convertView;
+        return convertView1;
     }
 
     public ValueFilter getFilter() {
@@ -117,19 +119,20 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            CharSequence constraint1 = constraint;
             FilterResults results = new FilterResults();
 
-            if (constraint != null && constraint.length() > 0) {
-                List<DonationItem> filterList = new ArrayList<DonationItem>();
-                constraint = constraint.toString().toUpperCase();
+            if (constraint1 != null && constraint1.length() > 0) {
+                Collection<DonationItem> filterList = new ArrayList<DonationItem>();
+                constraint1 = constraint1.toString().toUpperCase();
                 empty = false;
                 for (int i = 0; i < donationsCopy.size(); i++) {
                     DonationItem item = donationsCopy.get(i);
-                    if ((name && item.getName().toUpperCase().contains(constraint)) ||
+                    if ((name && item.getName().toUpperCase().contains(constraint1)) ||
                             (!name && item.getItemType()
                                           .toString()
                                           .toUpperCase()
-                                          .contains(constraint))) {
+                                          .contains(constraint1))) {
 
                         DonationItem curr = donationsCopy.get(i);
                         Log.d("item matches", curr.getName());

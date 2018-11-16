@@ -31,7 +31,7 @@ public class Model extends Activity {
         return credentials.get(email).equals(password);
     }
 
-    public boolean validDonation(float value, String name, String description) {
+    public boolean validDonation(float value, CharSequence name, CharSequence description) {
         if (value == 0) {
             return false;
         } else if (name.length() == 0) {

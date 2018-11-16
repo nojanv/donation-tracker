@@ -31,7 +31,7 @@ public enum LocationType implements Parcelable {
         name = in.readString();
     }
 
-    public String getName() {return name;}
+    public CharSequence getName() {return name;}
 
     @Override
     public int describeContents() {

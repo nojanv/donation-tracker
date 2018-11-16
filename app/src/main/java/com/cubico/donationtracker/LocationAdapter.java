@@ -16,7 +16,6 @@ import java.util.List;
 
 public class LocationAdapter extends ArrayAdapter<Location> implements View.OnClickListener{
 
-    private List<Location> dataSet;
     Context mContext;
 
     // View lookup cache
@@ -26,7 +25,7 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
 
     public LocationAdapter(List<Location> data, Context context) {
         super(context, R.layout.list_item_destination, data);
-        this.dataSet = data;
+        List<Location> dataSet = data;
         this.mContext=context;
 
     }
@@ -46,25 +45,26 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
+        View convertView1 = convertView;
         Location location = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
         final View result;
 
-        if (convertView == null) {
+        if (convertView1 == null) {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item_destination, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
+            convertView1 = inflater.inflate(R.layout.list_item_destination, parent, false);
+            viewHolder.txtName = (TextView) convertView1.findViewById(R.id.name);
 
-            result=convertView;
+            result= convertView1;
 
-            convertView.setTag(viewHolder);
+            convertView1.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
+            viewHolder = (ViewHolder) convertView1.getTag();
+            result= convertView1;
         }
 
         Animation animation = AnimationUtils.loadAnimation(
@@ -75,6 +75,6 @@ public class LocationAdapter extends ArrayAdapter<Location> implements View.OnCl
 
         viewHolder.txtName.setText(location.getName());
         // Return the completed view to render on screen
-        return convertView;
+        return convertView1;
     }
 }

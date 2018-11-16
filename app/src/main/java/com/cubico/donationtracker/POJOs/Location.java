@@ -94,7 +94,7 @@ public class Location implements Parcelable {
         return key;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return name;
     }
 
@@ -106,7 +106,7 @@ public class Location implements Parcelable {
         return longitude;
     }
 
-    public String getAddress() {
+    public CharSequence getAddress() {
         return address;
     }
 

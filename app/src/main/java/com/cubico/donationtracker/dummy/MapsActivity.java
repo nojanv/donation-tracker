@@ -17,7 +17,6 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private List<Location> locations;
 
     @Override
@@ -48,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
         LatLng afd = new LatLng(33.7541618347168, -84.3774185180664);
         //LatLng afd = new LatLng(locations.get(0).getLat(), locations.get(0).getLongitude());
         LatLng bgclub= new LatLng(33.73181915283203, -84.43971252441406);

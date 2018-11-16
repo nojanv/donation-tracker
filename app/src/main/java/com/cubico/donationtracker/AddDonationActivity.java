@@ -3,6 +3,7 @@ package com.cubico.donationtracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,15 +34,10 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private View mRegisterFormView;
 
-    // User variables
-    private String name;
     private int quantity;
     private ItemType itemType = null;
 
-    private String timeStamp;
     private Location location;
-    private String fullDescription;
-    private float value;
 
     public Model validService;
 
@@ -92,13 +88,13 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private void createDonation() {
         boolean error = false;
-        name = mNameView.getText().toString();
+        String name = mNameView.getText().toString();
         //location = mLocationView.getText().toString();
-        value = Float.parseFloat(mValueView.getText().toString());
+        float value = Float.parseFloat(mValueView.getText().toString());
 
-        fullDescription = mFullDescriptionView.getText().toString();
+        String fullDescription = mFullDescriptionView.getText().toString();
         Date date = new Date();
-        timeStamp = date.toString();
+        String timeStamp = date.toString();
         String type = mTypeSpinner.getSelectedItem().toString();
 
         validService = new Model();
@@ -106,7 +102,7 @@ public class AddDonationActivity extends AppCompatActivity {
         if (validService.validDonation(value, name, fullDescription)) {
             itemType = itemType == null ? ItemType.OTHER : itemType;
             if (!error) {
-                DonationItem item = new DonationItem(
+                Parcelable item = new DonationItem(
                         name,
                         timeStamp,
                         location.toString(),
