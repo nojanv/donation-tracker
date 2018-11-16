@@ -3,6 +3,8 @@ package com.cubico.donationtracker;
 import android.app.Activity;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Model extends Activity {
     private static final Model ourInstance = new Model();
@@ -11,38 +13,19 @@ public class Model extends Activity {
         return ourInstance;
     }
 
-    HashMap<String, String> credentials;
-
+    /**
+     * Constructor for model
+     */
     public Model() {
-        credentials = new HashMap<>();
     }
 
-    public HashMap<String, String> getCredentials() {
-        return credentials;
-    }
 
-    public void addUser(String email, String password) {
-        credentials.put(email, password);
-    }
-    public boolean checkEmail(String email) {
-        return credentials.containsKey(email);
-    }
-    public boolean checkPassword(String email, String password) {
-        return credentials.get(email).equals(password);
-    }
-
-//    public boolean validDonation(float value, String name, String description) {
-//        if (value == 0) {
-//            return false;
-//        } else if (name.length() == 0) {
-//            return false;
-//        } else if (description.length() == 0) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
+    /** This method checks if the values entered for adding a donation item are acceptable
+     * @param value the value of the donation item
+     * @param name the name/short description of the item
+     * @param description the long description of the item
+     * @return boolean value on if it is a valid donation or not
+     */
     public boolean isValidDonation(float value, String name, String description) {
         if (value == 0) {
             return false;
@@ -54,6 +37,4 @@ public class Model extends Activity {
             return true;
         }
     }
-
-
 }
