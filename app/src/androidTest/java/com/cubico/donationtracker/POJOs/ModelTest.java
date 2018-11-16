@@ -11,9 +11,15 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+/**
+ * JUnit test for validation class 'Model'
+ */
 @RunWith(AndroidJUnit4.class)
 public class ModelTest {
 
+    /**
+     *
+     */
     @Test
     public void validDonation() {
         Model model = new Model();
