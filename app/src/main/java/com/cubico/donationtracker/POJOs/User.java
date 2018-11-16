@@ -10,18 +10,23 @@ public class User implements Parcelable{
     private String name;
     private String email;
     private AccountType accountType;
-    public static User DEFAULT = new User("No name", "noEmail@gmail.com", AccountType.USER);
+    public static final User DEFAULT = new User("No name", "noEmail@gmail.com", AccountType.USER);
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
         public User createFromParcel(Parcel in) {
             return new User(in);
         }
 
+        @Override
         public User[] newArray(int size) {
             return new User[size];
         }
     };
 
+    /**
+     * If this constructor isn't here the app freaks out.
+     */
     public User() {
 
     }

@@ -20,26 +20,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class that comprises of all donations
  */
 public class AllDonations extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-    ListView listView;
-    FirebaseDatabase database;
-    DatabaseReference ref;
-    ArrayList<Location> list;
-    ArrayList<DonationItem> list2;
-    ArrayAdapter<Location> adapter;
+    private ListView listView;
+    private ArrayList<Location> list;
+    private ArrayList<DonationItem> list2;
 
-    DonationAdapter donationAdapter;
+    private DonationAdapter donationAdapter;
 
     private Location location;
 
-    SearchView searchDonations;
-    Spinner modeSpinner;
+    private Spinner modeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +46,11 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
         listView = findViewById(R.id.allDonations);
 
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("Locations");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Locations");
         list = new ArrayList<>();
         list2 = new ArrayList<>();
-        adapter = new LocationAdapter(list, getApplicationContext());
+        ArrayAdapter<Location> adapter = new LocationAdapter(list, getApplicationContext());
         donationAdapter = new DonationAdapter(list2, this);
 
 
@@ -87,7 +82,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        searchDonations = (SearchView) findViewById(R.id.donationSearch2);
+        SearchView searchDonations = (SearchView) findViewById(R.id.donationSearch2);
         searchDonations.setOnQueryTextListener(this);
 
         modeSpinner = (Spinner) findViewById(R.id.searchMode2);
@@ -106,7 +101,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String mode = modeSpinner.getSelectedItem().toString();
-                donationAdapter.getFilter().setMode(mode.equals("By Name"));
+                donationAdapter.getFilter().setMode("By Name".equals(mode));
             }
 
             /**

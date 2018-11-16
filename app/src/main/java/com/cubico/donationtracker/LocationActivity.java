@@ -27,6 +27,9 @@ import com.cubico.donationtracker.POJOs.User;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity holding our Location view after logging in
+ */
 public class LocationActivity
         extends AppCompatActivity
         implements DonationsFragment.DonationAddListener{
@@ -41,15 +44,10 @@ public class LocationActivity
      */
     private MyPagerAdapter mPagerAdapter;
     static final int CREATE_DONATION_REQUEST = 1;
-    Location location;
-    User user;
+    private Location location;
+    private User user;
     private static final String LOCATION_ARG = "location";
     private static final String USER_ARG = "user";
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -64,7 +62,10 @@ public class LocationActivity
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        /*
+      The {@link ViewPager} that will host the section contents.
+     */
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -99,12 +100,8 @@ public class LocationActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -117,6 +114,9 @@ public class LocationActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        /**
+         * If this fragment is not present the app freaks out.
+         */
         public PlaceholderFragment() {
         }
 
@@ -124,7 +124,7 @@ public class LocationActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -137,14 +137,12 @@ public class LocationActivity
                                  Bundle savedInstanceState) {
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                View rootView = inflater.inflate(
+                return inflater.inflate(
                         R.layout.fragment_location_details,
                         container,
                         false);
-                return rootView;
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                View rootView = inflater.inflate(R.layout.fragment_itemlist, container, false);
-                return rootView;
+                return inflater.inflate(R.layout.fragment_itemlist, container, false);
             } else {
                 View rootView = inflater.inflate(R.layout.fragment_location, container, false);
                 TextView textView = (TextView) rootView.findViewById(R.id.section_label);
@@ -160,9 +158,9 @@ public class LocationActivity
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
+    class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
 
-        public MyPagerAdapter(FragmentManager fm) {
+        MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

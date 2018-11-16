@@ -3,6 +3,7 @@ package com.cubico.donationtracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +27,7 @@ public class SearchLocation extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String DONATION_ARG = "donations";
 
-    private List<DonationItem> donations;
-
+    @Nullable
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -56,7 +56,7 @@ public class SearchLocation extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            donations = getArguments().getParcelableArrayList(DONATION_ARG);
+            List<DonationItem> donations = getArguments().getParcelableArrayList(DONATION_ARG);
         }
     }
 
@@ -94,7 +94,7 @@ public class SearchLocation extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    private interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
 }

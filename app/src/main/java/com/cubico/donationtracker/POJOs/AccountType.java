@@ -9,9 +9,10 @@ import android.os.Parcelable;
 public enum AccountType implements Parcelable{
     USER("User"), ADMIN("Admin"), LOCATION_EMPLOYEE("Location Employee");
 
-    private String name;
+    private final String name;
     public static final Parcelable.Creator<AccountType> CREATOR =
             new Parcelable.Creator<AccountType>() {
+        @Override
         public AccountType createFromParcel(Parcel in) {
             String inName = in.readString();
             for (AccountType type : AccountType.values()) {
@@ -22,6 +23,7 @@ public enum AccountType implements Parcelable{
             return null;
         }
 
+        @Override
         public AccountType[] newArray(int size) {
             return new AccountType[size];
         }

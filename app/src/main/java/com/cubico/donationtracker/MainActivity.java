@@ -31,14 +31,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * class for the applications MainActivity, holds welcome screen of app before login/registration
+ */
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
-    FirebaseDatabase database;
-    DatabaseReference ref;
-    User user;
-    ArrayList<Location> list;
-    ArrayAdapter<Location> adapter;
+    private ListView listView;
+    private User user;
+    private ArrayList<Location> list;
+    private ArrayAdapter<Location> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
             user = User.DEFAULT;
         }
         listView = findViewById(R.id.locationList);
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("Locations");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Locations");
         list = new ArrayList<>();
         adapter = new LocationAdapter(list, getApplicationContext());
 
@@ -139,11 +140,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -2,7 +2,6 @@ package com.cubico.donationtracker.dummy;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.cubico.donationtracker.POJOs.Location;
 import com.cubico.donationtracker.R;
@@ -17,6 +16,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Hello
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -63,7 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng latLng = new LatLng(l.getLat(), l.getLongitude());
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(latLng)
-                    .title(l.getName())
+                    .title((String) l.getName())
                     .snippet(l.getPhone()));
         }
 

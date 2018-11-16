@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for validation class 'Model'
+ * JUnit test for validation class
  */
 public class ModelTest {
 

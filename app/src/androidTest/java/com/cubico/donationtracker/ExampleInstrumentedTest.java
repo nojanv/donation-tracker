@@ -17,11 +17,10 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     /**
-     * a method that descripes app context
-     * @throws Exception
+     * a method that describes app context
      */
     @Test
-    public void useAppContext() throws Exception {
+    public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("com.cubico.donationtracker", appContext.getPackageName());

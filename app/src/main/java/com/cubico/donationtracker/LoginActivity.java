@@ -22,21 +22,19 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Activity class to login app users
+ */
 public class LoginActivity extends AppCompatActivity{
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
 
     // Firebase
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private String email;
-    private String password;
 
 
     @Override
@@ -72,11 +70,14 @@ public class LoginActivity extends AppCompatActivity{
             }
         };
 
-        mLoginFormView = findViewById(R.id.register_form);
-        mProgressView = findViewById(R.id.register_progress);
+        View mLoginFormView = findViewById(R.id.register_form);
+        View mProgressView = findViewById(R.id.register_progress);
 
     }
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -98,8 +99,8 @@ public class LoginActivity extends AppCompatActivity{
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -134,7 +135,7 @@ public class LoginActivity extends AppCompatActivity{
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-                        public static final String TAG = "";
+                        static final String TAG = "";
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
@@ -152,6 +153,11 @@ public class LoginActivity extends AppCompatActivity{
         }
     }
 
+    /**
+     * checks if inputted email is valid
+     * @param email the inputted email to check
+     * @return boolean true or false depending on validity
+     */
     public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -159,6 +165,11 @@ public class LoginActivity extends AppCompatActivity{
         return matcher.matches();
     }
 
+    /**
+     * checks if inputted password is valid
+     * @param password the inputted email to check
+     * @return boolean true or false depending on validity
+     */
     public static boolean isPasswordValid(String password) {
         if (password.length() >= 6) {
             Pattern letter = Pattern.compile("[a-zA-z]");

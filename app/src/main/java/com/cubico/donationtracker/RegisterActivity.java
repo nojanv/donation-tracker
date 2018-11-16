@@ -3,6 +3,7 @@ package com.cubico.donationtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,6 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity that handles registering our users
+ */
 public class RegisterActivity extends AppCompatActivity{
 
 
@@ -35,21 +39,17 @@ public class RegisterActivity extends AppCompatActivity{
     private EditText mPasswordView;
     private EditText mConfrimPasswordView;
     private Spinner mAccountSpinner;
-    private View mProgressView;
-    private View mRegisterFormView;
 
     // User variables
     private String name;
     private String email;
     private String accountType;
-    private String password;
-    private String cPassword;
 
     // Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference userRef = database.getReference("Users");
+    private final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private final DatabaseReference userRef = database.getReference("Users");
 
 
     @Override
@@ -82,8 +82,8 @@ public class RegisterActivity extends AppCompatActivity{
             }
         });
 
-        mRegisterFormView = findViewById(R.id.register_form);
-        mProgressView = findViewById(R.id.register_progress);
+        View mRegisterFormView = findViewById(R.id.register_form);
+        View mProgressView = findViewById(R.id.register_progress);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -118,22 +118,24 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    private boolean isPasswordValid(String password) {
+    private boolean isPasswordValid(CharSequence password) {
         return password.length() > 6;
     }
 
-    private boolean isEmailValid(String email) {
-        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    private boolean isEmailValid(CharSequence email) {
+        return (email != null) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
     }
 
+    @Nullable
+    private
     View focusView;
 
     /**
      * Creates the new user account with email and password.
 
      */
-    public void attemptRegistration() {
+    private void attemptRegistration() {
 
         // Reset errors.
         mEmailView.setError(null);
@@ -143,8 +145,8 @@ public class RegisterActivity extends AppCompatActivity{
 
         name = mNameView.getText().toString();
         email = mEmailView.getText().toString();
-        password = mPasswordView.getText().toString();
-        cPassword = mConfrimPasswordView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        String cPassword = mConfrimPasswordView.getText().toString();
         accountType = mAccountSpinner.getSelectedItem().toString();
 
         boolean cancel = false;
@@ -204,7 +206,7 @@ public class RegisterActivity extends AppCompatActivity{
                                     type = t;
                                 }
                             }
-                            type = type == null ? AccountType.USER : type;
+                            type = (type == null) ? AccountType.USER : type;
                             User newUser = new User(name, email, type);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

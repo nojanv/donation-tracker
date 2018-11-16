@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
+/**
+ * The class that allows us to parse different locations into useable objects in our application.
+ */
 public class Location implements Parcelable {
     private int key;
     private String name;
@@ -55,10 +58,12 @@ public class Location implements Parcelable {
     }
 
     public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
+        @Override
         public Location createFromParcel(Parcel in) {
             return new Location(in);
         }
 
+        @Override
         public Location[] newArray(int size) {
             return new Location[size];
         }
@@ -90,61 +95,101 @@ public class Location implements Parcelable {
         return String.format(name);
     }
 
+    /**
+     * @return returns int key
+     */
     public int getKey() {
         return key;
     }
 
-    public String getName() {
+    /**
+     * @return returns name of location
+     */
+    public CharSequence getName() {
         return name;
     }
 
+    /**
+     * @return returns latitude
+     */
     public float getLat() {
         return lat;
     }
 
+    /**
+     * @return returns longitude
+     */
     public float getLongitude() {
         return longitude;
     }
 
-    public String getAddress() {
+    /**
+     * @return returns address
+     */
+    public CharSequence getAddress() {
         return address;
     }
 
+    /**
+     * @return returns location's city name
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * @return returns location's state
+     */
     public String getState() {
         return state;
     }
 
+    /**
+     * @return returns location's zip
+     */
     public int getZip() {
         return zip;
     }
 
+    /**
+     * @return returns location's type
+     */
     public LocationType getType() {
         return type;
     }
 
+    /**
+     * @return returns location's phone number
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * @return returns location's website
+     */
     public String getWebsite() {
         return website;
     }
 
+
+    /**
+     * @return an ArrayList of all the donations at a location
+     */
     public ArrayList<DonationItem> getDonations() {
         return donations;
     }
 
+    /**
+     * @param item the donation item to be added to a location
+     */
     public void addDonation(DonationItem item) {
         donations.add(item);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Location)) {
+        if ((obj == null) || !(obj instanceof Location)) {
             return false;
         }
         Location that = (Location) obj;
