@@ -27,6 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity that handles registering our users
+ */
 public class RegisterActivity extends AppCompatActivity{
 
 

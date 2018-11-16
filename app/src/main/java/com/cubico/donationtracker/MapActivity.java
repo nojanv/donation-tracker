@@ -16,7 +16,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
+/**
+ * The activity for our map.
+ */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private SupportMapFragment mapFragment;

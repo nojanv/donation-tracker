@@ -3,6 +3,10 @@ package com.cubico.donationtracker.POJOs;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Manages our location's types by providing them with the correct information needed to display
+ * on our application's interface.
+ */
 public enum LocationType implements Parcelable {
     DROP_OFF ("Drop Off"), STORE("Store"), WAREHOUSE("Warehouse");
 
@@ -31,6 +35,10 @@ public enum LocationType implements Parcelable {
         name = in.readString();
     }
 
+    /**
+     * gets the name of this location
+     * @return the location's name
+     */
     public CharSequence getName() {return name;}
 
     @Override

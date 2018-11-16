@@ -15,6 +15,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+/**
+ * The activity for our maps.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private List<Location> locations;

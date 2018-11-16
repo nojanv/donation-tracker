@@ -22,6 +22,9 @@ public class User implements Parcelable{
         }
     };
 
+    /**
+     * If this constructor isn't here the app freaks out.
+     */
     public User() {
 
     }

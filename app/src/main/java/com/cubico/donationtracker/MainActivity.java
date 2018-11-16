@@ -31,6 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * class for the applications MainActivity, holds welcome screen of app before login/registration
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;

@@ -28,7 +28,9 @@ public class LocationDetails extends Fragment {
     private Location location;
 
 
-
+    /**
+     * If this constructor isn't here the app freaks out.
+     */
     public LocationDetails() {
         // Required empty public constructor
     }
