@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity{
     }
 
     private boolean isEmailValid(CharSequence email) {
-        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return (email != null) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
 
     }
 
@@ -202,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity{
                                     type = t;
                                 }
                             }
-                            type = type == null ? AccountType.USER : type;
+                            type = (type == null) ? AccountType.USER : type;
                             User newUser = new User(name, email, type);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

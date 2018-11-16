@@ -115,14 +115,14 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
 
     public class ValueFilter extends Filter {
         private boolean name = true;
-        private boolean empty = false;
+        private boolean empty;
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             CharSequence constraint1 = constraint;
             FilterResults results = new FilterResults();
 
-            if (constraint1 != null && constraint1.length() > 0) {
+            if ((constraint1 != null) && (constraint1.length() > 0)) {
                 Collection<DonationItem> filterList = new ArrayList<DonationItem>();
                 constraint1 = constraint1.toString().toUpperCase();
                 empty = false;
@@ -149,7 +149,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
                 }
                 results.count = filterList.size();
                 results.values = filterList;
-                if (filterList.size() == 0) {
+                if (filterList.isEmpty()) {
                     empty = true;
                 }
             } else {

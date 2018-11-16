@@ -35,7 +35,7 @@ public class AddDonationActivity extends AppCompatActivity {
     private View mRegisterFormView;
 
     private int quantity;
-    private ItemType itemType = null;
+    private ItemType itemType;
 
     private Location location;
 
@@ -64,7 +64,7 @@ public class AddDonationActivity extends AppCompatActivity {
                 itemType = t;
             }
         }
-        itemType = itemType == null ? ItemType.CLOTHING : itemType;
+        itemType = (itemType == null) ? ItemType.CLOTHING : itemType;
 
         Button createDonation = findViewById(R.id.create_donation_button);
         createDonation.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class AddDonationActivity extends AppCompatActivity {
         validService = new Model();
 
         if (validService.validDonation(value, name, fullDescription)) {
-            itemType = itemType == null ? ItemType.OTHER : itemType;
+            itemType = (itemType == null) ? ItemType.OTHER : itemType;
             if (!error) {
                 Parcelable item = new DonationItem(
                         name,

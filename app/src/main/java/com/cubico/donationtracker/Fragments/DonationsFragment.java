@@ -122,7 +122,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         donationListView = (ListView) view.findViewById(R.id.donations);
         donationAdapter = new DonationAdapter((ArrayList<DonationItem>) donations,
                                               getActivity().getApplicationContext());
-        if (donations.size() > 0) {
+        if (!donations.isEmpty()) {
             donationListView.setAdapter(donationAdapter);
         }
         donationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

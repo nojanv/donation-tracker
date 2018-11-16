@@ -144,7 +144,7 @@ public class Location implements Parcelable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Location)) {
+        if ((obj == null) || !(obj instanceof Location)) {
             return false;
         }
         Location that = (Location) obj;
