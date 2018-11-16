@@ -152,14 +152,14 @@ public class LoginActivity extends AppCompatActivity{
         }
     }
 
-    public boolean isEmailValid(String email) {
+    public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public boolean isPasswordValid(String password) {
+    public static boolean isPasswordValid(String password) {
         if (password.length() >= 6) {
             Pattern letter = Pattern.compile("[a-zA-z]");
             Pattern digit = Pattern.compile("[0-9]");

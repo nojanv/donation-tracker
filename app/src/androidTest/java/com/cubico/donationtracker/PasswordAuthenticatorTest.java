@@ -17,15 +17,14 @@ public class PasswordAuthenticatorTest {
      */
     @Test
     public void password_isValid() {
-        LoginActivity login = new LoginActivity();
         //TRUE CONDITIONS
-        assertTrue(login.isPasswordValid("password1!"));
-        assertTrue(login.isPasswordValid("PassWoowrD@#!23"));
+        assertTrue(LoginActivity.isPasswordValid("password1!"));
+        assertTrue(LoginActivity.isPasswordValid("PassWoowrD@#!23"));
         //FALSE CONDITIONS
-        assertFalse(login.isPasswordValid(""));
-        assertFalse(login.isPasswordValid("pass"));
-        assertFalse(login.isPasswordValid("p!@3"));
-        assertFalse(login.isPasswordValid("password!"));
-        assertFalse(login.isPasswordValid("password2"));
+        assertFalse(LoginActivity.isPasswordValid(""));
+        assertFalse(LoginActivity.isPasswordValid("pass"));
+        assertFalse(LoginActivity.isPasswordValid("p!@3"));
+        assertFalse(LoginActivity.isPasswordValid("password!"));
+        assertFalse(LoginActivity.isPasswordValid("password2"));
     }
 }

@@ -5,7 +5,9 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import com.cubico.donationtracker.LoginActivity;
 
 /**
  * A junit to test the ability for the isValidEmail method in LoginActivity to function properly
@@ -17,14 +19,13 @@ public class EmailAuthenticatorTest {
      */
     @Test
     public void email_isValid() {
-        LoginActivity login = new LoginActivity();
         //TRUE CONDITIONS
-        assertTrue(login.isEmailValid("name@email.com"));
-        assertTrue(login.isEmailValid("website.name@email.com"));
+        assertTrue(LoginActivity.isEmailValid("name@email.com"));
+        assertTrue(LoginActivity.isEmailValid("website.name@email.com"));
         //FALSE CONDITIONS
-        assertFalse(login.isEmailValid(""));
-        assertFalse(login.isEmailValid("name"));
-        assertFalse(login.isEmailValid("@."));
-        assertFalse(login.isEmailValid("@com"));
+        assertFalse(LoginActivity.isEmailValid(""));
+        assertFalse(LoginActivity.isEmailValid("name"));
+        assertFalse(LoginActivity.isEmailValid("@."));
+        assertFalse(LoginActivity.isEmailValid("@com"));
     }
 }
