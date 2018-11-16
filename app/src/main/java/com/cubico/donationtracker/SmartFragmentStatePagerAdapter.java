@@ -17,7 +17,7 @@ import android.view.ViewGroup;
  */
 abstract class SmartFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     // Sparse array to keep track of registered fragments in memory
-    private final SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+    private final SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
     /**
      * Constructor for class

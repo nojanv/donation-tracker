@@ -121,7 +121,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
             FilterResults results = new FilterResults();
 
             if ((constraint1 != null) && (constraint1.length() > 0)) {
-                Collection<DonationItem> filterList = new ArrayList<DonationItem>();
+                Collection<DonationItem> filterList = new ArrayList<>();
                 constraint1 = constraint1.toString().toUpperCase();
                 empty = false;
                 for (int i = 0; i < donationsCopy.size(); i++) {
