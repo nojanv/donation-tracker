@@ -18,7 +18,7 @@ public class ModelTest {
      * @throws Exception throws when model is null
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         model = new Model();
     }
 
