@@ -51,12 +51,12 @@ public class AddDonationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donation);
 
-        mNameView = (AutoCompleteTextView) findViewById(R.id.item_description);
+        mNameView = findViewById(R.id.item_description);
         //mLocationView = (AutoCompleteTextView) findViewById(R.id.item_location);
-        mFullDescriptionView = (AutoCompleteTextView) findViewById(R.id.full_description);
-        mValueView = (EditText) findViewById(R.id.value);
+        mFullDescriptionView = findViewById(R.id.full_description);
+        mValueView = findViewById(R.id.value);
 
-        mTypeSpinner = (Spinner) findViewById(R.id.item_type);
+        mTypeSpinner = findViewById(R.id.item_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
                 R.array.itemtypes_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -87,11 +87,12 @@ public class AddDonationActivity extends AppCompatActivity {
         });
 
         Bundle bundle = getIntent().getExtras();
-        location = bundle.getParcelable("location");
+        if (bundle != null) {
+            location = bundle.getParcelable("location");
+        }
     }
 
     private void createDonation() {
-        boolean error = false;
         name = mNameView.getText().toString();
         //location = mLocationView.getText().toString();
         value = Float.parseFloat(mValueView.getText().toString());
@@ -103,21 +104,19 @@ public class AddDonationActivity extends AppCompatActivity {
 
         validService = new Model();
 
-        if (validService.validDonation(value, name, fullDescription)) {
+        if (validService.validDonation(value, name, fullDescription) && location != null) {
             itemType = itemType == null ? ItemType.OTHER : itemType;
-            if (!error) {
-                DonationItem item = new DonationItem(
-                        name,
-                        timeStamp,
-                        location.toString(),
-                        fullDescription,
-                        value,
-                        itemType);
-                Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
-                result.putExtra("donation", item);
-                setResult(Activity.RESULT_OK, result);
-                finish();
-            }
+            DonationItem item = new DonationItem(
+                    name,
+                    timeStamp,
+                    location.toString(),
+                    fullDescription,
+                    value,
+                    itemType);
+            Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
+            result.putExtra("donation", item);
+            setResult(Activity.RESULT_OK, result);
+            finish();
         }
 
 

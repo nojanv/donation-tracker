@@ -27,7 +27,7 @@ public class  WelcomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
        /* VideoView vv = (VideoView) findViewById(R.id.videoView);
@@ -47,7 +47,7 @@ public class  WelcomeActivity extends AppCompatActivity {
         vv.requestFocus();
         vv.start();*/
 
-        Button loginButton = (Button) findViewById(R.id.login_button);
+        Button loginButton = findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class  WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        Button registerButton = (Button) findViewById(R.id.register_button);
+        Button registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

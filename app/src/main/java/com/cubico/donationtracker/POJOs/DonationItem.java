@@ -17,10 +17,12 @@ public class DonationItem implements Parcelable {
 
     public static final Parcelable.Creator<DonationItem> CREATOR =
             new Parcelable.Creator<DonationItem>() {
+        @Override
         public DonationItem createFromParcel(Parcel in) {
             return new DonationItem(in);
         }
 
+        @Override
         public DonationItem[] newArray(int size) {
             return new DonationItem[size];
         }

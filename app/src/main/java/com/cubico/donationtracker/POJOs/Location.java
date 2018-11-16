@@ -35,7 +35,7 @@ public class Location implements Parcelable {
         donations = new ArrayList<>();
     }
 
-    Location() {
+    public Location() {
     }
 
     Location(Parcel in) {
@@ -55,10 +55,12 @@ public class Location implements Parcelable {
     }
 
     public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
+        @Override
         public Location createFromParcel(Parcel in) {
             return new Location(in);
         }
 
+        @Override
         public Location[] newArray(int size) {
             return new Location[size];
         }
@@ -87,7 +89,7 @@ public class Location implements Parcelable {
     }
 
     public String toString() {
-        return String.format(name);
+        return name;
     }
 
     public int getKey() {
@@ -149,6 +151,11 @@ public class Location implements Parcelable {
         }
         Location that = (Location) obj;
         return this.name.equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }
 

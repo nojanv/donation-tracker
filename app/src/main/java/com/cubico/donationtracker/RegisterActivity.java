@@ -26,6 +26,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity{
 
 
@@ -33,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity{
     private AutoCompleteTextView mNameView;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private EditText mConfrimPasswordView;
+    private EditText ConfrimPasswordView;
     private Spinner mAccountSpinner;
     private View mProgressView;
     private View mRegisterFormView;
@@ -57,14 +60,14 @@ public class RegisterActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mNameView = (AutoCompleteTextView) findViewById(R.id.name);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mConfrimPasswordView = (EditText) findViewById(R.id.confirm_password);
+        mEmailView = findViewById(R.id.email);
+        mNameView = findViewById(R.id.name);
+        mPasswordView = findViewById(R.id.password);
+        ConfrimPasswordView = findViewById(R.id.confirm_password);
 
 
 
-        mAccountSpinner = (Spinner) findViewById(R.id.acc_type);
+        mAccountSpinner = findViewById(R.id.acc_type);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(this,
                 R.array.acctypes_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity{
         accountType = mAccountSpinner.getSelectedItem().toString();
 
 
-        Button mEmailRegisterButton = (Button) findViewById(R.id.email_register_button);
+        Button mEmailRegisterButton = findViewById(R.id.email_register_button);
 
         mEmailRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -90,12 +93,6 @@ public class RegisterActivity extends AppCompatActivity{
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                String TAG = null;
-                if(user != null) {
-                    Log.d(TAG, "onAuthStateChanged:signed_in" + user.getUid());
-                } else {
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
             }
 
         };
@@ -118,14 +115,28 @@ public class RegisterActivity extends AppCompatActivity{
         }
     }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() > 6;
+    public boolean isEmailValid(String email) {
+        String expression = "^[\\w-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
-    private boolean isEmailValid(String email) {
-        return email != null && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    public boolean isPasswordValid(String password) {
+        if (password.length() >= 6) {
+            Pattern letter = Pattern.compile("[a-zA-z]");
+            Pattern digit = Pattern.compile("[0-9]");
+            Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
 
+            Matcher hasLetter = letter.matcher(password);
+            Matcher hasDigit = digit.matcher(password);
+            Matcher hasSpecial = special.matcher(password);
+
+            return hasLetter.find() && hasDigit.find() && hasSpecial.find();
+        }
+        return false;
     }
+
 
     View focusView;
 
@@ -138,13 +149,13 @@ public class RegisterActivity extends AppCompatActivity{
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
-        mConfrimPasswordView.setError(null);
+        ConfrimPasswordView.setError(null);
         mNameView.setError(null);
 
         name = mNameView.getText().toString();
         email = mEmailView.getText().toString();
         password = mPasswordView.getText().toString();
-        cPassword = mConfrimPasswordView.getText().toString();
+        cPassword = ConfrimPasswordView.getText().toString();
         accountType = mAccountSpinner.getSelectedItem().toString();
 
         boolean cancel = false;
@@ -162,8 +173,8 @@ public class RegisterActivity extends AppCompatActivity{
 
         // Check for a valid matching password, if the user entered one.
         if (TextUtils.isEmpty(cPassword) || !password.equals(cPassword)) {
-            mConfrimPasswordView.setError(getString(R.string.error_unmatched_passwords));
-            focusView = mConfrimPasswordView;
+            ConfrimPasswordView.setError(getString(R.string.error_unmatched_passwords));
+            focusView = ConfrimPasswordView;
             cancel = true;
         }
 
@@ -193,52 +204,57 @@ public class RegisterActivity extends AppCompatActivity{
             Log.d("TAG", email);
             Log.d("TAG", password);
             mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // store the additional fields in firebase as well
-                            AccountType type = null;
-                            for (AccountType t : AccountType.values()) {
-                                if (t.getName().equals(accountType)) {
-                                    type = t;
-                                }
-                            }
-                            type = type == null ? AccountType.USER : type;
-                            User newUser = new User(name, email, type);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(newUser)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegisterActivity.this,
-                                                getString(R.string.registration_success),
-                                                Toast.LENGTH_LONG).show();
-                                        finish();
-                                        startActivity(new Intent(getApplicationContext(),
-                                                LoginActivity.class));
-                                    } else {
-                                        Log.d("TAG", task.getException() + "");
-                                        Toast.makeText(RegisterActivity.this,
-                                                getString(R.string.firebase_inner_error),
-                                                Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                        } else if (!task.isSuccessful()){
-                            Log.d("EXCEPTION", task.getException() + "");
-                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                mEmailView.setError(getString(R.string.error_email_exists));
-                                focusView = mEmailView;
-                                focusView.requestFocus();
-                            }
-
-                        }
-                        }
-                    });
+                    .addOnCompleteListener(new RegistrationOnCompleteListener());
         }
+    }
+    private class RegistrationOnCompleteListener implements OnCompleteListener<AuthResult> {
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> task) {
+            if (task.isSuccessful()) {
+                // store the additional fields in firebase as well
+                AccountType type = null;
+                for (AccountType t : AccountType.values()) {
+                    if (t.getName().equals(accountType)) {
+                        type = t;
+                    }
+                }
+                type = type == null ? AccountType.USER : type;
+                User newUser = new User(name, email, type);
+                FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+                if (current != null) {
+                FirebaseDatabase.getInstance().getReference("Users")
+                        .child(current.getUid())
+                        .setValue(newUser)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(RegisterActivity.this,
+                                            getString(R.string.registration_success),
+                                            Toast.LENGTH_LONG).show();
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(),
+                                            LoginActivity.class));
+                                } else {
+                                    Log.d("TAG", task.getException() + "");
+                                    Toast.makeText(RegisterActivity.this,
+                                            getString(R.string.firebase_inner_error),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                }
+            } else if (!task.isSuccessful()){
+                Log.d("EXCEPTION", task.getException() + "");
+                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                    mEmailView.setError(getString(R.string.error_email_exists));
+                    focusView = mEmailView;
+                    focusView.requestFocus();
+                }
+
+            }
+        }
+
     }
 }
 

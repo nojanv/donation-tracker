@@ -2,6 +2,7 @@ package com.cubico.donationtracker;
 
 import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -57,24 +58,26 @@ public class LocationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout
                 .TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout
                 .ViewPagerOnTabSelectedListener(mViewPager));
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -136,22 +139,26 @@ public class LocationActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                View rootView = inflater.inflate(
-                        R.layout.fragment_location_details,
-                        container,
-                        false);
-                return rootView;
-            } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                View rootView = inflater.inflate(R.layout.fragment_itemlist, container, false);
-                return rootView;
-            } else {
-                View rootView = inflater.inflate(R.layout.fragment_location, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(getString(
-                        R.string.section_format,
-                        getArguments().getInt(ARG_SECTION_NUMBER)));
-                return rootView;
+            switch (getArguments().getInt(ARG_SECTION_NUMBER)) {
+                case 1: {
+                    View rootView = inflater.inflate(
+                            R.layout.fragment_location_details,
+                            container,
+                            false);
+                    return rootView;
+                }
+                case 2: {
+                    View rootView = inflater.inflate(R.layout.fragment_itemlist, container, false);
+                    return rootView;
+                }
+                default: {
+                    View rootView = inflater.inflate(R.layout.fragment_location, container, false);
+                    TextView textView = rootView.findViewById(R.id.section_label);
+                    textView.setText(getString(
+                            R.string.section_format,
+                            getArguments().getInt(ARG_SECTION_NUMBER)));
+                    return rootView;
+                }
             }
         }
     }
@@ -170,12 +177,13 @@ public class LocationActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0) {
-                return LocationDetails.newInstance(location);
-            } else if (position == 1) {
-                return DonationsFragment.newInstance(location, user.getAccountType());
-            } else {
-                return PlaceholderFragment.newInstance(position);
+            switch (position) {
+                case 0:
+                    return LocationDetails.newInstance(location);
+                case 1:
+                    return DonationsFragment.newInstance(location, user.getAccountType());
+                default:
+                    return PlaceholderFragment.newInstance(position);
             }
         }
 

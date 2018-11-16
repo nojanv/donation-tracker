@@ -1,6 +1,7 @@
 package com.cubico.donationtracker;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class that comprises of all donations
@@ -46,7 +46,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_all_donations);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         listView = findViewById(R.id.allDonations);
@@ -65,7 +65,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
              * @param dataSnapshot is the snapshot of data used by methof
              */
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     location = ds.getValue(Location.class);
                     list.add(location);
@@ -82,15 +82,15 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
              * @param databaseError is the error that is passed through to the method
              */
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        searchDonations = (SearchView) findViewById(R.id.donationSearch2);
+        searchDonations = findViewById(R.id.donationSearch2);
         searchDonations.setOnQueryTextListener(this);
 
-        modeSpinner = (Spinner) findViewById(R.id.searchMode2);
+        modeSpinner = findViewById(R.id.searchMode2);
         ArrayAdapter<CharSequence> accAdapter = ArrayAdapter.createFromResource(AllDonations.this,
                 R.array.searchMode_array, android.R.layout.simple_spinner_item);
         accAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

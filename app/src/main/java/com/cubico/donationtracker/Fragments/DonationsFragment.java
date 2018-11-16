@@ -102,7 +102,8 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         View view = getView();
 
         //initiate fab
-        FloatingActionButton button = (FloatingActionButton) view.findViewById(R.id.addDonation);
+        assert view != null;
+        FloatingActionButton button = view.findViewById(R.id.addDonation);
         if (accountType.equals(AccountType.LOCATION_EMPLOYEE) ||
             accountType.equals(AccountType.ADMIN)) {
             button.setVisibility(View.VISIBLE);
@@ -117,8 +118,8 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         });
 
         //initiate donation list view
-        donationListView = (ListView) view.findViewById(R.id.donations);
-        donationAdapter = new DonationAdapter((ArrayList<DonationItem>) donations,
+        donationListView = view.findViewById(R.id.donations);
+        donationAdapter = new DonationAdapter(donations,
                                               getActivity().getApplicationContext());
         if (donations.size() > 0) {
             donationListView.setAdapter(donationAdapter);
@@ -135,10 +136,10 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         //String message = donations.size() > 0 ? "" : "No donations yet!";
 
         //search functionality
-        searchDonations = (SearchView) view.findViewById(R.id.donationSearch);
+        searchDonations = view.findViewById(R.id.donationSearch);
         searchDonations.setOnQueryTextListener(this);
 
-        modeSpinner = (Spinner) view.findViewById(R.id.searchMode);
+        modeSpinner = view.findViewById(R.id.searchMode);
         ArrayAdapter<CharSequence> accAdapter =
                 ArrayAdapter.createFromResource(getActivity().getBaseContext(),
                 R.array.searchMode_array, android.R.layout.simple_spinner_item);
@@ -180,8 +181,10 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         if (requestCode == CREATE_DONATION_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                DonationItem item = bundle.getParcelable("donation");
-                donationAdded(item);
+                if (bundle != null) {
+                    DonationItem item = bundle.getParcelable("donation");
+                    donationAdded(item);
+                }
             }
         }
     }

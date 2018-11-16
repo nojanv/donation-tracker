@@ -12,6 +12,7 @@ public enum AccountType implements Parcelable{
     private String name;
     public static final Parcelable.Creator<AccountType> CREATOR =
             new Parcelable.Creator<AccountType>() {
+        @Override
         public AccountType createFromParcel(Parcel in) {
             String inName = in.readString();
             for (AccountType type : AccountType.values()) {
@@ -22,6 +23,7 @@ public enum AccountType implements Parcelable{
             return null;
         }
 
+        @Override
         public AccountType[] newArray(int size) {
             return new AccountType[size];
         }

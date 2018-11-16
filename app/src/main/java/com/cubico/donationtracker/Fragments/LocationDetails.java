@@ -79,6 +79,7 @@ public class LocationDetails extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         View view = getView();
+        assert view != null;
         TextView name = view.findViewById(R.id.locationName);
         name.setText(location.getName());
         TextView type = view.findViewById(R.id.locationType);

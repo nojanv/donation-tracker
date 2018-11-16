@@ -9,6 +9,7 @@ public enum LocationType implements Parcelable {
     private String name;
     public static final Parcelable.Creator<LocationType> CREATOR =
             new Parcelable.Creator<LocationType>() {
+        @Override
         public LocationType createFromParcel(Parcel in) {
             String inName = in.readString();
             for(LocationType type: LocationType.values()) {
@@ -18,6 +19,7 @@ public enum LocationType implements Parcelable {
             }
             return null;
         }
+        @Override
         public LocationType[] newArray(int size) {
             return new LocationType[size];
         }

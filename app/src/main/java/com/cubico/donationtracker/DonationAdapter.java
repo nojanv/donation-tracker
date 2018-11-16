@@ -77,21 +77,18 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
-        final View result;
 
         if (convertView == null) {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.list_item_donation, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.donation_name);
+            viewHolder.txtName = convertView.findViewById(R.id.donation_name);
 
-            result = convertView;
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result = convertView;
         }
 
         Animation animation = AnimationUtils.loadAnimation(mContext,
@@ -104,6 +101,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
         return convertView;
     }
 
+    @Override
     public ValueFilter getFilter() {
         if (valueFilter == null) {
             valueFilter = new ValueFilter();
@@ -120,7 +118,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
             FilterResults results = new FilterResults();
 
             if (constraint != null && constraint.length() > 0) {
-                List<DonationItem> filterList = new ArrayList<DonationItem>();
+                List<DonationItem> filterList = new ArrayList<>();
                 constraint = constraint.toString().toUpperCase();
                 empty = false;
                 for (int i = 0; i < donationsCopy.size(); i++) {

@@ -44,12 +44,12 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
 
         //Hello
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_register_button);
+        Button mEmailSignInButton = findViewById(R.id.email_register_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +62,8 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                String TAG = null;
-                if (user != null) {
+                String TAG = "debug";
+                if (user != null && currentUser != null) {
                     Log.d("username", "username"+ currentUser.getDisplayName());
                     user = currentUser;
                 } else {
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     public boolean isEmailValid(String email) {
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        String expression = "^[\\w-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();

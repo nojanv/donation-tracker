@@ -17,6 +17,7 @@ public enum ItemType implements Parcelable{
 
     private String name;
     public static final Parcelable.Creator<ItemType> CREATOR = new Parcelable.Creator<ItemType>() {
+        @Override
         public ItemType createFromParcel(Parcel in) {
             String ab = in.readString();
             for(ItemType type : ItemType.values()) {
@@ -27,6 +28,7 @@ public enum ItemType implements Parcelable{
             return ItemType.OTHER;
         }
 
+        @Override
         public ItemType[] newArray(int size) {
             return new ItemType[size];
         }
