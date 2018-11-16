@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.POJOs.ItemType;
 import com.cubico.donationtracker.POJOs.Location;
-import com.cubico.donationtracker.POJOs.Model;
 
 import java.util.Date;
 
@@ -103,7 +102,7 @@ public class AddDonationActivity extends AppCompatActivity {
 
         validService = new Model();
 
-        if (validService.validDonation(value, name, fullDescription)) {
+        if (validService.isValidDonation(value, name, fullDescription)) {
             itemType = itemType == null ? ItemType.OTHER : itemType;
             if (!error) {
                 DonationItem item = new DonationItem(

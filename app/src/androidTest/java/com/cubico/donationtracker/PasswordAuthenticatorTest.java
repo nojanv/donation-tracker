@@ -1,5 +1,6 @@
 package com.cubico.donationtracker;
 
+import android.os.Looper;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;

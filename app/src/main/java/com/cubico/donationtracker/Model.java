@@ -1,4 +1,4 @@
-package com.cubico.donationtracker.POJOs;
+package com.cubico.donationtracker;
 
 import android.app.Activity;
 
@@ -31,7 +31,19 @@ public class Model extends Activity {
         return credentials.get(email).equals(password);
     }
 
-    public boolean validDonation(float value, String name, String description) {
+//    public boolean validDonation(float value, String name, String description) {
+//        if (value == 0) {
+//            return false;
+//        } else if (name.length() == 0) {
+//            return false;
+//        } else if (description.length() == 0) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
+    public boolean isValidDonation(float value, String name, String description) {
         if (value == 0) {
             return false;
         } else if (name.length() == 0) {
@@ -42,4 +54,6 @@ public class Model extends Activity {
             return true;
         }
     }
+
+
 }
