@@ -10,7 +10,7 @@ public class User implements Parcelable{
     private String name;
     private String email;
     private AccountType accountType;
-    public static User DEFAULT = new User("No name", "noEmail@gmail.com", AccountType.USER);
+    public static final User DEFAULT = new User("No name", "noEmail@gmail.com", AccountType.USER);
 
     public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
         public User createFromParcel(Parcel in) {

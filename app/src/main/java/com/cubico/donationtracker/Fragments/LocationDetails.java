@@ -99,14 +99,4 @@ public class LocationDetails extends Fragment {
                 location.getLongitude()));
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
 }
