@@ -22,13 +22,17 @@ public class User implements Parcelable{
         }
     };
 
+    public User() {
+
+    }
+
     /**
      * Constructor for User
      * @param name of user
-     * @param password of user
+     * @param email of user
      * @param accountType of user
      */
-    public User(String name, String password, AccountType accountType) {
+    public User(String name, String email, AccountType accountType) {
         this.name = name;
         this.email = email;
         this.accountType = accountType;

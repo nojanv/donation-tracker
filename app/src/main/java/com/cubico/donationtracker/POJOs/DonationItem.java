@@ -26,6 +26,9 @@ public class DonationItem implements Parcelable {
         }
     };
 
+    public DonationItem() {
+    }
+
     /**
      * Donation Item Constructor
      * @param name of item

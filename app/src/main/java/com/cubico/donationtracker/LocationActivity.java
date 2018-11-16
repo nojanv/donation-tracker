@@ -82,7 +82,6 @@ public class LocationActivity
             user = bundle.getParcelable("user");
         }
 
-
     }
 
 

@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.POJOs.ItemType;
 import com.cubico.donationtracker.POJOs.Location;
+import com.cubico.donationtracker.POJOs.Model;
 
 import java.util.Date;
 
@@ -41,6 +42,8 @@ public class AddDonationActivity extends AppCompatActivity {
     private Location location;
     private String fullDescription;
     private float value;
+
+    public Model validService;
 
 
     @Override
@@ -92,42 +95,68 @@ public class AddDonationActivity extends AppCompatActivity {
         name = mNameView.getText().toString();
         //location = mLocationView.getText().toString();
         value = Float.parseFloat(mValueView.getText().toString());
+
         fullDescription = mFullDescriptionView.getText().toString();
         Date date = new Date();
         timeStamp = date.toString();
         String type = mTypeSpinner.getSelectedItem().toString();
 
+        validService = new Model();
 
-
-        if (value == 0) {
-            mValueView.setError(getString(R.string.error_invalid_quantity));
-            mValueView.requestFocus();
-            error = true;
-        }
-        if (name.length() == 0) {
-            mNameView.setError(getString(R.string.error_field_required));
-            mNameView.requestFocus();
-            error = true;
-        }
-        for (ItemType t : ItemType.values()) {
-            if (type.equals(t.getName())) {
-                itemType = t;
+        if (validService.validDonation(value, name, fullDescription)) {
+            itemType = itemType == null ? ItemType.OTHER : itemType;
+            if (!error) {
+                DonationItem item = new DonationItem(
+                        name,
+                        timeStamp,
+                        location.toString(),
+                        fullDescription,
+                        value,
+                        itemType);
+                Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
+                result.putExtra("donation", item);
+                setResult(Activity.RESULT_OK, result);
+                finish();
             }
         }
 
-        itemType = itemType == null ? ItemType.OTHER : itemType;
-        if (!error) {
-            DonationItem item = new DonationItem(
-                                    name,
-                                    timeStamp,
-                                    location.toString(),
-                                    fullDescription,
-                                    value,
-                                    itemType);
-            Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
-            result.putExtra("donation", item);
-            setResult(Activity.RESULT_OK, result);
-            finish();
-        }
+
+//        if (!isValueValid(value)) {
+//            mValueView.setError(getString(R.string.error_invalid_quantity));
+//            mValueView.requestFocus();
+//            error = true;
+//        }
+
+//        if (value == 0) {
+//            mValueView.setError(getString(R.string.error_invalid_quantity));
+//            mValueView.requestFocus();
+//            error = true;
+//        }
+//        if (name.length() == 0) {
+//            mNameView.setError(getString(R.string.error_field_required));
+//            mNameView.requestFocus();
+//            error = true;
+//        }
+//        for (ItemType t : ItemType.values()) {
+//            if (type.equals(t.getName())) {
+//                itemType = t;
+//            }
+//        }
+//
+//        itemType = itemType == null ? ItemType.OTHER : itemType;
+//        if (!error) {
+//            DonationItem item = new DonationItem(
+//                    name,
+//                    timeStamp,
+//                    location.toString(),
+//                    fullDescription,
+//                    value,
+//                    itemType);
+//            Intent result = new Intent(AddDonationActivity.this, LocationActivity.class);
+//            result.putExtra("donation", item);
+//            setResult(Activity.RESULT_OK, result);
+//            finish();
+//        }
     }
+
 }
