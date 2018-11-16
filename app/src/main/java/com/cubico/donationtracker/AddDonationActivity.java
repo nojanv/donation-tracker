@@ -42,7 +42,7 @@ public class AddDonationActivity extends AppCompatActivity {
     private String fullDescription;
     private float value;
 
-    public Model validService;
+    private Model validService;
 
 
     @Override
