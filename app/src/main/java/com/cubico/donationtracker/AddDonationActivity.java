@@ -39,8 +39,6 @@ public class AddDonationActivity extends AppCompatActivity {
 
     private Location location;
 
-    private Model validService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +95,7 @@ public class AddDonationActivity extends AppCompatActivity {
         String timeStamp = date.toString();
         String type = mTypeSpinner.getSelectedItem().toString();
 
-        validService = new Model();
+        Model validService = new Model();
 
         if (validService.validDonation(value, name, fullDescription)) {
             itemType = (itemType == null) ? ItemType.OTHER : itemType;

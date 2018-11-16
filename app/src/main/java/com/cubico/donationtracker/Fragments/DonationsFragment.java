@@ -54,7 +54,6 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
 
     private ListView donationListView;
 
-    private SearchView searchDonations;
     private Spinner modeSpinner;
 
     /**
@@ -137,7 +136,7 @@ public class DonationsFragment extends Fragment implements SearchView.OnQueryTex
         //String message = donations.size() > 0 ? "" : "No donations yet!";
 
         //search functionality
-        searchDonations = (SearchView) view.findViewById(R.id.donationSearch);
+        SearchView searchDonations = (SearchView) view.findViewById(R.id.donationSearch);
         searchDonations.setOnQueryTextListener(this);
 
         modeSpinner = (Spinner) view.findViewById(R.id.searchMode);

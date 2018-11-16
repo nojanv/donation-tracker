@@ -28,17 +28,13 @@ import java.util.List;
 public class AllDonations extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private ListView listView;
-    private FirebaseDatabase database;
-    private DatabaseReference ref;
     private ArrayList<Location> list;
     private ArrayList<DonationItem> list2;
-    private ArrayAdapter<Location> adapter;
 
     private DonationAdapter donationAdapter;
 
     private Location location;
 
-    private SearchView searchDonations;
     private Spinner modeSpinner;
 
     @Override
@@ -51,11 +47,11 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
 
         listView = findViewById(R.id.allDonations);
 
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("Locations");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Locations");
         list = new ArrayList<>();
         list2 = new ArrayList<>();
-        adapter = new LocationAdapter(list, getApplicationContext());
+        ArrayAdapter<Location> adapter = new LocationAdapter(list, getApplicationContext());
         donationAdapter = new DonationAdapter(list2, this);
 
 
@@ -87,7 +83,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             }
         });
 
-        searchDonations = (SearchView) findViewById(R.id.donationSearch2);
+        SearchView searchDonations = (SearchView) findViewById(R.id.donationSearch2);
         searchDonations.setOnQueryTextListener(this);
 
         modeSpinner = (Spinner) findViewById(R.id.searchMode2);

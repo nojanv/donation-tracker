@@ -34,8 +34,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
-    private FirebaseDatabase database;
-    private DatabaseReference ref;
     private User user;
     private ArrayList<Location> list;
     private ArrayAdapter<Location> adapter;
@@ -83,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
             user = User.DEFAULT;
         }
         listView = findViewById(R.id.locationList);
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("Locations");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("Locations");
         list = new ArrayList<>();
         adapter = new LocationAdapter(list, getApplicationContext());
 

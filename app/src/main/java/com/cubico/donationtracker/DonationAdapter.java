@@ -161,6 +161,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
             donations = (ArrayList<DonationItem>) results.values;

@@ -15,15 +15,13 @@ import com.cubico.donationtracker.POJOs.DonationItem;
  */
 public class DonationViewActivity extends AppCompatActivity {
 
-    private DonationItem donation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donation_view);
 
         Bundle bundle = getIntent().getExtras();
-        donation = bundle.getParcelable("donation");
+        DonationItem donation = bundle.getParcelable("donation");
 
         TextView name = (TextView) findViewById(R.id.donation_name);
         name.setText(donation.getName());
