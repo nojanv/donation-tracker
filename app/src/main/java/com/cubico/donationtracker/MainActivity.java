@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                intent.putExtra("locations", list.toArray());
+                intent.putParcelableArrayListExtra("locations", list);
                 startActivity(intent);
             }
         });
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        return (id == R.id.action_settings) || super.onOptionsItemSelected(item);
 
     }
 }

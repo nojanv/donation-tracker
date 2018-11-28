@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import com.cubico.donationtracker.POJOs.DonationItem;
 import com.cubico.donationtracker.POJOs.ItemType;
 import com.cubico.donationtracker.POJOs.Location;
-import com.cubico.donationtracker.POJOs.Model;
 
 import java.util.Date;
 
@@ -62,7 +61,7 @@ public class AddDonationActivity extends AppCompatActivity {
                 itemType = t;
             }
         }
-        itemType = (itemType == null) ? ItemType.CLOTHING : itemType;
+        itemType = (itemType == null) ? ItemType.OTHER : itemType;
 
         Button createDonation = findViewById(R.id.create_donation_button);
         createDonation.setOnClickListener(new View.OnClickListener() {
@@ -95,10 +94,10 @@ public class AddDonationActivity extends AppCompatActivity {
         Date date = new Date();
         String timeStamp = date.toString();
         String type = mTypeSpinner.getSelectedItem().toString();
-
+        
         Model validService = new Model();
 
-        if (validService.validDonation(value, name, fullDescription) && (location != null)) {
+        if (validService.isValidDonation(value, name, fullDescription) && (location != null)) {
             itemType = (itemType == null) ? ItemType.OTHER : itemType;
             Parcelable item = new DonationItem(
                     name,

@@ -63,7 +63,7 @@ public class AllDonations extends AppCompatActivity implements SearchView.OnQuer
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     location = ds.getValue(Location.class);
-                    List<DonationItem> locationItems = location == null
+                    List<DonationItem> locationItems = (location == null)
                             ? null : location.getDonations();
                     if (locationItems != null) {
                         donations.addAll(locationItems);

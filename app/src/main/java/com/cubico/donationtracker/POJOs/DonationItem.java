@@ -34,6 +34,10 @@ public class DonationItem implements Parcelable {
     public DonationItem() {
     }
 
+    public DonationItem(String name, ItemType itemType) {
+        this(name, null, null, null, 1, itemType);
+    }
+
     /**
      * Donation Item Constructor
      * @param name of item

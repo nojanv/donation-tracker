@@ -180,7 +180,14 @@ public class Location implements Parcelable {
      * @return an ArrayList of all the donations at a location
      */
     public ArrayList<DonationItem> getDonations() {
-        return donations;
+        ArrayList<DonationItem> copy = new ArrayList<>();
+        if (donations == null) {
+            return null;
+        }
+        for (DonationItem d : donations) {
+            copy.add(d);
+        }
+        return copy;
     }
 
     /**
@@ -196,7 +203,7 @@ public class Location implements Parcelable {
             return false;
         }
         Location that = (Location) obj;
-        return this.name.equals(that.getName());
+        return this.name.contentEquals(that.getName());
     }
 
     @Override

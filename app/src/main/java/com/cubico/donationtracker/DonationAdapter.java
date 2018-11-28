@@ -117,13 +117,14 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
 
     public class ValueFilter extends Filter {
         private boolean name = true;
-        private boolean empty;
+        private boolean empty = true;
+        private List<DonationItem> filtered = new ArrayList<>();
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             CharSequence constraint1 = constraint;
             FilterResults results = new FilterResults();
-
+            System.out.println("Constraint size: " + constraint.toString().length());
             if ((constraint1 != null) && (constraint1.length() > 0)) {
                 Collection<DonationItem> filterList = new ArrayList<>();
                 constraint1 = constraint1.toString().toUpperCase();
@@ -137,7 +138,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
                                           .contains(constraint1))) {
 
                         DonationItem curr = donationsCopy.get(i);
-                        Log.d("item matches", curr.getName());
+                        System.out.println("item matches: " + curr.getName());
 
                         DonationItem donation = new DonationItem(curr.getName(),
                                 curr.getTimeStamp(),
@@ -151,6 +152,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
                 }
                 results.count = filterList.size();
                 results.values = filterList;
+                Log.d("abcdefg", "" + filterList.size());
                 if (filterList.isEmpty()) {
                     empty = true;
                 }
@@ -158,6 +160,7 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
                 results.count = donationsCopy.size();
                 results.values = donationsCopy;
             }
+            filtered = (List<DonationItem>) results.values;
             return results;
 
         }
@@ -185,6 +188,14 @@ public class DonationAdapter extends BaseAdapter implements View.OnClickListener
          */
         public boolean isEmpty() {
             return empty;
+        }
+
+        public List<DonationItem> getFiltered() {
+            List<DonationItem> copy = new ArrayList<>();
+            for (DonationItem d : filtered) {
+                copy.add(d);
+            }
+            return copy;
         }
     }
 }
